@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Login() {
-  const [errMsg] = useState("cc");
+  const [errMsg] = useState("");
 
   return (
     <div>
