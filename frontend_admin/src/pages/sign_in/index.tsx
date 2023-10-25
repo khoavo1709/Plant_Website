@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-function Login() {
-  const [errMsg] = useState("cc");
+function SignIn() {
+  const [errMsg] = useState("");
 
   return (
     <div>
@@ -18,7 +18,7 @@ function Login() {
                 className="w-40 h-40 mx-auto"
               />
               <div className="text-center mb-[17px] h-[40px] flex justify-center text-4xl font-bold ">
-                Login
+                Plant Shop
               </div>
               <form action="" className="rounded-lg">
                 {errMsg && (
@@ -56,7 +56,7 @@ function Login() {
                   type="submit"
                   className="bg-teal-600 h-[46px] rounded-3xl w-full font-semibold text-[16px] text-white"
                 >
-                  Login
+                  Sign In
                 </button>
               </form>
             </div>
@@ -67,4 +67,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignIn;
