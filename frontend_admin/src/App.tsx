@@ -1,5 +1,7 @@
+import SignIn from "./pages/sign_in";
+
 function App() {
-  return <h1 className="text-3xl my-auto font-bold underline">Hello mods!</h1>;
+  return <SignIn />;
 }
 
 export default App;
