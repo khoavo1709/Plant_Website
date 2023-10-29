@@ -1,9 +1,9 @@
-import CategoriesFilter from '../../components/CategoriesFilter';
 import ProductsList from '../../components/ProductsList';
+import CategoriesFilter from '../../components/CategoriesFilter';
 
 const PlantsPage = () => {
   return (
-    <div className="w-full mx-auto">
+    <div>
       <CategoriesFilter />
       <ProductsList />
     </div>

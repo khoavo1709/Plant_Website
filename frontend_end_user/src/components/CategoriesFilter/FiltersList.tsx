@@ -1,14 +1,15 @@
+import { useCategories } from '../../hooks/useCategories';
 import FilterListItems from './FilterListItem';
 
 const FiltersList = () => {
+  const { filteredCategories, removeCategory } = useCategories();
+
   return (
     <>
-      <FilterListItems />
-      <FilterListItems />
-      <FilterListItems />
-      <FilterListItems />
-      <FilterListItems />
-      <FilterListItems />
+      {filteredCategories.length > 0 &&
+        filteredCategories.map((c) => (
+          <FilterListItems key={c.id} category={c} onClick={removeCategory} />
+        ))}
     </>
   );
 };
