@@ -3,7 +3,7 @@ import FiltersList from './FiltersList';
 
 const CategoriesFilter = () => {
   return (
-    <div className="flex items-center flex-wrap space-x-1 space-y-2 px-2">
+    <div className="flex items-center flex-wrap space-x-1 space-y-2 px-4">
       <p />
       <FiltersDropdown />
       <FiltersList />

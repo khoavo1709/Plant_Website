@@ -45,7 +45,7 @@ export const useCategories = () => {
     if (filteredCategories.some((c) => c.id === category.id)) {
       params.delete('page');
       params.set(
-        'category',
+        'categories',
         JSON.stringify(
           filteredCategories
             .filter((c) => c.id !== category.id)
@@ -61,7 +61,7 @@ export const useCategories = () => {
     if (filteredCategories.every((c) => c.id !== category.id)) {
       params.delete('page');
       params.set(
-        'category',
+        'categories',
         JSON.stringify([...filteredCategories.map((c) => c.id), category.id])
       );
 
