@@ -6,7 +6,8 @@ const usePagination = (limit: number, total: number) => {
   const setPage = (p: number) => {
     if (p <= 0 || p > Math.ceil(total / limit)) return;
 
-    setParams({ ...params, page: String(p) });
+    params.set('page', String(p));
+    setParams(params);
   };
 
   return setPage;

@@ -17,13 +17,13 @@ export const categoriesAtom = atom(fetchCategoreis);
 export const filteredCategoriesAtom = atom([] as Category[]);
 
 export const useCategories = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [params, setPrams] = useSearchParams();
   const [filteredCategories, setFilterdCategoreis] = useAtom(
     filteredCategoriesAtom
   );
 
   useEffect(() => {
-    const IDsString = searchParams.get('categories');
+    const IDsString = params.get('categories');
     if (IDsString) {
       const filteredIDs = JSON.parse(IDsString) as string[];
       fetchCategoreis().then((categories) => {
@@ -39,28 +39,33 @@ export const useCategories = () => {
         setFilterdCategoreis(temp);
       });
     }
-  }, [searchParams, setFilterdCategoreis]);
+  }, [params, setFilterdCategoreis]);
 
   const removeCategory = (category: Category) => {
     if (filteredCategories.some((c) => c.id === category.id)) {
-      setSearchParams({
-        categories: JSON.stringify(
+      params.delete('page');
+      params.set(
+        'category',
+        JSON.stringify(
           filteredCategories
             .filter((c) => c.id !== category.id)
             .map((c) => c.id)
-        ),
-      });
+        )
+      );
+
+      setPrams(params);
     }
   };
 
   const addCategory = (category: Category) => {
     if (filteredCategories.every((c) => c.id !== category.id)) {
-      setSearchParams({
-        categories: JSON.stringify([
-          ...filteredCategories.map((c) => c.id),
-          category.id,
-        ]),
-      });
+      params.delete('page');
+      params.set(
+        'category',
+        JSON.stringify([...filteredCategories.map((c) => c.id), category.id])
+      );
+
+      setPrams(params);
     }
   };
 
