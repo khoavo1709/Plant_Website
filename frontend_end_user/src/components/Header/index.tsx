@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import HeaderLink from './HeaderLink';
 import { useState } from 'react';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -19,20 +20,7 @@ const Header = () => {
         className="inline-flex items-center p-2 w-10 h-10 justify-center md:hidden stroke-2"
         onClick={toggleNav}
       >
-        <svg
-          className="w-4 h-4"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 17 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M1 1h15M1 7h15M1 13h15"
-          />
-        </svg>
+        <Bars3Icon className="w-6 h-6 stroke-2" />
       </button>
 
       <div className={`${isNavOpen ? '' : 'hidden'} w-full md:block md:w-auto`}>

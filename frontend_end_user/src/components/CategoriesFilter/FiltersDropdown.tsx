@@ -25,16 +25,16 @@ const FiltersDropdown = () => {
       {isOpen && categories.length > 0 && (
         <ul className="absolute left-0 z-10 mt-2 w-56 origin-top-left shadow-lg focus:outline-none bg-white rounded-md ring-1 ring-black ring-opacity-5 py-1">
           {categories.map((c) => (
-            <li
-              className="text-sm block px-4 py-2 hover:bg-green-900/10"
+            <button
+              className="text-left text-sm block w-full px-4 py-2 hover:bg-green-900/10"
               key={c.id}
               onClick={() => {
                 addCategory(c);
                 setIsOpen(false);
               }}
             >
-              <button>{c.name}</button>
-            </li>
+              {c.name}
+            </button>
           ))}
         </ul>
       )}
