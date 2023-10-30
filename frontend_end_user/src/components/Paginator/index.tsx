@@ -34,7 +34,7 @@ const Paginator = ({ page, total, limit, setPage }: Props) => {
                 <button
                   className={`${
                     n === page
-                      ? 'text-green-600 border-t-2 border-green-600'
+                      ? 'text-green-900/60 border-t-2 border-green-900/60 font-medium'
                       : ''
                   } w-8 h-10 text-sm flex items-center justify-center`}
                   key={n}

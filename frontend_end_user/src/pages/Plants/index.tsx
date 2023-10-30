@@ -9,10 +9,14 @@ const PlantsPage = () => {
   const setPage = usePagination(limit, total);
 
   return (
-    <div>
+    <div className="max-w-screen-xl mx-auto">
       <CategoriesFilter />
-      <ProductsList products={data} />
-      <Paginator total={total} page={page} limit={limit} setPage={setPage} />
+      <div className="my-4 sm:mb-8">
+        <ProductsList products={data} />
+      </div>
+      <div className="my-4 mx-4">
+        <Paginator total={total} page={page} limit={limit} setPage={setPage} />
+      </div>
     </div>
   );
 };
