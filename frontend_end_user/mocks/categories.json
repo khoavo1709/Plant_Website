@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Fertilizer"
+  },
+  {
+    "id": 2,
+    "name": "Seed"
+  },
+  {
+    "id": 3,
+    "name": "Tool"
+  },
+  {
+    "id": 4,
+    "name": "Pot"
+  },
+  {
+    "id": 5,
+    "name": "Water"
+  },
+  {
+    "id": 6,
+    "name": "Pest"
+  },
+  {
+    "id": 7,
+    "name": "Decor"
+  }
+]

@@ -16,3 +16,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+* {
+  @apply focus:outline-green-900/60;
+}
