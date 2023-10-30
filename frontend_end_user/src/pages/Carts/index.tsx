@@ -37,43 +37,63 @@ const Cart: React.FC<CartProps> = ({ cartItems, getTitleFromRoute }) => {
     console.log('Form submitted:', formData);
   };
   return (
-    <div className="container mx-auto mt-10 flex flex-wrap gap-3">
-      <div className="w-full lg:w-[65%] lg:pr-6 p-2 border rounded shadow-md">
-        <h1 className="text-2xl font-semibold mb-6">My Cart</h1>
-        <table className="w-full">
-          <tr className=" hidden mb-4 md:table-row">
-            <th className="text-lg font-semibold">Image</th>
-            <th className="text-lg font-semibold">Products Name</th>
-            <th className="text-lg font-semibold">Quantity</th>
-            <th className="text-lg font-semibold">Price</th>
-            <th className="text-lg font-semibold"></th>
-          </tr>
-          {cartItems.map((product) => (
-            <CartItem key={product.id} product={product} />
-          ))}
-        </table>
-        <div className=" items-end float-right pr-2 text-blue-500">
-          <a href="../">Continue shopping</a>
-        </div>
-        <hr className="my-6" />
-      </div>
-      <div className="w-full lg:w-[33%] lg:pl-6 text-right lg:pr-6 p-2 border rounded shadow-md lg:sticky lg:top-4">
-        <h1 className="text-2xl font-semibold mb-6 text-left">Order summary</h1>
+    <div className="grid grid-rows-4 sm:mx-8 bg-gray-100">
+      <div className="row-span-2 ">
+        <div className="sm:grid grid-cols-4 sm:m-4 mx-4 gap-4  ">
+          <div className="rounded-2xl col-span-3 p-8 bg-white mt-4 sm:mt-0 overflow-x-auto">
+            <table className="w-full">
+              <thead className="text-lg font-medium">
+                <tr className=" hidden md:table-row md: border-b-2">
+                  <th scope="col" className="px-6 py-3">
+                    Image
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Products Name
+                  </th>
 
-        <p className="text-lg">
-          Total price: $
-          {cartItems.reduce(
-            (acc, product) => acc + product.price * product.quantity,
-            0
-          )}
-        </p>
-        <p className="text-sm text-gray-500">Shipping fee not included</p>
-        <button className="mt-6 px-4 py-2 bg-green-600 text-white rounded">
-          CHECKOUT
-        </button>
+                  <th scope="col" className="px-6 py-3">
+                    Price
+                  </th>
+
+                  
+                  <th scope="col" className="px-6 py-3 text-left">
+                    Quantity
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((product) => (
+                  <CartItem key={product.id} product={product} />
+                ))}
+              </tbody>
+            </table>
+            <div className=" items-end float-right pr-2 text-blue-500">
+              <a href="../">Continue shopping</a>
+            </div>
+          </div>
+          <div className=" flex pt-4 justify-center rounded-2xl col-span-1 bg-white mt-4 sm:mt-0 ">
+            <div className="">
+              <h1 className="text-4xl font-semibold mb-6">Order summary</h1>
+              <div className="flex justify-between my-4">
+                <p className="text-lg">Total price:</p>
+                <p className="text-lg">
+                  $
+                  {cartItems.reduce(
+                    (acc, product) => acc + product.price * product.quantity,
+                    0
+                  )}
+                </p>
+              </div>
+              <p className="text-sm text-gray-500">Shipping fee not included</p>
+              <button className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 ">
+                CHECKOUT
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="w-full lg:w-[65%] lg:pl-6 p-2 border rounded shadow-md">
-        <h1 className="text-2xl font-semibold mb-6">Shipment Infomation</h1>
+      <div className="row-span-2 mx-4 rounded-2xl mt-4 sm:mt-0 p-8 bg-white">
+        <h1 className="text-2xl font-semibold mb-6">Payment Information</h1>
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
             <label
@@ -130,19 +150,13 @@ const Cart: React.FC<CartProps> = ({ cartItems, getTitleFromRoute }) => {
             >
               Address
             </label>
-            <textarea
+            <input
               id="address"
               name="address"
               value={formData.address}
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded float-right "
-          >
-            Submit
-          </button>{' '}
         </form>
       </div>
     </div>
