@@ -1,4 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 import HomePage from './pages/Home';
 import PlantsPage from './pages/Plants';
 import ProductDetailPage from './pages/ProductDetail';
@@ -7,21 +12,27 @@ import AccessoriesPage from './pages/Accessories';
 import CartsPage from './pages/Carts';
 import NotFound from './pages/NotFound';
 import './App.css';
+import { loader as productDetailLoader } from './pages/ProductDetail/loader';
+import { loader as plantsLoader } from './pages/Plants/loader';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Layout />}>
+      <Route index element={<HomePage />} />
+      <Route path="*" element={<NotFound />} />
+      <Route path="/plants" element={<PlantsPage />} loader={plantsLoader} />
+      <Route
+        path="/plants/:id"
+        element={<ProductDetailPage />}
+        loader={productDetailLoader}
+      />
+      <Route path="/accessories" element={<AccessoriesPage />} />
+      <Route path="/accessories/:id" element={<ProductDetailPage />} />
+      <Route path="/carts" element={<CartsPage />} />
+    </Route>
+  )
+);
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/plants" element={<PlantsPage />} />
-          <Route path="/plants/:id" element={<ProductDetailPage />} />
-          <Route path="/accessories" element={<AccessoriesPage />} />
-          <Route path="/accessories/:id" element={<ProductDetailPage />} />
-          <Route path="/carts" element={<CartsPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }

@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "type": "PLANT",
+  "name": "Monstera Deliciosa",
+  "description": "A large, tropical plant with distinctive leaves.",
+  "price": 49.99,
+  "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
+  "quantity": 10,
+  "careInstructions": {
+    "light": "Bright, indirect light",
+    "water": "Water when the top inch of soil is dry",
+    "humidity": "High humidity is preferred"
+  }
+}
