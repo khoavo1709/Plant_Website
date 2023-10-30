@@ -26,7 +26,7 @@ const FiltersDropdown = () => {
         <ul className="absolute left-0 z-10 mt-2 w-56 origin-top-left shadow-lg focus:outline-none bg-white rounded-md ring-1 ring-black ring-opacity-5 py-1">
           {categories.map((c) => (
             <li
-              className="text-sm block px-4 py-2 hover:bg-neutral-100"
+              className="text-sm block px-4 py-2 hover:bg-green-900/10"
               key={c.id}
               onClick={() => {
                 addCategory(c);
