@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { NavLink } from "react-router-dom";
-import { title } from "../../hooks/test";
+import { title } from "../../hooks/headerHooks";
 
 export interface Item {
   url: string;

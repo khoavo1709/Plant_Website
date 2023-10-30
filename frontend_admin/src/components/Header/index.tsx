@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { MdOutlineExpandMore } from "react-icons/md";
-import { title } from "../../hooks/test";
+import { title } from "../../hooks/headerHooks";
 
 const Index = () => {
   const [isHovered, setIsHovered] = useState(false);

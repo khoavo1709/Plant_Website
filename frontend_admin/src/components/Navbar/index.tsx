@@ -12,12 +12,17 @@ const items = [
   },
   {
     url: "/users",
-    label: "User Management",
+    label: "Users Management",
     icon: <BiHomeAlt className={`${iconSize}`} />,
   },
   {
     url: "/products",
-    label: "Product Management",
+    label: "Products Management",
+    icon: <BiHomeAlt className={`${iconSize}`} />,
+  },
+  {
+    url: "/orders",
+    label: "Orders Management",
     icon: <BiHomeAlt className={`${iconSize}`} />,
   },
 ];
