@@ -17,11 +17,11 @@ const FiltersDropdown = ({ type }: Props) => {
   return (
     <div className="relative inline-block text-left">
       <button
-        className="inline-flex items-center px-3 h-8 rounded-lg space-x-2 focus:outline-none font-medium"
+        className="inline-flex items-center px-3 h-8 rounded-lg space-x-2 focus:outline-none"
         onClick={toggle}
       >
         <AdjustmentsHorizontalIcon className="h-5 w-5" />
-        <p className="text-sm">Filter</p>
+        <p className="text-xs">Filter</p>
       </button>
 
       {isOpen && categories.length > 0 && (
