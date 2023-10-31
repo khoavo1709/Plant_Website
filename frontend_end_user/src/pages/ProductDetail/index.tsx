@@ -1,26 +1,12 @@
-import { atom, useAtomValue } from 'jotai';
-import { Suspense } from 'react';
-import { useParams } from 'react-router-dom';
-
-const dataAtom = atom(async () => {
-  const { id } = useParams();
-  // :TODO fetch data
-  return id;
-});
-
-const Page = () => {
-  // const { id } = useParams();
-  const data = useAtomValue(dataAtom);
-
-  return <div>Product detail: {JSON.stringify(data)}</div>;
-};
+import { useLoaderData } from 'react-router-dom';
 
 const ProductDetailPage = () => {
-  return (
-    <Suspense fallback={<h2>Loading...</h2>}>
-      <Page />
-    </Suspense>
-  );
+  const product = useLoaderData();
+  // const { id } = useParams();
+  // const product = useAtomValue(dataAtom);
+  // const resetProduct = useResetAtom(dataAtom);
+
+  return <div>Product detail: {JSON.stringify(product)}</div>;
 };
 
 export default ProductDetailPage;

@@ -1,12 +1,14 @@
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { categoriesAtom, useCategories } from '../../hooks/useCategories';
-import { useAtomValue } from 'jotai';
+import { useCategories } from '../../hooks/useCategories';
 
-const FiltersDropdown = () => {
+type Props = {
+  type: 'PLANT' | 'ACCESSORY';
+};
+
+const FiltersDropdown = ({ type }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const categories = useAtomValue(categoriesAtom);
-  const { addCategory } = useCategories();
+  const { addCategory, categories } = useCategories(type);
 
   const toggle = () => {
     setIsOpen((v) => !v);
