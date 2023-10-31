@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="*" element={<NotFound />} />
       <Route path="/plants" element={<PlantsPage />} loader={plantsLoader} />
       <Route
-        path="/plants/:id"
+        path="/products/:id"
         element={<ProductDetailPage />}
         loader={productDetailLoader}
       />
