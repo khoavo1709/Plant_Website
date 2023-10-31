@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useCart } from '../../hooks/useCart';
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
+  const { addItem, getItem } = useCart();
+  const addToCart = () => {
+    const item = getItem(product.id);
+
+    if (item && item.quantity + 1 > product.quantity) {
+      window.alert('Preceded maxium quantity of product!');
+      return;
+    }
+
+    addItem(product.id, 1);
+  };
+
   return (
     <div className="relative flex flex-col text-neutral-800 bg-white shadow-md w-full rounded-xl bg-clip-border ring-1 ring-black ring-opacity-5">
       <Link
@@ -32,7 +45,7 @@ const ProductCard = ({ product }: Props) => {
         <button
           className="block w-full h-10 select-none rounded-full text-center align-middle font-sans text-xs font-bold uppercase text-green-900/80 transition-all hover:bg-green-900/10 hover:scale-105 focus:scale-105 focus:opacity-[0.85] active:scale-100 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           type="button"
-          onClick={() => console.log('TODO: add item to cart')}
+          onClick={addToCart}
         >
           Add to Cart
         </button>
