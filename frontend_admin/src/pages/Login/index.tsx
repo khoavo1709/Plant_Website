@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function SignIn() {
+function Login() {
   const [errMsg] = useState("");
 
   return (
@@ -17,9 +17,9 @@ function SignIn() {
                 src="src/assets/plantsLogo.png"
                 className="w-40 h-40 mx-auto"
               />
-              <div className="text-center mb-[17px] h-[40px] flex justify-center text-4xl font-bold ">
+              <h1 className="text-center mb-[17px] h-[40px] flex justify-center font-bold">
                 Plant Shop
-              </div>
+              </h1>
               <form action="" className="rounded-lg">
                 {errMsg && (
                   <p className="text-red-500">Invalid email or password</p>
@@ -54,9 +54,9 @@ function SignIn() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-teal-600 h-[46px] rounded-3xl w-full font-semibold text-[16px] text-white"
+                  className="bg-primary h-[46px] rounded-3xl w-full font-semibold text-[16px] text-white"
                 >
-                  Sign In
+                  Login
                 </button>
               </form>
             </div>
@@ -67,4 +67,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;
