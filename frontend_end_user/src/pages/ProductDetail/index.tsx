@@ -42,7 +42,7 @@ const ProductDetailPage = () => {
         />
         <div className="px-4 py-6 md:w-1/2">
           <h1 className="text-2xl mb-2 leading-none">{product.name}</h1>
-          <p className="text-base mb-6 text-neutral-700 leading-none">
+          <p className="text-base mb-6 text-neutral-700 leading-normal">
             {product.title}
           </p>
 
