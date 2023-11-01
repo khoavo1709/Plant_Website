@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-interface Product {
-  id: number;
-  name: string;
-  quantity: number;
-  image: string;
-  price: number;
+import { CartItems } from '../../../types/cart';
+interface Props {
+  item: CartItems;
+  onQuantityChange: (productId: number, newQuantity: number) => void;
 }
 
-interface CartItemProps {
-  product: Product;
-}
-
-const CartItem: React.FC<CartItemProps> = ({ product }) => {
+const CartItem = ({ item }: Props) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
-
+  const [quantity, setQuantity] = useState(item.quantity);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 640);
@@ -26,33 +20,57 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
   return (
     <tr className={`py-2 border-b-2 ${isMobile ? 'grid grid-cols-2' : ''}`}>
       <td className="sm:px-6 sm:py-4 row-span-2 flex justify-center">
         <img
-          src={product.image}
-          alt={product.name}
+          src={item.product.image}
+          alt={item.product.name}
           className="w-16 h-20 object-cover rounded"
         />
       </td>
 
-      <td className="sm:px-6 sm:py-4 sm:text-center">{product.name}</td>
+      <td className="sm:px-6 sm:py-4 sm:text-center">{item.product.name}</td>
 
       <td className="sm:px-6 sm:py-4 sm:text-center">
-        {isMobile ? 'Price: ' : ''} ${product.price}
+        {isMobile ? 'Price: ' : ''} ${item.unitPrice}
       </td>
 
       {isMobile ? <td></td> : ''}
       <td className="sm:px-6 sm:py-4  sm:text-center">
-        <div className={`${isMobile ? ' grid grid-cols-3' : 'flex justify-between items-center'}`}>
+        <div
+          className={`${
+            isMobile ? ' grid grid-cols-3' : 'flex justify-between items-center'
+          }`}
+        >
           <div
             className={`${
               isMobile ? ' col-span-2' : ''
             } bg-slate-100 flex sm:justify-end justify-center items-center`}
           >
-            <button className="px-2 py-1 w-7 h-10 text-dark rounded">-</button>
-            <span className="mx-2 text-dark">{product.quantity}</span>
-            <button className="px-2 py-1 w-7 h-10 text-dark rounded">+</button>
+            <button
+              className="px-2 py-1 w-7 h-10 text-dark rounded"
+              onClick={handleDecrease}
+            >
+              -
+            </button>
+            <span className="mx-2 text-dark">{quantity}</span>
+            <button
+              className="px-2 py-1 w-7 h-10 text-dark rounded"
+              onClick={handleIncrease}
+            >
+              +
+            </button>
           </div>
           <div
             className={`${
