@@ -11,7 +11,7 @@ const PlantsPage = () => {
   ) as PlantsReponse;
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="max-w-screen-lg mx-auto">
       <CategoriesFilter type="PLANT" />
       <div className="my-4 sm:mb-8">
         <ProductsList products={data} />

@@ -34,9 +34,9 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <div className="leading-relaxed max-w-screen-md mx-auto md:flex">
+      <div className="leading-relaxed max-w-screen-lg mx-auto md:flex">
         <img
-          className="w-full h-full object-cover md:w-1/2 md:mx-4 md:my-6 md:rounded-xl md:overflow-hidden md:ring-1 md:ring-black md:ring-opacity-5 shadow-black"
+          className="w-full h-full object-cover md:w-1/2 md:mx-4 md:my-6 md:rounded-sm md:overflow-hidden md:ring-1 md:ring-black md:ring-opacity-5"
           src={product.image}
           alt={product.name}
         />
