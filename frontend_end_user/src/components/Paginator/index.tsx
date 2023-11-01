@@ -2,15 +2,17 @@ import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
 } from '@heroicons/react/24/outline';
+import usePagination from '../../hooks/usePagination';
 
 interface Props {
   page: number;
   total: number;
   limit: number;
-  setPage: (page: number) => void;
 }
 
-const Paginator = ({ page, total, limit, setPage }: Props) => {
+const Paginator = ({ page, total, limit }: Props) => {
+  const setPage = usePagination(limit, total);
+
   return (
     <>
       {total > 0 && (

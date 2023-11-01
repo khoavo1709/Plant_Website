@@ -7,91 +7,68 @@
       "id": 1,
       "type": "PLANT",
       "name": "Monstera Deliciosa",
-      "description": "A large, tropical plant with distinctive leaves.",
+      "title": "A large, tropical plant with distinctive leaves.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name Swiss cheese plant is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 49.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 10,
-      "careInstructions": {
-        "light": "Bright, indirect light",
-        "water": "Water when the top inch of soil is dry",
-        "humidity": "High humidity is preferred"
-      }
+      "quantity": 10
     },
     {
       "id": 2,
       "type": "PLANT",
       "name": "Snake Plant",
-      "description": "A low-maintenance plant that is tolerant of low light and infrequent watering.",
+      "title": "A low-maintenance plant that is tolerant of low light and infrequent watering.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 19.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 15,
-      "careInstructions": {
-        "light": "Low to medium light",
-        "water": "Water when the soil is completely dry",
-        "humidity": "Any humidity level"
-      }
+      "quantity": 1
     },
     {
       "id": 3,
       "type": "PLANT",
       "name": "Pothos",
-      "description": "A fast-growing and easy-to-care-for plant that is perfect for beginners.",
+      "title": "A fast-growing and easy-to-care-for plant that is perfect for beginners.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 14.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 20,
-      "careInstructions": {
-        "light": "Bright, indirect light",
-        "water": "Water when the top inch of soil is dry",
-        "humidity": "Any humidity level"
-      }
+      "quantity": 20
     },
     {
       "id": 4,
       "type": "PLANT",
       "name": "ZZ Plant",
-      "description": "A drought-tolerant plant that is perfect for busy people.",
+      "title": "A drought-tolerant plant that is perfect for busy people.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 29.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 12,
-      "careInstructions": {
-        "light": "Low to medium light",
-        "water": "Water when the soil is completely dry",
-        "humidity": "Any humidity level"
-      }
+      "quantity": 12
     },
     {
       "id": 5,
       "type": "PLANT",
       "name": "Peace Lily",
-      "description": "A beautiful flowering plant that is easy to care for.",
+      "title": "A beautiful flowering plant that is easy to care for.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 24.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 10,
-      "careInstructions": {
-        "light": "Bright, indirect light",
-        "water": "Water when the top inch of soil is dry",
-        "humidity": "High humidity is preferred"
-      }
+      "quantity": 10
     },
     {
       "id": 6,
       "type": "PLANT",
       "name": "Spider Plant",
-      "description": "A low-maintenance plant that is known for its air-purifying properties.",
+      "title": "A low-maintenance plant that is known for its air-purifying properties.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 12.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
-      "quantity": 15,
-      "careInstructions": {
-        "light": "Bright, indirect light",
-        "water": "Water when the top inch of soil is dry",
-        "humidity": "Any humidity level"
-      }
+      "quantity": 15
     },
     {
       "id": 8,
       "type": "PLANT",
       "name": "Chinese Evergreen",
-      "description": "A low-maintenance plant with beautiful variegated leaves.",
+      "title": "A low-maintenance plant with beautiful variegated leaves.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 19.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 10
@@ -100,7 +77,8 @@
       "id": 9,
       "type": "PLANT",
       "name": "Philodendron Birkin",
-      "description": "A unique and stylish plant with velvety leaves and white veins.",
+      "title": "A unique and stylish plant with velvety leaves and white veins.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 29.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 5
@@ -109,7 +87,8 @@
       "id": 10,
       "type": "PLANT",
       "name": "String of Pearls",
-      "description": "A trailing plant with delicate pearl-shaped leaves.",
+      "title": "A trailing plant with delicate pearl-shaped leaves.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 14.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 12
@@ -118,7 +97,8 @@
       "id": 11,
       "type": "PLANT",
       "name": "Air Plant",
-      "description": "A low-maintenance plant that can be grown in a variety of ways.",
+      "title": "A low-maintenance plant that can be grown in a variety of ways.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 9.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -127,7 +107,8 @@
       "id": 12,
       "type": "PLANT",
       "name": "Succulent",
-      "description": "A variety of low-maintenance plants with fleshy leaves.",
+      "title": "A variety of low-maintenance plants with fleshy leaves.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 20
@@ -136,7 +117,8 @@
       "id": 13,
       "type": "PLANT",
       "name": "Cactus",
-      "description": "A variety of desert plants with spines or thorns.",
+      "title": "A variety of desert plants with spines or thorns.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -145,7 +127,8 @@
       "id": 14,
       "type": "PLANT",
       "name": "Bonsai Tree",
-      "description": "A miniature tree that is grown in a pot.",
+      "title": "A miniature tree that is grown in a pot.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 39.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 5
@@ -154,7 +137,8 @@
       "id": 15,
       "type": "PLANT",
       "name": "Venus Fly Trap",
-      "description": "A carnivorous plant that eats insects.",
+      "title": "A carnivorous plant that eats insects.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 24.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 10
@@ -163,7 +147,8 @@
       "id": 16,
       "type": "PLANT",
       "name": "Aloe Vera",
-      "description": "A succulent plant with medicinal properties.",
+      "title": "A succulent plant with medicinal properties.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 9.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -172,7 +157,8 @@
       "id": 17,
       "type": "PLANT",
       "name": "Lavender",
-      "description": "A fragrant plant with purple flowers.",
+      "title": "A fragrant plant with purple flowers.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 9.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 12
@@ -181,7 +167,8 @@
       "id": 20,
       "type": "PLANT",
       "name": "Peppermint",
-      "description": "An aromatic herb with culinary and medicinal uses.",
+      "title": "An aromatic herb with culinary and medicinal uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 9.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -190,7 +177,8 @@
       "id": 21,
       "type": "PLANT",
       "name": "Basil",
-      "description": "An aromatic herb with culinary uses.",
+      "title": "An aromatic herb with culinary uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 12
@@ -199,7 +187,8 @@
       "id": 22,
       "type": "PLANT",
       "name": "Rosemary",
-      "description": "An aromatic herb with culinary and medicinal uses.",
+      "title": "An aromatic herb with culinary and medicinal uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 9.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 10
@@ -208,7 +197,8 @@
       "id": 23,
       "type": "PLANT",
       "name": "Thyme",
-      "description": "An aromatic herb with culinary and medicinal uses.",
+      "title": "An aromatic herb with culinary and medicinal uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -217,7 +207,8 @@
       "id": 24,
       "type": "PLANT",
       "name": "Cilantro",
-      "description": "An aromatic herb with culinary uses.",
+      "title": "An aromatic herb with culinary uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 12
@@ -226,7 +217,8 @@
       "id": 25,
       "type": "PLANT",
       "name": "Chives",
-      "description": "An aromatic herb with culinary uses.",
+      "title": "An aromatic herb with culinary uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 10
@@ -235,7 +227,8 @@
       "id": 26,
       "type": "PLANT",
       "name": "Parsley",
-      "description": "An aromatic herb with culinary uses.",
+      "title": "An aromatic herb with culinary uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
@@ -244,7 +237,8 @@
       "id": 27,
       "type": "PLANT",
       "name": "Mint",
-      "description": "An aromatic herb with culinary and medicinal uses.",
+      "title": "An aromatic herb with culinary and medicinal uses.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 12
@@ -253,7 +247,8 @@
       "id": 28,
       "type": "PLANT",
       "name": "Stevia",
-      "description": "An herb used as a natural sweetener.",
+      "title": "An herb used as a natural sweetener.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 10
@@ -262,7 +257,8 @@
       "id": 29,
       "type": "PLANT",
       "name": "Lemon Balm",
-      "description": "An herb with a lemon-scented flavor that can be used in teas and other beverages.",
+      "title": "An herb with a lemon-scented flavor that can be used in teas and other beverages.",
+      "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name  is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
       "price": 4.99,
       "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
       "quantity": 15
