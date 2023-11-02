@@ -1,4 +1,3 @@
-
 import {
   Route,
   RouterProvider,
@@ -15,6 +14,7 @@ import NotFound from './pages/NotFound';
 import './App.css';
 import { loader as productDetailLoader } from './pages/ProductDetail/loader';
 import { loader as plantsLoader } from './pages/Plants/loader';
+import { loader as accessoriesLoader } from './pages/Accessories/loader';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +27,11 @@ const router = createBrowserRouter(
         element={<ProductDetailPage />}
         loader={productDetailLoader}
       />
-      <Route path="/accessories" element={<AccessoriesPage />} />
+      <Route
+        path="/accessories"
+        element={<AccessoriesPage />}
+        loader={accessoriesLoader}
+      />
       <Route path="/accessories/:id" element={<ProductDetailPage />} />
       <Route path="/carts" element={<CartsPage />} />
     </Route>

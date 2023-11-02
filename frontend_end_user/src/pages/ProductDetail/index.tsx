@@ -34,15 +34,15 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <div className="leading-relaxed max-w-screen-md mx-auto md:flex">
+      <div className="leading-relaxed max-w-screen-lg mx-auto md:flex">
         <img
-          className="w-full h-full object-cover md:w-1/2 md:mx-4 md:my-6 md:rounded-xl md:overflow-hidden md:ring-1 md:ring-black md:ring-opacity-5 shadow-black"
+          className="w-full h-full object-cover md:w-1/2 md:mx-4 md:my-6 md:rounded-sm md:overflow-hidden md:ring-1 md:ring-black md:ring-opacity-5"
           src={product.image}
           alt={product.name}
         />
         <div className="px-4 py-6 md:w-1/2">
           <h1 className="text-2xl mb-2 leading-none">{product.name}</h1>
-          <p className="text-base mb-6 text-neutral-700 leading-none">
+          <p className="text-base mb-6 text-neutral-700 leading-normal">
             {product.title}
           </p>
 
@@ -81,7 +81,7 @@ const ProductDetailPage = () => {
               </div>
 
               <button
-                className="rounded-full font-medium text-sm text-green-50 h-10 px-4 mx-auto py-auto block w-full max-w-xl bg-green-900/60 hover:bg-green-900/70transition-all"
+                className="rounded-full font-medium text-sm text-green-50 h-10 px-4 mx-auto py-auto block w-full max-w-xl bg-green-900/60 hover:bg-green-900/70 transition-all hover:scale-105"
                 onClick={addToCart}
               >
                 ADD TO CART

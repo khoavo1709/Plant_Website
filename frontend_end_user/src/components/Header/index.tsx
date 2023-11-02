@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center px-4 text-xl w-full max-w-screen-xl flex-wrap justify-between mx-auto p-4">
+    <header className="flex items-center px-4 text-xl w-full max-w-screen-lg flex-wrap justify-between mx-auto p-4">
       <Link to="/" className="text-2xl font-bold text-green-900/70">
         #PLANT STORE
       </Link>
