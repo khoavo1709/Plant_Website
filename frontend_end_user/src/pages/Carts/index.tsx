@@ -78,7 +78,6 @@ const Cart = ({}) => {
   });
   if (data && cart.cartItems.length == 0) {
     setCart(JSON.parse(data));
-    console.log('cart', cart);
   } else if (!data) {
     console.log('No data found in localStorage');
   }

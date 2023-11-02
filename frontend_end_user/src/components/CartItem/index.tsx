@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AiFillDelete } from 'react-icons/ai';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { CartItems } from '../../../types/cart';
 interface Props {
   item: CartItems;
@@ -77,10 +77,10 @@ const CartItem = ({ item }: Props) => {
               isMobile ? ' col-span-1' : ''
             }  sm:mr-2 flex justify-center sm:justify-end items-center`}
           >
-            <AiFillDelete
+            <TrashIcon
               title="Delete"
-              size="1.2rem"
-              className="hover:text-red-500"
+              titleId="delete"
+              className=" w-5 h-5 ml-4 text-gray-500 hover:text-red-500"
             />
           </div>
         </div>
