@@ -1,29 +1,32 @@
-import { BiHomeAlt } from "react-icons/bi";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import NavItem from "./NavItem";
-import { MdOutlineChevronLeft } from "react-icons/md";
-
-const iconSize = "w-6 h-6";
+import {
+  ChartBarIcon,
+  BugAntIcon,
+  WalletIcon,
+  UserGroupIcon,
+} from "@heroicons/react/24/solid";
 
 const items = [
   {
     url: "/dashboard",
     label: "Dash Board",
-    icon: <BiHomeAlt className={`${iconSize}`} />,
+    icon: <ChartBarIcon className="w-6 h-6" />,
   },
   {
     url: "/users",
     label: "Users Management",
-    icon: <BiHomeAlt className={`${iconSize}`} />,
+    icon: <UserGroupIcon className="w-6 h-6" />,
   },
   {
     url: "/products",
     label: "Products Management",
-    icon: <BiHomeAlt className={`${iconSize}`} />,
+    icon: <BugAntIcon className="w-6 h-6" />,
   },
   {
     url: "/orders",
     label: "Orders Management",
-    icon: <BiHomeAlt className={`${iconSize}`} />,
+    icon: <WalletIcon className="w-6 h-6" />,
   },
 ];
 
@@ -36,19 +39,18 @@ const NavItemsContainer = () => (
 );
 
 const Index = () => {
-  // const [isActive, setIsActive] = useAtom(active);
   return (
-    <nav className="col-span-1 grid grid-rows-6 border-r-2">
-      <div className="row-span-1 flex justify-between items-center border-b-2">
+    <nav className="border-r-2 w-96">
+      <div className="h-20 flex justify-between items-center border-b-2">
         <div className="mx-4 flex items-center py-2">
           <img src="src/assets/plantsLogo.png" className="w-14 h-14 mr-4" />
-          <h3 className="py-4 uppercase">Plant Store</h3>
+          <div className="py-4 font-bold text-xl uppercase">Plant Store</div>
         </div>
         <div className="p-4">
-          <MdOutlineChevronLeft className="w-8 h-8" />
+          <ChevronLeftIcon className="w-6 h-6" />
         </div>
       </div>
-      <ul className="row-span-5 mx-2 my-2 pt-2">
+      <ul className="mx-2 my-2 pt-2">
         <NavItemsContainer />
       </ul>
     </nav>

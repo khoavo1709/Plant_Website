@@ -27,7 +27,7 @@ const NavItem = ({ item }: { item: Item }) => {
         }
       >
         {icon}
-        <h4 className="ml-2">{label}</h4>
+        <div className="font-bold text-base ml-2">{label}</div>
       </NavLink>
     </li>
   );
