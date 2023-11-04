@@ -38,7 +38,6 @@ export const useGetPlants = () => {
       const response = await fetch(jsonFile);
       const data = await response.json();
 
-      console.log(JSON.stringify(data));
       setPlantResponse(objectToCamel(data) as PlantsReponse);
     };
 

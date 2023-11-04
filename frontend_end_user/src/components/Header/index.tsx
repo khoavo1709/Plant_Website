@@ -11,8 +11,8 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center px-4 text-lg w-full max-w-screen-xl flex-wrap justify-between mx-auto p-4">
-      <Link to="/" className="text-xl font-bold text-green-900/70">
+    <header className="flex items-center px-4 text-xl w-full max-w-screen-lg flex-wrap justify-between mx-auto p-4">
+      <Link to="/" className="text-2xl font-bold text-green-900/70">
         #PLANT STORE
       </Link>
 
@@ -24,7 +24,7 @@ const Header = () => {
       </button>
 
       <div className={`${isNavOpen ? '' : 'hidden'} w-full md:block md:w-auto`}>
-        <ul className="flex flex-col p-4 space-y-2 md:p-0 md:flex-row md:space-x-4 md:space-y-0">
+        <ul className="text-base flex flex-col p-4 space-y-2 md:p-0 md:flex-row md:space-x-4 md:space-y-0">
           <HeaderLink to="/plants" text="Plants" />
           <HeaderLink to="/accessories" text="Accessories" />
           <HeaderLink to="/carts" text="Your items" />
