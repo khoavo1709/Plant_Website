@@ -105,7 +105,7 @@ const UserManagement = () => {
   return (
     <main>
       <Header />
-      <div className="background-main-page p-4">
+      <div className="background-main-page p-2">
         <div className="flex justify-between items-center">
           <div className="flex">
             <SearchTextBox

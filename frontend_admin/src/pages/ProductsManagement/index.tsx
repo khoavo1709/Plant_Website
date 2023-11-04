@@ -46,7 +46,7 @@ const ProductsManagement = () => {
   return (
     <main>
       <Header />
-      <div className="background-main-page p-4 min-h-screen">
+      <div className="background-main-page p-2 min-h-screen">
         <div className="flex justify-between items-center">
           <div className="flex">
             <SearchTextBox

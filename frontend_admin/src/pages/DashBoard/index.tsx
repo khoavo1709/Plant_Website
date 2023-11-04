@@ -25,12 +25,12 @@ const DashBoard = () => {
   return (
     <main>
       <Header />
-      <div className=" bg-slate-200 overscroll-hidden">
+      <div className="background-main-page p-4">
         <SalesStatistics data={data} />
         <div className="grid grid-cols-3 gap-4 p-2">
           <CompareChart data={data} />
           <StatusPieChart data={data} />
-          <ProductChart data={data}/>
+          <ProductChart data={data} />
           <ListActivity data={data} />
         </div>
       </div>

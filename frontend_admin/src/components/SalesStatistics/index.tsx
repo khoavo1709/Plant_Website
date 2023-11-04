@@ -1,4 +1,3 @@
-import React from "react";
 import { Order } from "../../../types/order";
 
 const SalesStatistics = ({ data }: { data: Order[] }) => {
@@ -16,7 +15,11 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
     ) {
       if (purchase.status == "delivered") totalCompletedOrders += 1;
       purchase.purchaseProducts.forEach(
-        (item: { product: { type: any }; price: number; quantity: number }) => {
+        (item: {
+          product: { type: unknown };
+          price: number;
+          quantity: number;
+        }) => {
           totalProductsSold += item.quantity;
           if (purchase.status == "delivered")
             totalOrderCompleteValue += item.price * item.quantity;
@@ -26,12 +29,12 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
     }
   });
   return (
-    <div className="grid grid-cols-4 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+    <div className="grid grid-cols-4 gap-2">
       <div className="p-5 bg-white rounded-xl m-2">
         <div className="flex justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-blue-400"
+            className="h-6 w-6 text-blue-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -46,11 +49,11 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         </div>
         <div className="ml-2 w-full flex-1">
           <div>
-            <div className="mt-3 text-3xl font-bold leading-8">
+            <div className="mt-3 text-2xl font-bold leading-8">
               {totalCompletedOrders}
             </div>
 
-            <div className="mt-1 text-base text-gray-600">
+            <div className="mt-1 text-sm text-gray-600">
               Number of orders completed this month
             </div>
           </div>
@@ -60,7 +63,7 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         <div className="flex justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-yellow-400"
+            className="h-6 w-6 text-yellow-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -75,11 +78,11 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         </div>
         <div className="ml-2 w-full flex-1">
           <div>
-            <div className="mt-3 text-3xl font-bold leading-8">
+            <div className="mt-3 text-2xl font-bold leading-8">
               {totalProductsSold}
             </div>
 
-            <div className="mt-1 text-base text-gray-600">
+            <div className="mt-1 text-sm text-gray-600">
               Number of products sold this month
             </div>
           </div>
@@ -91,7 +94,7 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="w-5 h-5"
+            className="w-6 h-6"
           >
             <path d="M10.75 10.818v2.614A3.13 3.13 0 0011.888 13c.482-.315.612-.648.612-.875 0-.227-.13-.56-.612-.875a3.13 3.13 0 00-1.138-.432zM8.33 8.62c.053.055.115.11.184.164.208.16.46.284.736.363V6.603a2.45 2.45 0 00-.35.13c-.14.065-.27.143-.386.233-.377.292-.514.627-.514.909 0 .184.058.39.202.592.037.051.08.102.128.152z" />
             <path
@@ -103,11 +106,11 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         </div>
         <div className="ml-2 w-full flex-1">
           <div>
-            <div className="mt-3 text-3xl font-bold leading-8">
+            <div className="mt-3 text-2xl font-bold leading-8">
               ${totalOrderCompleteValue.toFixed(2)}
             </div>
 
-            <div className="mt-1 text-base text-gray-600">
+            <div className="mt-1 text-sm text-gray-600">
               Total value of orders completed this month
             </div>
           </div>
@@ -117,7 +120,7 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         <div className="flex justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-blue-400"
+            className="h-6 w-6 text-blue-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -132,11 +135,11 @@ const SalesStatistics = ({ data }: { data: Order[] }) => {
         </div>
         <div className="ml-2 w-full flex-1">
           <div>
-            <div className="mt-3 text-3xl font-bold leading-8">
+            <div className="mt-3 text-2xl font-bold leading-8">
               ${totalOrderValue.toFixed(2)}
             </div>
 
-            <div className="mt-1 text-base text-gray-600">
+            <div className="mt-1 text-sm text-gray-600">
               Total order value this month
             </div>
           </div>

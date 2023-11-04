@@ -8,7 +8,7 @@ const Index = () => {
   const [headerTitle] = useAtom(title);
 
   return (
-    <nav className="flex items-center justify-between h-20 shadow-lg x-[-1000] relative top-0">
+    <nav className="flex items-center justify-between h-20 shadow-md x-[-1000] relative top-0">
       <div className="font-bold text-xl mb-2 pl-4">{headerTitle}</div>
       <div className="flex cursor-pointer items-center m-2 mr-4  hover:text-cyan-500">
         <div

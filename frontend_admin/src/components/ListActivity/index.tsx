@@ -7,7 +7,7 @@ const ListActivity = ({ data }: { data: Order[] }) => {
   data = data.slice(0, 5);
   return (
     <div className="col-span-1 p-5 bg-white rounded-xl">
-      <p className=" text-xl font-semibold">Recent activity</p>
+      <div className="mb-4 text-xl font-bold">Recent activity</div>
 
       {data.map((order: Order) => (
         <div key={order.id}>

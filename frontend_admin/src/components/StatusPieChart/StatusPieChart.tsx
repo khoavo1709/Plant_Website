@@ -1,9 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { Order } from "../../../types/order";
-import { useEffect, useState } from "react";
 
 const StatusPieChart = ({ data }: { data: Order[] }) => {
-
   function getPieChartData(data: Order[]) {
     const pieChartData = [
       { name: "PENDING", value: 0 },
@@ -75,7 +73,7 @@ const StatusPieChart = ({ data }: { data: Order[] }) => {
   return (
     <div className=" col-span-1 p-5  bg-white rounded-xl h-[550px] ">
       {" "}
-      <p className=" text-xl font-semibold">Order status</p>
+      <div className=" text-xl font-bold">Order status</div>
       <div className=" flex justify-center mt-4 ">
         <ResponsiveContainer width="100%" height="100%" minHeight={400}>
           <PieChart width={400} height={400}>

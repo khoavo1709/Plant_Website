@@ -447,7 +447,7 @@ const OrdersManagement = () => {
     },
   ];
   const [currentPage, setCurrentPage] = useState(5);
-  const [totalPages, setTotalPages] = useState(10);
+  const [totalPages] = useState(10);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -472,71 +472,73 @@ const OrdersManagement = () => {
   return (
     <main>
       <Header />
-      <div>
-        <div className="flex justify-between items-center">
-          <div className="relative flex">
-            <div className="flex items-center">
-              <div className="relative">
-                <SearchTextBox
-                  checkFocus={() => checkFocusNameOrMail(!isFocusNameOrMail)}
-                  placeHolder="Name or mail"
-                  changeIcon={
-                    <MagnifyingGlassIcon
-                      className={`w-4 h-4 text-gray-500 ${
-                        isFocusNameOrMail ? "hidden" : ""
-                      }`}
-                    />
-                  }
-                />
-              </div>
-              <div className="relative">
-                <SearchTextBox
-                  checkFocus={() => checkFocusPhone(!isFocusPhone)}
-                  placeHolder="Phone number"
-                  changeIcon={
-                    <MagnifyingGlassIcon
-                      className={`w-4 h-4 text-gray-500 ${
-                        isFocusPhone ? "hidden" : ""
-                      }`}
-                    />
-                  }
-                />
-              </div>
-              <div className="relative">
-                <select
-                  title="StatusSearch"
-                  onFocus={() => checkFocusPhone(!isFocusPhone)}
-                  onBlur={() => checkFocusPhone(!isFocusPhone)}
-                  className="w-full p-2 text-sm border rounded-lg bg-gray-50 outline-none"
-                  placeholder="Status"
-                >
-                  <option value="" disabled selected hidden>
-                    Choose order status
-                  </option>
-                  <option value="all">All</option>
-                  <option value="pending">Processing</option>
-                  <option value="shipping">Shipping</option>
-                  <option value="done">Delivered</option>
-                </select>
+      <div className="background-main-page">
+        <div>
+          <div className="flex justify-between items-center">
+            <div className="relative flex">
+              <div className="flex items-center">
+                <div className="relative">
+                  <SearchTextBox
+                    checkFocus={() => checkFocusNameOrMail(!isFocusNameOrMail)}
+                    placeHolder="Name or mail"
+                    changeIcon={
+                      <MagnifyingGlassIcon
+                        className={`w-4 h-4 text-gray-500 ${
+                          isFocusNameOrMail ? "hidden" : ""
+                        }`}
+                      />
+                    }
+                  />
+                </div>
+                <div className="relative">
+                  <SearchTextBox
+                    checkFocus={() => checkFocusPhone(!isFocusPhone)}
+                    placeHolder="Phone number"
+                    changeIcon={
+                      <MagnifyingGlassIcon
+                        className={`w-4 h-4 text-gray-500 ${
+                          isFocusPhone ? "hidden" : ""
+                        }`}
+                      />
+                    }
+                  />
+                </div>
+                <div className="relative">
+                  <select
+                    title="StatusSearch"
+                    onFocus={() => checkFocusPhone(!isFocusPhone)}
+                    onBlur={() => checkFocusPhone(!isFocusPhone)}
+                    className="w-full p-2 text-sm border rounded-lg bg-gray-50 outline-none"
+                    placeholder="Status"
+                  >
+                    <option value="" disabled selected hidden>
+                      Choose order status
+                    </option>
+                    <option value="all">All</option>
+                    <option value="pending">Processing</option>
+                    <option value="shipping">Shipping</option>
+                    <option value="done">Delivered</option>
+                  </select>
+                </div>
               </div>
             </div>
+            <ButtonWithIcon
+              text="Add order"
+              background="bg-cyan-500"
+              hoverBackground="hover:bg-cyan-400"
+              icon={<PlusIcon className="text-cyan-50 w-5 h-5" />}
+            />
           </div>
-          <ButtonWithIcon
-            text="Add order"
-            background="bg-cyan-500"
-            hoverBackground="hover:bg-cyan-400"
-            icon={<PlusIcon className="text-cyan-50 w-5 h-5" />}
-          />
         </div>
-      </div>
 
-      <div className="">
-        <Table item={tableData} />
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />{" "}
+        <div className="">
+          <Table item={tableData} />
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />{" "}
+        </div>
       </div>
     </main>
   );

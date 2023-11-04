@@ -50,37 +50,37 @@ const CompareChart = ({ data }: { data: Order[] }) => {
   return (
     <div className=" col-span-2 p-5 bg-white rounded-xl h-[550px]">
       {" "}
-      <p className=" text-xl font-semibold">This year</p>
+      <div className="mb-2 text-xl font-bold">This year</div>
       <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={400}
-        height={400}
-        data={linechartdata}
-        margin={{
-          top: 15,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="PLANT"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-        />
-        <Line
-          type="monotone"
-          dataKey="ACCESSORY"
-          stroke="#82ca9d"
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
+        <LineChart
+          width={400}
+          height={400}
+          data={linechartdata}
+          margin={{
+            top: 15,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="PLANT"
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="ACCESSORY"
+            stroke="#82ca9d"
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
