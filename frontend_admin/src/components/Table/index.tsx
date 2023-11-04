@@ -1,87 +1,30 @@
-import TableHeader from "./TableHeader";
 import TableItem from "./TableItem";
 
-const itemsBody = [
-  {
-    username: "abc",
-    fullname: "abc",
-    sex: "abc",
-    phonenumber: "abc",
-    address: "abc",
-    position: "abc",
-    iconSize: "1.2rem",
-  },
-  {
-    username: "abc",
-    fullname: "abc",
-    sex: "abc",
-    phonenumber: "abc",
-    address: "abc",
-    position: "abc",
-    iconSize: "1.2rem",
-  },
-  {
-    username: "abc",
-    fullname: "abc",
-    sex: "abc",
-    phonenumber: "abc",
-    address: "abc",
-    position: "abc",
-    iconSize: "1.2rem",
-  },
-];
+export interface Item {
+  itemsHeader: Array<string>;
+  itemsBody: Array<Array<string>>;
+}
 
-const itemsHeader = [
-  {
-    header: "User name",
-  },
-  {
-    header: "Full name",
-  },
-  {
-    header: "Sex",
-  },
-  {
-    header: "Phone number",
-  },
-  {
-    header: "Address",
-  },
-  {
-    header: "Position",
-  },
-];
-
-const TableItemsContainer = () => (
-  <>
-    {itemsBody.map((item, index) => (
-      <TableItem item={item} key={index} />
-    ))}
-  </>
-);
-
-const TableItemsHeader = () => (
-  <>
-    {itemsHeader.map((item, index) => (
-      <TableHeader item={item} key={index} />
-    ))}
-  </>
-);
-
-const Index = () => {
+const Index = ({ item }: { item: Item }) => {
   return (
-    <div className="mt-2 m-20 relative row-span-5 overflow-x-auto shadow-md sm:rounded-xl">
-      <table className="w-full text-sm text-left">
-        <thead className="uppercase bg-cyan-100">
+    <div className="m-4 border p-4 w-fit rounded-2xl shadow-md">
+      <table className="bg-white text-sm text-left">
+        <thead className="uppercase border-b">
           <tr>
-            <TableItemsHeader />
+            {item.itemsHeader.map((header, index) => (
+              <th key={index} scope="col" className="px-6 py-4">
+                {header}
+              </th>
+            ))}
             <th scope="col" className="px-6 py-4">
               <span className="sr-only">Edit</span>
             </th>
           </tr>
         </thead>
         <tbody>
-          <TableItemsContainer />
+          {item.itemsBody.map((body, index) => (
+            <TableItem item={{ itemsRow: body }} key={index} />
+          ))}
         </tbody>
       </table>
     </div>

@@ -1,18 +1,17 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
-import { MdOutlineExpandMore } from "react-icons/md";
 import { title } from "../../hooks/headerHooks";
+import { ChevronDownIcon, UserIcon } from "@heroicons/react/24/solid";
 
 const Index = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [headerTitle] = useAtom(title);
 
   return (
-    <nav className="bg-cyan-100 flex items-center justify-between">
-      <h3 className="mb-2 pl-4">{headerTitle}</h3>
+    <nav className="bg-cyan-100 flex items-center justify-between h-20">
+      <div className="font-bold text-xl mb-2 pl-4">{headerTitle}</div>
       <div className="flex cursor-pointer items-center m-2 mr-4  hover:text-cyan-500">
-        <h4
+        <div
           className={`p-2 flex items-center font-normal`}
           onMouseLeave={() => {
             setIsHovered(false);
@@ -21,12 +20,14 @@ const Index = () => {
             setIsHovered(true);
           }}
         >
-          <FaUser
-            className={`mr-2 ${isHovered ? "text-cyan-500" : "text-gray-500"}`}
+          <UserIcon
+            className={`mr-2 h-6 w-6 ${
+              isHovered ? "text-cyan-500" : "text-gray-500"
+            }`}
           />{" "}
           KhoaVo
-        </h4>
-        <MdOutlineExpandMore className="w-5 h-5" />
+        </div>
+        <ChevronDownIcon className="w-4 h-4" />
       </div>
     </nav>
   );

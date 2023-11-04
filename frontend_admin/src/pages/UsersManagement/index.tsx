@@ -1,70 +1,81 @@
-import { BiPlus } from "react-icons/bi";
+import ButtonWithIcon from "../../components/Button/ButtonWithIcon";
+import SearchTextBox from "../../components/Filter/SearchTextBox";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
-import { MdOutlineSearch, MdOutlineExpandMore } from "react-icons/md";
+import {
+  MagnifyingGlassIcon,
+  PlusIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-function UserManagement() {
+const itemsBody = [
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+  ["aasd", "baf", "aasfa", "bafs", "aasfd", "basf"],
+];
+
+const itemsHeader = [
+  "User name",
+  "Full name",
+  "Sex",
+  "Phone number",
+  "Address",
+  "Position",
+];
+
+const UserManagement = () => {
   const [isFocusUser, checkFocusUser] = useState(false);
   const [isFocusPosition, checkFocusPosition] = useState(false);
+  const tableData = {
+    itemsHeader: itemsHeader,
+    itemsBody: itemsBody,
+  };
   return (
-    <main className="col-span-4 grid grid-rows-6">
+    <main>
       <Header />
-      <div className="flex justify-between items-center">
-        <div className="flex">
-          <div className="flex items-center">
-            <div className="relative m-4">
-              <input
-                onFocus={() => checkFocusUser(!isFocusUser)}
-                onBlur={() => checkFocusUser(!isFocusUser)}
-                type="search"
-                className="w-full p-2 text-sm border rounded-lg bg-gray-50 outline-none"
-                placeholder="User name"
-              />
-              <div className="absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none">
-                <MdOutlineSearch
-                  className={`w-5 h-5 ${
-                    isFocusUser ? "hidden" : "block"
-                  } text-gray-500`}
-                />
-              </div>
-            </div>
+      <div className="">
+        <div className="flex justify-between items-center">
+          <div className="flex">
+            <SearchTextBox
+              checkFocus={() => checkFocusUser(!isFocusUser)}
+              placeHolder="User name"
+              changeIcon={
+                <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
+              }
+            />
+            <SearchTextBox
+              checkFocus={() => checkFocusPosition(!isFocusPosition)}
+              placeHolder="Position"
+              changeIcon={
+                isFocusPosition ? (
+                  <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
+                ) : (
+                  <ChevronDownIcon className="w-4 h-4 text-gray-500" />
+                )
+              }
+            />
           </div>
-          <div className="flex items-center">
-            <div className="relative m-4">
-              <input
-                onFocus={() => checkFocusPosition(!isFocusPosition)}
-                onBlur={() => checkFocusPosition(!isFocusPosition)}
-                type="search"
-                className="w-full p-2 text-sm border rounded-lg bg-gray-50 outline-none"
-                placeholder="Position"
-              />
-              <div className="absolute inset-y-0 right-2 flex items-center pl-3 pointer-events-none">
-                <MdOutlineExpandMore
-                  className={`w-6 h-6 ${
-                    isFocusPosition ? "hidden" : "block"
-                  } text-gray-500`}
-                />
-              </div>
-            </div>
-          </div>
+          <ButtonWithIcon
+            text="Add member"
+            background="bg-cyan-500"
+            hoverBackground="hover:bg-cyan-400"
+            icon={<PlusIcon className="text-cyan-50 w-5 h-5" />}
+          />
         </div>
-        <div className="flex">
-          <div className="flex items-center">
-            <div className="relative m-4">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                <BiPlus className="text-cyan-50 w-6 h-6" />
-              </div>
-              <button className="w-full p-2 pl-8 text-sm font-medium border rounded-lg bg-cyan-500 hover:bg-cyan-400">
-                Add member
-              </button>
-            </div>
-          </div>
-        </div>
+        <Table item={tableData} />
       </div>
-      <Table />
     </main>
   );
-}
+};
 
 export default UserManagement;

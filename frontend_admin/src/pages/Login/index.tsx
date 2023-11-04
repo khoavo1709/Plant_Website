@@ -17,9 +17,9 @@ function Login() {
                 src="src/assets/plantsLogo.png"
                 className="w-40 h-40 mx-auto"
               />
-              <h1 className="text-center mb-[17px] h-[40px] flex justify-center font-bold">
+              <div className="text-center text-3xl mb-[17px] h-[40px] flex justify-center font-bold">
                 Plant Shop
-              </h1>
+              </div>
               <form action="" className="rounded-lg">
                 {errMsg && (
                   <p className="text-red-500">Invalid email or password</p>
@@ -54,7 +54,7 @@ function Login() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-primary h-[46px] rounded-3xl w-full font-semibold text-[16px] text-white"
+                  className="bg-[#319795] h-[46px] rounded-3xl w-full font-semibold text-[16px] text-white"
                 >
                   Login
                 </button>
