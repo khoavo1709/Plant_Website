@@ -46,7 +46,7 @@ const ProductsManagement = () => {
   return (
     <main>
       <Header />
-      <div className="">
+      <div className="background-main-page p-4 min-h-screen">
         <div className="flex justify-between items-center">
           <div className="flex">
             <SearchTextBox
@@ -69,17 +69,14 @@ const ProductsManagement = () => {
             />
           </div>
           <ButtonWithIcon
-            text="Add member"
+            text="Add product"
             background="bg-cyan-500"
             hoverBackground="hover:bg-cyan-400"
             icon={<PlusIcon className="text-cyan-50 w-5 h-5" />}
           />
         </div>
-        <div className="mt-2 m-20 overflow-x-auto">
-          <Table item={tableData1} />
-
-          <Table item={tableData2} />
-        </div>
+        <Table item={tableData1} />
+        <Table item={tableData2} />
       </div>
     </main>
   );

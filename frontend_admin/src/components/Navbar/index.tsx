@@ -9,7 +9,7 @@ import {
 
 const items = [
   {
-    url: "/dashboard",
+    url: "",
     label: "Dash Board",
     icon: <ChartBarIcon className="w-6 h-6" />,
   },
@@ -40,8 +40,8 @@ const NavItemsContainer = () => (
 
 const Index = () => {
   return (
-    <nav className="border-r-2 w-96">
-      <div className="h-20 flex justify-between items-center border-b-2">
+    <nav className="w-96 overflow-none">
+      <div className="h-20 flex justify-between items-center">
         <div className="mx-4 flex items-center py-2">
           <img src="src/assets/plantsLogo.png" className="w-14 h-14 mr-4" />
           <div className="py-4 font-bold text-xl uppercase">Plant Store</div>

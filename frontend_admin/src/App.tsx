@@ -15,7 +15,6 @@ export default function App() {
           <Route index element={<DashBoard />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/users" element={<UserManagement />} />
           <Route path="/products" element={<ProductsManagement />} />
           <Route path="/orders" element={<OrdersManagement />} />
