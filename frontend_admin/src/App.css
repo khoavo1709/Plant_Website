@@ -7,3 +7,7 @@ body,
 main {
   width: 100%;
 }
+
+.background-main-page {
+  background: #f6f8fb;
+}

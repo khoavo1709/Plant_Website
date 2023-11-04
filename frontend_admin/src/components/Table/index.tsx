@@ -7,8 +7,8 @@ export interface Item {
 
 const Index = ({ item }: { item: Item }) => {
   return (
-    <div className="m-4 border p-4 w-fit rounded-2xl shadow-md">
-      <table className="bg-white text-sm text-left">
+    <div className="m-5 bg-white p-4 rounded-2xl shadow-lg">
+      <table className="text-sm text-left w-full">
         <thead className="uppercase border-b">
           <tr>
             {item.itemsHeader.map((header, index) => (

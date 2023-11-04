@@ -24,7 +24,7 @@ const OrdersManagement = () => {
   return (
     <main>
       <Header />
-      <div className="">
+      <div className="background-main-page">
         <Table item={tableData} />
       </div>
     </main>
