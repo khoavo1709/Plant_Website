@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "type": "PLANT",
+  "name": "Monstera Deliciosa",
+  "title": "A large, tropical plant with distinctive leaves.",
+  "description": "Monstera deliciosa, the Swiss cheese plant[2] or split-leaf philodendron[3] is a species of flowering plant native to tropical forests of southern Mexico, south to Panama.[4] It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant. The common name Swiss cheese plant is also used for the related species from the same genus, Monstera adansonii.[5] The common name  is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron. ",
+  "price": 49.99,
+  "image": "https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio",
+  "quantity": 10
+}
