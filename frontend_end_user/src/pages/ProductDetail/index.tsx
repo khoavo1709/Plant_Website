@@ -3,11 +3,16 @@ import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { objectToCamel } from 'ts-case-convert';
 import { useCart } from '../../hooks/useCart';
+import NotFound from '../NotFound';
 
 const ProductDetailPage = () => {
   const product = objectToCamel(useLoaderData() as object) as Product;
   const [quantity, setQuantity] = useState(1);
   const { addItem, getItem } = useCart();
+
+  if (!product) {
+    return <NotFound />;
+  }
 
   const adjustQuantity = (amount: number) => {
     if (
