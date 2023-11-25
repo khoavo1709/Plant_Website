@@ -1,107 +1,61 @@
 import ButtonWithIcon from "../../components/Button/ButtonWithIcon";
 import SearchTextBox from "../../components/Filter/SearchTextBox";
 import Header from "../../components/Header";
-import Table from "../../components/Table";
+import { TrashIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import "../../App.css";
 import {
   MagnifyingGlassIcon,
   PlusIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddNewMember from "../../components/Popup/AddNewMember";
 import { addNewMember } from "../../hooks/headerHooks";
 import { useAtom } from "jotai";
 
-const itemsBody = [
-  [
-    "User 1",
-    "Nguyen Van A",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 2",
-    "Nguyen Van B",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 3",
-    "Nguyen Van C",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 4",
-    "Nguyen Van D",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 5",
-    "Nguyen Van E",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 6",
-    "Nguyen Van F",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 7",
-    "Nguyen Van G",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 8",
-    "Nguyen Van H",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 9",
-    "Nguyen Van K",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-  [
-    "User 10",
-    "Nguyen Van T",
-    "0900289576",
-    "Ward 12, Go Vap District, Ho Chi Minh City, Viet Name",
-    "Staff",
-  ],
-];
-
-const itemsHeader = [
-  "User name",
-  "Full name",
-  "Phone number",
-  "Address",
-  "Position",
-];
-
 const UserManagement = () => {
+  interface User {
+    id: number;
+    name: string;
+    full_name: string;
+    email: string;
+    mobile: string;
+    address: string;
+    role: string;
+  }
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = () => {
+    fetch("http://localhost:8000/api/users", {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsers(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  };
+
   const [isFocusUser, checkFocusUser] = useState(false);
   const [isFocusPosition, checkFocusPosition] = useState(false);
   const [isOpenAddMemberPopup] = useAtom(addNewMember);
-  const tableData = {
-    itemsHeader: itemsHeader,
-    itemsBody: itemsBody,
-  };
+
   return (
     <main>
       <Header />
@@ -134,7 +88,61 @@ const UserManagement = () => {
             icon={<PlusIcon className="text-cyan-50 w-5 h-5" />}
           />
         </div>
-        <Table item={tableData} />
+        <div className="m-5 bg-white p-4 rounded-2xl shadow-lg">
+          <table className="text-sm text-left w-full">
+            <thead className="uppercase border-b">
+              <tr>
+                <th scope="col" className="px-6 py-4">
+                  User name
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  Full name
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  Email
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  Phone number
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  Address
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  Position
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  <span className="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id} className="border-b hover:bg-gray-50">
+                  <td className="px-6 py-4">{user.name}</td>
+                  <td className="px-6 py-4">{user.full_name}</td>
+                  <td className="px-6 py-4">{user.email}</td>
+                  <td className="px-6 py-4">{user.mobile}</td>
+                  <td className="px-6 py-4">{user.address}</td>
+                  <td className="px-6 py-4">{user.role}</td>
+                  <td className="flex px-6 py-4 justify-end text-slate-400">
+                    <div className="px-2">
+                      <InformationCircleIcon
+                        title="Info"
+                        className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                      />
+                    </div>
+                    <div className="px-2">
+                      <TrashIcon
+                        title="Delete"
+                        className="hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className={`${isOpenAddMemberPopup ? "" : "hidden"}`}>
         <AddNewMember />
