@@ -11,9 +11,17 @@ export type getListPlantsResponse = {
 };
 
 export const getListPlants = async (req: getListPlantsRequest) => {
-  console.log(JSON.stringify(req));
+  const apiUrl = process.env.BACKEND_API_URL || 'https://localhost:8000';
+  const resp = await fetch(`${apiUrl}/api/products?type=PLANT`);
 
-  // :TODO fetch data
-  const resp = await fetch('/mocks/plants.json');
+  if (!resp.ok) {
+    return Promise.resolve({
+      page: req.page,
+      limit: 20,
+      total: 0,
+      data: [],
+    } as getListPlantsResponse);
+  }
+
   return resp.json();
 };
