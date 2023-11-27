@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,16 @@ class ProductController extends Controller
         $limit = $request->input('limit', 20);
         $search = $request->input('search', '');
         $orderBy = $request->input('order_by', 'id');
-        $type = $request->input('type', '');
+        $type = strtoupper($request->input('type', '')); // Convert to uppercase
+        $categoryIds = $request->input('categories', '');
+
+        // Validate the product type
+        if ($type !== '' && !in_array($type, ['PLANT', 'ACCESSORY'])) {
+            return response()->json(['message' => 'Invalid product type'], 400);
+        }
+
+        // Convert the comma-separated string to an array
+        $categoryIds = $categoryIds !== '' ? explode(',', $categoryIds) : [];
 
         // Query builder for products
         $query = Product::query();
@@ -31,8 +41,20 @@ class ProductController extends Controller
             $query->where('type', $type);
         }
 
+
+        // Apply category filter if category IDs are provided
+        if (!empty($categoryIds)) {
+            $query->whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            });
+        }
+
         // Apply order by condition
         $query->orderBy($orderBy);
+
+
+        // Load categories relationship
+        $query->with('categories');
 
         // Paginate the products
         $products = $query->paginate($limit, ['*'], 'page', $page);
@@ -60,11 +82,22 @@ class ProductController extends Controller
 
         $product = Product::create($validatedData);
 
+        // Attach category relationships if provided
+        $categoryIds = $request->input('category_ids', []);
+        if (!empty($categoryIds)) {
+            $product->categories()->attach($categoryIds);
+        }
+
         return response()->json($product, 201);
     }
 
     public function show(Product $product)
     {
+        // Load categories relationship without pivot information
+        $product->load(['categories' => function ($query) {
+            $query->without('pivot');
+        }]);
+
         return response()->json($product);
     }
 
@@ -82,11 +115,33 @@ class ProductController extends Controller
 
         $product->update($validatedData);
 
+        // Delete existing category relationships
+        $product->categories()->detach();
+
+        // Attach new category relationships if provided
+        $categoryIds = $request->input('category_ids', []);
+        if (!empty($categoryIds)) {
+            $product->categories()->attach($categoryIds);
+        }
+
         return response()->json($product, 200);
     }
 
     public function destroy(Product $product)
     {
+        // Check if the product has associated orders
+        $hasOrders = DB::table('purchase_products')
+            ->where('product_id', $product->id)
+            ->exists();
+
+        // If there are orders, return a bad request response
+        if ($hasOrders) {
+            return response()->json(['message' => 'Product has associated orders and cannot be deleted'], 400);
+        }
+
+        // Delete existing category relationships
+        $product->categories()->detach();
+
         $product->delete();
 
         return response()->json(null, 204);

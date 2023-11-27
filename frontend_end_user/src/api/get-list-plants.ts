@@ -11,8 +11,12 @@ export type getListPlantsResponse = {
 };
 
 export const getListPlants = async (req: getListPlantsRequest) => {
-  const apiUrl = process.env.BACKEND_API_URL || 'https://localhost:8000';
-  const resp = await fetch(`${apiUrl}/api/products?type=PLANT`);
+  const apiUrl = import.meta.env.BACKEND_API_URL || 'http://localhost:8000';
+  const resp = await fetch(
+    `${apiUrl}/api/products?type=PLANT&page=${req.page} ${
+      req.categories.length > 0 ? 'categories=' + req.categories.join(',') : ''
+    }`
+  );
 
   if (!resp.ok) {
     return Promise.resolve({
