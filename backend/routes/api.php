@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,13 @@ Route::get('/health_check', function () {
 Route::resource('products', ProductController::class);
 
 Route::resource('categories', CategoryController::class);
+
+Route::get('/purchases', [PurchaseController::class, 'index']);
+
+Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard']);
+
+Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
+
+Route::post('/purchases', [PurchaseController::class, 'store']);
+
+Route::post('/purchases/{id}', [PurchaseController::class, 'update']);

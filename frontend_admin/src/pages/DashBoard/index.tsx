@@ -1,37 +1,84 @@
 import Header from "../../components/Header";
 import SalesStatistics from "../../components/SalesStatistics";
-import { useGetOrders } from "../../hooks/useGetOrders";
-import { Order } from "../../../types/order";
 import CompareChart from "../../components/CompareChart";
 import StatusPieChart from "../../components/StatusPieChart/StatusPieChart";
 import ListActivity from "../../components/ListActivity";
 import ProductChart from "../../components/ProductChart";
+import { useState, useEffect } from "react";
 
-export interface OrdersResponse {
-  page: number;
-  limit: number;
+type ProductDashboard = {
+  id: number;
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  pivot: {
+    purchase_id: number;
+    product_id: number;
+    quantity: number;
+    price: number;
+  };
+};
+
+type PurchaseDashboard = {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  mobile: string;
+  address: string;
   total: number;
-  data: Order[];
-}
+  status: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+  products: ProductDashboard[];
+};
+
+type PurchasesDashboard = {
+  purchases: PurchaseDashboard[];
+};
 const DashBoard = () => {
-  let orderdata: OrdersResponse = { page: 0, limit: 0, total: 0, data: [] };
-  if (orderdata.data.length === 0) {
-    const orders = useGetOrders();
-    if (orders !== null) {
-      orderdata.data = orders;
-    }
-  }
-  const data = orderdata.data;
+  const [data, setData] = useState<PurchasesDashboard>(
+    {} as PurchasesDashboard
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/purchases/dashboard`);
+        const responseData = await response.json();
+        setData(responseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <main>
       <Header />
       <div className="background-main-page p-4">
-        <SalesStatistics data={data} />
+        <SalesStatistics data={
+          data.purchases ? data.purchases : []
+        } />
         <div className="grid grid-cols-3 gap-4 p-2">
-          <CompareChart data={data} />
-          <StatusPieChart data={data} />
-          <ProductChart data={data} />
-          <ListActivity data={data} />
+          <CompareChart data={
+            data.purchases ? data.purchases : []
+          } />
+          <StatusPieChart data={
+            data.purchases ? data.purchases : []
+          } />
+          <ProductChart data={
+            data.purchases ? data.purchases : []
+          } />
+          <ListActivity data={
+            data.purchases ? data.purchases : []
+          } />
         </div>
       </div>
     </main>

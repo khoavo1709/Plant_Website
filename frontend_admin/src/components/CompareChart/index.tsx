@@ -8,10 +8,38 @@ import {
   Line,
   ResponsiveContainer,
 } from "recharts";
-import { Order } from "../../../types/order";
-import { useEffect, useState } from "react";
+type ProductDashboard = {
+  id: number;
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  pivot: {
+    purchase_id: number;
+    product_id: number;
+    quantity: number;
+    price: number;
+  };
+};
 
-const CompareChart = ({ data }: { data: Order[] }) => {
+type PurchaseDashboard = {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  mobile: string;
+  address: string;
+  total: number;
+  status: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+  products: ProductDashboard[];
+};
+
+const CompareChart = ({ data }: { data: PurchaseDashboard[] }) => {
   const linechartdata: { name: string; PLANT: number; ACCESSORY: number }[] =
     [];
   const getMonthYear = (date: Date) => {
@@ -23,20 +51,18 @@ const CompareChart = ({ data }: { data: Order[] }) => {
   const aggregatedData = new Map();
 
   data.forEach((purchase) => {
-    if (purchase.status !== "delivered") return;
-    const monthYear = getMonthYear(new Date(purchase.purchaseAt));
+    if (purchase.status !== "COMPLETED") return;
+    const monthYear = getMonthYear(new Date(purchase.created_at));
 
     if (!aggregatedData.has(monthYear)) {
       aggregatedData.set(monthYear, { PLANT: 0, ACCESSORY: 0 });
     }
 
-    purchase.purchaseProducts.forEach(
-      (item: { product: { type: any }; price: number; quantity: number }) => {
-        const productType = item.product.type;
-        aggregatedData.get(monthYear)[productType] +=
-          item.price * item.quantity;
-      }
-    );
+    purchase.products.forEach((item) => {
+      const productType = item.type;
+      aggregatedData.get(monthYear)[productType] +=
+        item.pivot.price * item.pivot.quantity;
+    });
   });
 
   aggregatedData.forEach((quantities, monthYear) => {

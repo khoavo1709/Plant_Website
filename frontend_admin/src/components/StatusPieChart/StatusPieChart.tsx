@@ -1,28 +1,61 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import { Order } from "../../../types/order";
+type ProductDashboard = {
+  id: number;
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  pivot: {
+    purchase_id: number;
+    product_id: number;
+    quantity: number;
+    price: number;
+  };
+};
 
-const StatusPieChart = ({ data }: { data: Order[] }) => {
-  function getPieChartData(data: Order[]) {
+type PurchaseDashboard = {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  mobile: string;
+  address: string;
+  total: number;
+  status: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+  products: ProductDashboard[];
+};
+
+const StatusPieChart = ({ data }: { data: PurchaseDashboard[] }) => {
+  function getPieChartData(data: PurchaseDashboard[]) {
     const pieChartData = [
       { name: "PENDING", value: 0 },
-      { name: "SHIPPING", value: 0 },
-      { name: "DELIVERY", value: 0 },
       { name: "PROCESSING", value: 0 },
+      { name: "SHIPPED", value: 0 },
+      { name: "CANCELLED", value: 0 },
+      { name: "COMPLETED", value: 0 },
     ];
 
     data.forEach((purchase) => {
       switch (purchase.status) {
-        case "pending":
+        case "PENDING":
           pieChartData[0].value += 1;
           break;
-        case "shipping":
+        case "PROCESSING":
           pieChartData[1].value += 1;
           break;
-        case "delivered":
+        case "SHIPPED":
           pieChartData[2].value += 1;
           break;
-        case "processing":
+        case "CANCELLED":
           pieChartData[3].value += 1;
+          break;
+        case "COMPLETED":
+          pieChartData[4].value += 1;
           break;
         default:
           break;
@@ -33,7 +66,7 @@ const StatusPieChart = ({ data }: { data: Order[] }) => {
   }
   const piechartdata = getPieChartData(data);
 
-  const COLORS = ["#FFD700", "#0000FF", "#008000", "#FFA500"];
+  const COLORS = ["#FFD700",  "#FF00FF", "#FFA500", "#FF0000","#008000"];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({

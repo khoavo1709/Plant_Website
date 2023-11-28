@@ -109,14 +109,49 @@ const Cart = ({}) => {
       [name]: value,
     }));
   };
+  const storePurchaseData = async () => {
+    const purchaseData = {
+      customer_name: formData.name,
+      customer_email: formData.email,
+      mobile: formData.phoneNumber,
+      status: 'PENDING',
+      total: cart.totalPrice,
+      address: formData.address,
+      note: 'This is an optional note.',
+      products: cart.cartItems.map((item) => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+        price: item.unitPrice,
+      })),
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      const response = await fetch('http://localhost:8000/api/purchases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(purchaseData),
+      });
+
+      if (response.ok) {
+        console.log('Purchase data sent successfully:', purchaseData);
+        // You can handle further actions after successful data submission
+      } else {
+        console.error('Failed to send purchase data:', response.status);
+        // Handle error cases
+      }
+    } catch (error) {
+      console.error('Error while sending purchase data:', error);
+      // Handle network errors
+    }
   };
+
+
   const checkOutSubmit = () => {
     console.log('Form submitted:', formData);
     console.log('Cart submitted:', cart);
+    storePurchaseData();
   };
   return (
     <div className=" max-w-screen-xl mx-auto grid grid-rows-4 bg-gray-100">
@@ -158,7 +193,7 @@ const Cart = ({}) => {
       </div>
       <div className="row-span-2 mx-4 rounded-2xl mt-4 sm:mt-0 p-8 bg-white">
         <h1 className="text-xl font-semibold mb-6">Payment Information</h1>
-        <form onSubmit={handleSubmit} className="w-full">
+        <form className="w-full">
           <div className="mb-4">
             <label
               htmlFor="name"
