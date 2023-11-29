@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export interface Item {
   text: string;
   background: string;
@@ -12,12 +14,14 @@ const ButtonWithIcon = ({
   onclickFunc,
 }: Item) => {
   return (
-    <button
-      onClick={onclickFunc}
-      className={`h-10 rounded-full flex items-center px-6 font-medium text-sm ${background} ${hoverBackground}`}
-    >
-      {text}
-    </button>
+    <Link to="/users">
+      <button
+        onClick={onclickFunc}
+        className={`h-10 rounded-full flex items-center px-6 font-medium text-sm ${background} ${hoverBackground}`}
+      >
+        {text}
+      </button>
+    </Link>
   );
 };
 

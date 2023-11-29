@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('address');
             $table->text('password');
-            $table->timestamps();
+            $table->timestamps();   
         });
     }
 
