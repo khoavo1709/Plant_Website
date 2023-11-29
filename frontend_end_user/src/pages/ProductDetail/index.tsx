@@ -8,6 +8,7 @@ import NotFound from '../NotFound';
 const ProductDetailPage = () => {
   const product = objectToCamel(useLoaderData() as object) as Product;
   const [quantity, setQuantity] = useState(1);
+  const price = product.price;
   const { addItem, getItem } = useCart();
 
   if (!product) {
@@ -28,13 +29,12 @@ const ProductDetailPage = () => {
 
   const addToCart = () => {
     const item = getItem(product.id);
-
     if (item && quantity + item.quantity > product.quantity) {
       window.alert('Preceded maxium quantity of product!');
       return;
     }
 
-    addItem(product.id, quantity);
+    addItem(product, quantity, price);
   };
 
   return (
