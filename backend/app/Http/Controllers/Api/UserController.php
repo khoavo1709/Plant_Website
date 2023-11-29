@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Log;
+
+use function Psy\debug;
 
 class UserController extends Controller
 {
@@ -15,33 +19,26 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::query()->orderBy(column: 'id', direction: 'desc')->paginate());
+        return response()->json(['data' => User::query()->orderBy(column: 'id', direction: 'desc')->paginate()->items()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserRequest $request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
-        $user = User::created($data);
+        $user = User::create($data);
         return response(new UserResource($user), status: 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::findOrFail($id);
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
+        $user = User::findOrFail($id);
         $data = $request->validated();
         if (isset($data['password'])) {
             $data['password'] = bcrypt($data['password']);
@@ -50,9 +47,6 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
         $user->delete();

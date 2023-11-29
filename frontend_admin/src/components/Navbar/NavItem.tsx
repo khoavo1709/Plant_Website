@@ -13,6 +13,9 @@ const NavItem = ({ item }: { item: Item }) => {
   const setHeaderTitle = useSetAtom(title);
   const changeHeaderTitle = () => {
     setHeaderTitle(label);
+    // return `flex mb-2 py-2 px-4 rounded-xl hover:shadow-transparent cursor-pointer ${
+    //   isActive ? "bg-cyan-100" : ""
+    // }`;
   };
 
   return (
@@ -22,7 +25,7 @@ const NavItem = ({ item }: { item: Item }) => {
         onClick={changeHeaderTitle}
         className={({ isActive }) =>
           `flex mb-2 py-2 px-4 rounded-xl hover:shadow-transparent cursor-pointer ${
-            isActive ? "bg-cyan-100" : ""
+            isActive ? "bg-cyan-50" : ""
           }`
         }
       >

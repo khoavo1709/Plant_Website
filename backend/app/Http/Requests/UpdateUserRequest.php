@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
+use App\Models\User;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -22,9 +24,17 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'name' => 'required|string|max:55',
-            // 'email' => 'required|email|unique:users,email'.$this->id,
-            // 'password' => ['required', 'confirmed', Password::min(8)->letters()->symbols()]
+            'name' => 'required|string|max:255|unique:users,name,' . $this->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $this->id,
+            'full_name' => 'required|string|max:255',
+            'role' => 'required|in:ADMIN,EMPLOYEE',
+            'gender' => 'required|in:MALE,FEMALE,OTHER',
+            'mobile' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'password' => [
+                'required',
+                Password::min(8)->letters()->symbols(),
+            ]
         ];
     }
 }

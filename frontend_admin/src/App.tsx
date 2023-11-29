@@ -6,6 +6,7 @@ import UserManagement from "./pages/UsersManagement";
 import ProductsManagement from "./pages/ProductsManagement";
 import Layout from "./components/layout";
 import OrdersManagement from "./pages/OrdersManagement";
+import AddNewMember from "./pages/UsersManagement/AddNewMember";
 
 export default function App() {
   return (
@@ -15,6 +16,14 @@ export default function App() {
           <Route index element={<DashBoard />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/users/new"
+            element={<AddNewMember key="userCreate" />}
+          />
+          <Route
+            path="/users/:id"
+            element={<AddNewMember key="userUpdate" />}
+          />
           <Route path="/users" element={<UserManagement />} />
           <Route path="/products" element={<ProductsManagement />} />
           <Route path="/orders" element={<OrdersManagement />} />
