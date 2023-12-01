@@ -47,7 +47,18 @@ const ViewEditOrder = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, [id]);
 
+  const caculateTotal = () => {
+    let total = 0;
+    formData.products.forEach((product: IProduct) => {
+      total += product.pivot.quantity * product.pivot.price;
+    });
+    return total;
+  };
+
   const submitForm = () => {
+    if (!window.confirm("Are you sure you want to edit this order?")) {
+      return;
+    }
     const products = formData.products.map((product: IProduct) => {
       return {
         product_id: product.id,
@@ -57,36 +68,23 @@ const ViewEditOrder = () => {
     });
     const url = `http://localhost:8000/api/purchases/${id}`;
 
-    const requestOptions = {
-      method: "POST",
+    fetch(url, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         customer_name: formData.customer_name,
         customer_email: formData.customer_email,
         mobile: formData.mobile,
         address: formData.address,
-        total: formData.total,
+        total: caculateTotal(),
         status: formData.status,
         note: formData.note,
         products: products as ProductInOrder[],
       }),
-    };
-    alert(
-      JSON.stringify({
-        customer_name: formData.customer_name,
-        customer_email: formData.customer_email,
-        mobile: formData.mobile,
-        address: formData.address,
-        total: formData.total,
-        status: formData.status,
-        note: formData.note,
-        products: products as ProductInOrder[],
-      })
-    );
-
-    fetch(url, requestOptions)
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -110,6 +108,7 @@ const ViewEditOrder = () => {
           ...product,
           pivot: {
             quantity: newQuantity,
+            price: product.pivot.price,
           },
         };
       }
@@ -138,139 +137,170 @@ const ViewEditOrder = () => {
   return (
     <main>
       <Header />
-      <h1 className="text-xl font-bold m-2">Edit Order</h1>
-      <form className="grid grid-cols-2">
-        <div className=" col-span-1">
-          <label htmlFor="customerName" className="mb-2 text-sm font-medium">
-            Customer Name:
-          </label>
-          <input
-            value={formData.customer_name}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5"
-            onChange={(e) =>
-              setFormData({ ...formData, customer_name: e.target.value })
-            }
-            type="text"
-            id="customerName"
-          />
+      <div className="background-main-page p-2">
+        <div className="m-5 bg-white p-4 rounded-2xl shadow-lg">
+        <h1 className="text-xl font-bold m-2">Edit Order</h1>
+        <form className="grid grid-cols-2">
+          <div className=" col-span-1">
+            <label htmlFor="customerName" className="mb-2 text-sm font-medium">
+              Customer Name:
+            </label>
+            <input
+              value={formData.customer_name}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5"
+              onChange={(e) =>
+                setFormData({ ...formData, customer_name: e.target.value })
+              }
+              type="text"
+              id="customerName"
+            />
 
-          <label htmlFor="customerEmail">Customer Email:</label>
-          <input
-            value={formData.customer_email}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) =>
-              setFormData({ ...formData, customer_email: e.target.value })
-            }
-            type="email"
-            id="customerEmail"
-          />
+            <label htmlFor="customerEmail">Customer Email:</label>
+            <input
+              value={formData.customer_email}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, customer_email: e.target.value })
+              }
+              type="email"
+              id="customerEmail"
+            />
 
-          <label htmlFor="customerPhone">Customer Phone</label>
-          <input
-            value={formData.mobile}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) =>
-              setFormData({ ...formData, mobile: e.target.value })
-            }
-            type="text"
-            id="customerPhone"
-          />
+            <label htmlFor="customerPhone">Customer Phone</label>
+            <input
+              value={formData.mobile}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, mobile: e.target.value })
+              }
+              type="text"
+              id="customerPhone"
+            />
 
-          <label htmlFor="customerAddress">Customer Address</label>
-          <input
-            value={formData.address}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) =>
-              setFormData({ ...formData, address: e.target.value })
-            }
-            type="text"
-            id="customerAddress"
-          />
+            <label htmlFor="customerAddress">Customer Address</label>
+            <input
+              value={formData.address}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, address: e.target.value })
+              }
+              type="text"
+              id="customerAddress"
+            />
 
-          <label htmlFor="status">Status</label>
-          <select
-            value={formData.status}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) =>
-              setFormData({ ...formData, status: e.target.value })
-            }
-            id="status"
+            <label htmlFor="status">Status</label>
+            <select
+              value={formData.status}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, status: e.target.value })
+              }
+              id="status"
+            >
+              <option value="PENDING">PENDING</option>
+              <option value="PROCESSING">PROCESSING</option>
+              <option value="SHIPPED">SHIPPED</option>
+              <option value="COMPLETED">COMPLETED</option>
+              <option value="CANCELLED">CANCELLED</option>
+            </select>
+
+            <label htmlFor="note">Note</label>
+            <textarea
+              value={formData.note}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, note: e.target.value })
+              }
+              id="note"
+            />
+
+            <label htmlFor="total">Total</label>
+            <input
+              value={caculateTotal()}
+              className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
+              onChange={(e) =>
+                setFormData({ ...formData, total: e.target.value })
+              }
+              type="text"
+              id="total"
+              readOnly
+            />
+          </div>
+
+          <div className=" col-span-1 m-8">
+            <table className="text-sm text-left ">
+              <thead className="uppercase border-b">
+                <tr>
+                  <th scope="col" className="px-6 py-4">
+                    Product Name
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Image
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Quantity
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Unit Price
+                  </th>
+
+                  <th scope="col" className="px-6 py-4">
+                    <span className="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.products.map((product: IProduct) => (
+                  <tr key={product.id} className="border-b hover:bg-gray-50">
+                    <td className="px-6 py-4">{product.name}</td>
+                    <td className="px-6 py-4">
+                      <img
+                        className="w-20 h-20"
+                        src={product.image}
+                        alt={product.name}
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        className="w-20 h-10 text-center border"
+                        type="number"
+                        value={product.pivot.quantity}
+                        onChange={(e) =>
+                          updateProduct(product.id, parseInt(e.target.value))
+                        }
+                      />
+                    </td>
+                    <td className="px-6 py-4">{product.pivot.price}</td>
+
+                    <td className="flex px-6 py-4 justify-end text-slate-400">
+                      <div className="px-2">
+                        <button
+                          title="delete"
+                          onClick={() => removeProduct(product.id)}
+                          className="m-2 bg-red-100 border border-gray-300 text-sm rounded-xl outline-none"
+                        >
+                          <TrashIcon
+                            title="Delete"
+                            titleId="delete"
+                            className=" w-5 h-5 text-gray-500 hover:text-red-500"
+                          />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button
+            className=" my-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-xl hover:bg-blue-600"
+            onClick={submitForm}
           >
-            <option value="PENDING">PENDING</option>
-            <option value="PROCESSING">PROCESSING</option>
-            <option value="SHIPPED">SHIPPED</option>
-            <option value="COMPLETED">COMPLETED</option>
-            <option value="CANCELLED">CANCELLED</option>
-          </select>
-
-          <label htmlFor="note">Note</label>
-          <textarea
-            value={formData.note}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-            id="note"
-          />
-
-          <label htmlFor="total">Total</label>
-          <input
-            value={formData.total}
-            className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-            onChange={(e) =>
-              setFormData({ ...formData, total: e.target.value })
-            }
-            type="text"
-            id="total"
-          />
+            Submit
+          </button>
+        </form>
         </div>
-        <div className=" col-span-1 ml-8">
-          <h2 className="text-lg font-bold ">Products</h2>
-          {formData.products.map((product: IProduct) => (
-            <div key={product.id} className="flex items-center border-b-2">
-              <img
-                className="w-20 h-20 object-cover rounded-xl"
-                src={product.image}
-                alt={product.name}
-              />
-
-              <div className="ml-4 grid grid-flow-col gap-8 place-content-center">
-                <h2 className="text-lg font-bold">{product.name}</h2>
-                <p className="text-sm font-medium">
-                  {/* Display quantity and price */}
-                  {product.pivot.quantity} x ${product.pivot.price}
-                </p>
-                {/* Input for updating quantity */}
-                <input
-                  type="number"
-                  title="quantity"
-                  value={product.pivot.quantity}
-                  className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-20 p-2.5 text-center"
-                  onChange={(e) =>
-                    updateProduct(product.id, parseInt(e.target.value, 10))
-                  }
-                />
-                {/* Button for removing the product */}
-                <button
-                  title="delete"
-                  onClick={() => removeProduct(product.id)}
-                  className="m-2 bg-red-100 border border-gray-300 text-sm rounded-xl outline-none"
-                >
-                  <TrashIcon
-                    title="Delete"
-                    titleId="delete"
-                    className=" w-5 h-5 text-gray-500 hover:text-red-500"
-                  />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button
-          className=" my-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-xl hover:bg-blue-600"
-          onClick={submitForm}
-        >
-          Submit
-        </button>
-      </form>
+      </div>
     </main>
   );
 };

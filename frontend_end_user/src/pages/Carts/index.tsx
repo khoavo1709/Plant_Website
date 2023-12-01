@@ -8,29 +8,31 @@ type Cart = {
 
 const Cart = ({}) => {
   const data = localStorage.getItem('cart');
+
   const parsedData: CartItem[] = data ? JSON.parse(data) : [];
   let cart: Cart = {
     cartItems: parsedData,
   };
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    if (data) {
-      setTotalPrice(
-        cart.cartItems.reduce((total, item) => {
-          return total + item.price * item.quantity;
-        }, 0)
-      );
-    } else {
-      console.log('No data found in localStorage');
-    }
-  }, [cart]);
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
     email: '',
     address: '',
   });
+  
+  useEffect(() => {
+    const data = localStorage.getItem('cart');
+    const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+    cart = {
+      cartItems: parsedData,
+    };
+  }, []);
+
+  const totalPrice = cart.cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -80,63 +82,33 @@ const Cart = ({}) => {
   };
 
   const checkOutSubmit = () => {
-    //show confirm dialog with total price
-    //if user click ok, submit form
-    //else do nothing
+    if (!cart || cart.cartItems.length === 0) {
+      alert('No items in cart');
+      return;
+    }
 
-    const totalPrice = cart.cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
-
-    if (confirm('Total price: $' + totalPrice +'\nConfirm checkout?')) {
+    if (confirm('Total price: $' + totalPrice + '\nConfirm checkout?')) {
       console.log('Form submitted:', formData);
       console.log('Cart submitted:', cart);
       storePurchaseData();
     }
   };
   return (
-    <div className=" max-w-screen-xl mx-auto grid grid-rows-4 bg-gray-100">
-      <div className="row-span-2 ">
-        <div className="md:grid grid-cols-4 sm:m-4 mx-4 gap-4  ">
-          <div className="rounded-2xl col-span-4 p-8 bg-white mt-4 sm:mt-0 overflow-x-auto">
-            {cart ? (
-              <CartTable cartItems={cart.cartItems} />
-            ) : (
-              <p className="text-xl text-left font-semibold">
-                No items in cart
-              </p>
-            )}
+    <div className=" w-full max-w-5xl mx-auto md:grid md:grid-cols-3 md:gap-2 md:justify-center bg-gray-100">
+      <div className=" rounded-2xl md:col-span-2 bg-white p-4">
+        <div className=" overflow-x-auto">
+          {cart ? (
+            <CartTable cartItems={cart.cartItems} />
+          ) : (
+            ''
+          )}
 
-            <div className=" items-end float-right pr-2 text-blue-500">
-              <a href="../">Continue shopping</a>
-            </div>
-            <button
-              className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 "
-              onClick={checkOutSubmit}
-            >
-              CHECKOUT
-            </button>
+          <div className=" items-end float-right pr-2 text-blue-500">
+            <a href="../">Continue shopping</a>
           </div>
-          {/* <div className=" flex p-2 pt-4 justify-center rounded-2xl col-span-1 bg-white mt-4 md:mt-0 ">
-            <div className="">
-              <h1 className="text-xl font-semibold mb-6">Order summary</h1>
-              <div className="flex justify-between my-4">
-                <p className="text-lg">Total price:</p>
-                <p className="text-lg">
-                  $
-                  {cart
-                    ? cart.cartItems.reduce((total, item) => {
-                        return total + item.price * item.quantity;
-                      }, 0)
-                    : 0}
-                </p>
-              </div>
-              <p className="text-sm text-gray-500">Shipping fee not included</p>
-            </div>
-          </div> */}
         </div>
       </div>
-      <div className="row-span-2 mx-4 rounded-2xl mt-4 sm:mt-0 p-8 bg-white">
+      <div className=" rounded-2xl md:col-span-1 bg-white p-4">
         <h1 className="text-xl font-semibold mb-6">Payment Information</h1>
         <form className="w-full">
           <div className="mb-4">
@@ -152,6 +124,7 @@ const Cart = ({}) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              required
               className="w-full px-3 py-2 border rounded outline-green-200 "
             />
           </div>
@@ -168,6 +141,7 @@ const Cart = ({}) => {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
+              required
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
           </div>
@@ -183,6 +157,7 @@ const Cart = ({}) => {
               id="email"
               name="email"
               value={formData.email}
+              required
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
@@ -197,12 +172,22 @@ const Cart = ({}) => {
             <input
               id="address"
               name="address"
+              required
               value={formData.address}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
           </div>
+          {/* <p className="text-lg font-semibold mt-4">
+            Total Price: ${totalPrice}
+          </p> */}
         </form>
+        <button
+          className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 "
+          onClick={checkOutSubmit}
+        >
+          CHECKOUT
+        </button>
       </div>
     </div>
   );

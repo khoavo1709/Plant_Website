@@ -2,16 +2,24 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { CartItem } from '../../types/cart-item';
 
-const cartAtom = atomWithStorage('cart', [] as CartItem[]);
-
 export const useCart = () => {
-  const [cart, setCart] = useAtom(cartAtom);
+  const dataStoredInLocal = localStorage.getItem('cart');
+  console.log('dataStoredInLocal', dataStoredInLocal);
+  const [cart, setCart] = useAtom(
+    atomWithStorage<CartItem[]>(
+      'cart',
+      dataStoredInLocal ? JSON.parse(dataStoredInLocal) : []
+    )
+  );
 
   const updateCart = (cart: CartItem[]) => {
     setCart(cart);
   };
 
   const removeItem = (productID: number) => {
+    if (confirm('Are you sure you want to remove this item?') == false) {
+      return;
+    }
     setCart(cart.filter((c) => c.product.id !== productID));
   };
 
@@ -22,8 +30,8 @@ export const useCart = () => {
     }
     const i = cart.findIndex((c) => c.product.id === product.id);
     if (i !== -1) {
-      cart[i].quantity += quantity;
-      setCart(cart);
+      alert('Item already in cart');
+      return;
     } else {
       setCart([
         ...cart,

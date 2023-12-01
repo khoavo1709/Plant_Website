@@ -7,8 +7,7 @@ interface Props {
 }
 
 const CartTable = ({ cartItems }: Props) => {
-  useEffect(() => {
-  }, [cartItems]);
+  useEffect(() => {}, [cartItems]);
   return (
     <>
       {cartItems?.length > 0 ? (
@@ -36,7 +35,7 @@ const CartTable = ({ cartItems }: Props) => {
           </thead>
           <tbody>
             {cartItems.map((item) => (
-              <CartItem item={item}/>
+              <CartItem item={item} />
             ))}
           </tbody>
         </table>

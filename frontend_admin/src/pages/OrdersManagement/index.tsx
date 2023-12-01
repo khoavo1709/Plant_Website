@@ -1,9 +1,16 @@
-import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
+import {
+  InformationCircleIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import SearchTextBox from "../../components/Filter/SearchTextBox";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
 import { Purchase } from "../../../types/purchase";
+import { Link } from "react-router-dom";
+import Pagination from "../../components/Pagination";
 
 const itemsHeader = [
   "Full name",
@@ -23,9 +30,10 @@ type IResponse = {
 };
 
 const OrdersManagement = () => {
-  const [isFocusNameOrMail, checkFocusNameOrMail] = useState(false);
-  const [isFocusPhone, checkFocusPhone] = useState(false);
   const searchParams = new URLSearchParams(document.location.search);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [total, setTotal] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
   const [tempNameOrMail, setTempNameOrMail] = useState<string>("");
   const [tempPhone, setTempPhone] = useState<string>("");
   const [tempStatus, setTempStatus] = useState<string>("");
@@ -47,6 +55,9 @@ const OrdersManagement = () => {
       setTempNameOrMail(name);
       setTempPhone(phone);
       setTempStatus(status);
+      setCurrentPage(Number(page));
+      setLimit(Number(limit));
+      setTotal(data.total);
 
       try {
         let url = `http://localhost:8000/api/purchases?`;
@@ -85,6 +96,16 @@ const OrdersManagement = () => {
     window.location.href = url.toString();
   };
 
+  const onPageChange = () => (page: number) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("page", page.toString());
+    url.searchParams.set("name_or_mail", tempNameOrMail);
+    url.searchParams.set("mobile", tempPhone);
+    url.searchParams.set("status", tempStatus);
+
+    window.location.href = url.toString();
+  };
+
   return (
     <main>
       <Header />
@@ -92,7 +113,7 @@ const OrdersManagement = () => {
         <div>
           <div className="flex justify-between items-center">
             <div className="relative flex">
-              <div className="flex items-center">
+              <div className="grid grid-cols-3 gap-8 ml-6 ">
                 <div className="relative">
                   {/* <SearchTextBox
                     checkFocus={() => checkFocusNameOrMail(!isFocusNameOrMail)}
@@ -108,7 +129,7 @@ const OrdersManagement = () => {
                   /> */}
                   <input
                     type="search"
-                    className="w-full mx-4 p-2 text-sm border rounded-lg bg-gray-50 outline-none"
+                    className="w-full mt-8 p-2 text-sm border rounded-lg bg-gray-50 outline-none"
                     placeholder="Name or mail"
                     value={tempNameOrMail || ""}
                     onChange={(e) => {
@@ -131,7 +152,7 @@ const OrdersManagement = () => {
                   /> */}
                   <input
                     type="search"
-                    className="w-full p-2 mx-4 text-sm border rounded-lg bg-gray-50 outline-none"
+                    className="w-full mt-8 p-2 text-sm border rounded-lg bg-gray-50 outline-none"
                     placeholder="Phone number"
                     value={tempPhone || ""}
                     onChange={(e) => {
@@ -143,7 +164,7 @@ const OrdersManagement = () => {
                 <div className="relative">
                   <select
                     title="StatusSearch"
-                    className="w-full p-2 mx-4 text-sm border rounded-lg bg-gray-50 outline-none"
+                    className="w-full mt-8 p-2 mx-1 text-sm border rounded-lg bg-gray-50 outline-none"
                     placeholder="Status"
                     value={tempStatus || ""}
                     onChange={(e) => {
@@ -166,22 +187,75 @@ const OrdersManagement = () => {
         </div>
 
         <div className="">
-          <Table
-            item={{
-              itemsHeader: itemsHeader,
-              itemsBody: data.data.map((purchase) => [
-                purchase.customer_name,
-                purchase.customer_email,
-                purchase.mobile,
-                purchase.address,
-                purchase.total.toString(),
-                purchase.status,
-                new Date(purchase.created_at).toLocaleDateString() +
-                  " " +
-                  new Date(purchase.created_at).toLocaleTimeString(),
-              ]),
-            }}
-          />
+          <div className="m-7 bg-white p-4 rounded-2xl shadow-md">
+            <table className="text-sm text-left w-full">
+              <thead className="uppercase border-b">
+                <tr>
+                  <th scope="col" className="px-6 py-4">
+                    Full name
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Email
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Phone number
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Address
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Total price
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Order date
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    <span className="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.data.map((purchase) => (
+                  <tr key={purchase.id} className="border-b hover:bg-gray-50">
+                    <td className="px-6 py-4">{purchase.customer_name}</td>
+                    <td className="px-6 py-4">{purchase.customer_email}</td>
+                    <td className="px-6 py-4">{purchase.mobile}</td>
+                    <td className="px-6 py-4">{purchase.address}</td>
+                    <td className="px-6 py-4">{purchase.total}</td>
+                    <td className="px-6 py-4">{purchase.status}</td>
+                    <td className="px-6 py-4">
+                      {new Date(purchase.created_at).toLocaleDateString() +
+                        " " +
+                        new Date(purchase.created_at).toLocaleTimeString()}
+                    </td>
+
+                    <td className="flex px-6 py-4 justify-end text-slate-400">
+                      <div className="px-2">
+                        <Link to={"/orders/" + purchase.id}>
+                          <InformationCircleIcon
+                            title="Info"
+                            className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                          />
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={
+              data.total % limit === 0
+                ? Math.floor(data.total / limit)
+                : Math.floor(data.total / limit) + 1
+            }
+            onPageChange={onPageChange()}
+          ></Pagination>
         </div>
       </div>
     </main>

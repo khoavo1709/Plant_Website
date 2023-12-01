@@ -95,6 +95,15 @@ class PurchaseController extends Controller
         // Create a new purchase
         $purchase = Purchase::create($validatedData);
 
+        //calculate total price
+        $total = 0;
+
+        foreach ($productsData as $productData) {
+            $total += $productData['price'] * $productData['quantity'];
+        }
+
+        $purchase->total = $total;
+
         // Associate products with the purchase in the pivot table
         foreach ($productsData as $productData) {
             $purchase->products()->attach($productData['product_id'], [
@@ -111,10 +120,40 @@ class PurchaseController extends Controller
     }
     public function update(Request $request, $id)
     {
-        // using post method to update purchase status
+        // Validate the request data for the purchase
+        $validatedData = $request->validate([
+            'customer_name' => 'string',
+            'customer_email' => 'email',
+            'mobile' => 'string|max:20',
+            'status' => 'in:PENDING,PROCESSING,SHIPPED,COMPLETED,CANCELLED',
+            'total' => 'numeric',
+            'address' => 'string',
+            'note' => 'nullable|string',
+        ]);
+
+        // Extract product data from the request
+        $productsData = $request->input('products', []);
+
+        // Start a database transaction
+        DB::beginTransaction();
+
+        // Update the purchase
         $purchase = Purchase::findOrFail($id);
-        $purchase->status = $request->input('status');
-        $purchase->save();
+        $purchase->update($validatedData);
+
+        // Sync products with the purchase in the pivot table
+        $purchase->products()->sync([]);
+        foreach ($productsData as $productData) {
+            $purchase->products()->attach($productData['product_id'], [
+                'quantity' => $productData['quantity'],
+                'price' => $productData['price'],
+            ]);
+        }
+
+        // Commit the transaction
+        DB::commit();
+
+        // Return a successful response
         return response()->json(['purchase' => $purchase]);
     }
 }

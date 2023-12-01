@@ -39,14 +39,14 @@ const ListActivity = ({ data }: { data: PurchaseDashboard[] }) => {
 
       {data.map((order: PurchaseDashboard) => (
         <div key={order.id}>
-          {order.status === "PENDDING" && (
+          {order.status === "PENDING" && (
             <p className="p-2 m-2 bg-yellow-100 text-sm">
               Customer {order.customer_name} just placed an order value $
               {order.total} with ID {order.id}.
             </p>
           )}
           {order.status === "PROCESSING" && (
-            <p className="p-2 m-2 bg-yellow-100 text-sm">
+            <p className="p-2 m-2 bg-[#fcadfc] text-sm">
               An order value ${order.total} with ID {order.id} just confirmed.
             </p>
           )}

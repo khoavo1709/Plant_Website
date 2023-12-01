@@ -43,4 +43,4 @@ Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
 
 Route::post('/purchases', [PurchaseController::class, 'store']);
 
-Route::post('/purchases/{id}', [PurchaseController::class, 'update']);
+Route::put('/purchases/{id}', [PurchaseController::class, 'update']);

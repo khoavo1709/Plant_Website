@@ -39,6 +39,14 @@ const CartItem = ({ item }: Props) => {
     parsedData[index] = item;
     localStorage.setItem('cart', JSON.stringify(parsedData));
   };
+  const deleteItem = (id: number) => {
+    const data = localStorage.getItem('cart');
+    const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+    const index = parsedData.findIndex((cartitem) => cartitem.product.id == id);
+    parsedData.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(parsedData));
+    window.location.reload();
+  };
 
   return (
     <tr className={`py-2 border-b-2 ${isMobile ? 'grid grid-cols-2' : ''}`}>
@@ -96,6 +104,9 @@ const CartItem = ({ item }: Props) => {
             className={`${
               isMobile ? ' col-span-1' : ''
             }  sm:mr-2 flex justify-center sm:justify-end items-center`}
+            onClick={() => {
+              deleteItem(item.product.id);
+            }}
           >
             <TrashIcon
               title="Delete"
