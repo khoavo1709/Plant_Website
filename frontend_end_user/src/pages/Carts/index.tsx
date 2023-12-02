@@ -69,9 +69,9 @@ const cart: Cart = {
     .map((item) => item.unitPrice * item.quantity)
     .reduce((a, b) => a + b, 0),
 };
-localStorage.setItem('cart', JSON.stringify(cart));
+localStorage.setItem('_cart', JSON.stringify(cart));
 const Cart = ({}) => {
-  const data = localStorage.getItem('cart');
+  const data = localStorage.getItem('_cart');
   const [cart, setCart] = useState<Cart>({
     cartItems: [],
     totalPrice: 0,
