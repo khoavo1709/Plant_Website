@@ -1,7 +1,16 @@
-export const getCategories = async (type: 'PLANT' | 'ACCESSORY') => {
-  console.log(type);
+export type getCategoriesRequest = {
+  type: 'PLANT' | 'ACCESSORY';
+};
 
-  const resp = await fetch('/mocks/categories.json');
+export const getCategories = async (req: getCategoriesRequest) => {
+  const apiUrl = import.meta.env.BACKEND_API_URL || 'http://localhost:8000';
+  console.log(`${apiUrl}/api/categories?product_type=${req.type}`);
+  console.log(req.type);
+  const resp = await fetch(`${apiUrl}/api/categories?product_type=${req.type}`);
 
-  return resp.json();
+  if (!resp.ok) {
+    return Promise.resolve([] as Category[]);
+  }
+
+  return resp.json() as Promise<Category>;
 };
