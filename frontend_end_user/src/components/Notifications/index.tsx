@@ -5,7 +5,7 @@ const Notifications = () => {
 
   return (
     <>
-      {notifications.length && (
+      {notifications.length > 0 && (
         <div className="fixed z-50 bottom-5 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-max space-y-4 bg-transparent">
           {notifications.map((noti) => (
             <div key={noti.id}>
