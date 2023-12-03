@@ -9,6 +9,8 @@ import OrdersManagement from "./pages/OrdersManagement";
 import AddEditMember from "./pages/UsersManagement/AddEditMember";
 import AddEditProduct from "./pages/ProductsManagement/AddEditProduct";
 import AddEditCategory from "./pages/ProductsManagement/AddEditCategory";
+import AddNewMember from "./pages/UsersManagement/AddNewMember";
+import ViewEditOrder from "./pages/OrdersManagement/ViewEditOrder";
 
 export default function App() {
   return (
@@ -45,6 +47,7 @@ export default function App() {
           <Route path="/users" element={<UserManagement />} />
           <Route path="/products" element={<ProductsManagement />} />
           <Route path="/orders" element={<OrdersManagement />} />
+          <Route path="/orders/:id" element={<ViewEditOrder />} />
         </Route>
       </Routes>
     </BrowserRouter>

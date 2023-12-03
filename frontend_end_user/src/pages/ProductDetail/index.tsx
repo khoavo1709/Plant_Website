@@ -4,11 +4,16 @@ import { useLoaderData } from 'react-router-dom';
 import { objectToCamel } from 'ts-case-convert';
 import { useCart } from '../../hooks/useCart';
 import NotFound from '../NotFound';
+import AddToCardSuccessToast from '../../components/Toasts/AddToCartSuccessToast';
+import useNotifications from '../../hooks/useNotifications';
+import AddToCardFailureToast from '../../components/Toasts/AddToCartFailureToast';
 
 const ProductDetailPage = () => {
   const product = objectToCamel(useLoaderData() as object) as Product;
   const [quantity, setQuantity] = useState(1);
+  // const price = product.price;
   const { addItem, getItem } = useCart();
+  const { addNotification } = useNotifications();
 
   if (!product) {
     return <NotFound />;
@@ -28,13 +33,18 @@ const ProductDetailPage = () => {
 
   const addToCart = () => {
     const item = getItem(product.id);
-
     if (item && quantity + item.quantity > product.quantity) {
-      window.alert('Preceded maxium quantity of product!');
+      addNotification(
+        () => (
+          <AddToCardFailureToast message="Product quantity exceeds available stock" />
+        ),
+        3000
+      );
       return;
     }
 
     addItem(product.id, quantity);
+    addNotification(AddToCardSuccessToast, 3000);
   };
 
   return (

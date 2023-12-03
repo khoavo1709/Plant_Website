@@ -8,23 +8,52 @@ import {
   Bar,
   ResponsiveContainer,
 } from "recharts";
-import { Order } from "../../../types/order";
-const ProductChart = ({ data }: { data: Order[] }) => {
+type ProductDashboard = {
+  id: number;
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  pivot: {
+    purchase_id: number;
+    product_id: number;
+    quantity: number;
+    price: number;
+  };
+};
+
+type PurchaseDashboard = {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  mobile: string;
+  address: string;
+  total: number;
+  status: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+  products: ProductDashboard[];
+};
+const ProductChart = ({ data }: { data: PurchaseDashboard[] }) => {
   const productChartData: { name: string; SOLD: number }[] = [];
   data.forEach((purchase) => {
-    purchase.purchaseProducts.forEach((purchaseProduct) => {
-      const productName = purchaseProduct.product.name;
+    purchase.products.forEach((purchaseProduct) => {
+      const productName = purchaseProduct.name;
 
       const existingProductIndex = productChartData.findIndex(
         (product) => product.name === productName
       );
 
       if (existingProductIndex !== -1) {
-        productChartData[existingProductIndex].SOLD += purchaseProduct.quantity;
+        productChartData[existingProductIndex].SOLD += purchaseProduct.pivot.quantity;
       } else {
         productChartData.push({
           name: productName,
-          SOLD: purchaseProduct.quantity,
+          SOLD: purchaseProduct.pivot.quantity,
         });
       }
     });

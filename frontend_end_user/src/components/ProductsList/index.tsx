@@ -14,7 +14,7 @@ const ProductsList = ({ products }: Props) => {
           ))}
         </div>
       ) : (
-        <p> No product found</p>
+        <div className="w-full text-center"> No product found</div>
       )}
     </>
   );

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Cloudinary\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -17,6 +18,7 @@ class ProductController extends Controller
         $orderBy = $request->input('order_by', 'id');
         $type = strtoupper($request->input('type', '')); // Convert to uppercase
         $categoryIds = $request->input('categories', '');
+        $ids = $request->input('ids', '');
 
         // Validate the product type
         if ($type !== '' && !in_array($type, ['PLANT', 'ACCESSORY'])) {
@@ -25,6 +27,7 @@ class ProductController extends Controller
 
         // Convert the comma-separated string to an array
         $categoryIds = $categoryIds !== '' ? explode(',', $categoryIds) : [];
+        $ids = $ids !== '' ? explode(',', $ids) : [];
 
         // Query builder for products
         $query = Product::query();
@@ -41,6 +44,10 @@ class ProductController extends Controller
             $query->where('type', $type);
         }
 
+        // Apply category filter if product IDs are provided
+        if (!empty($ids)) {
+            $query->whereIn('id', $ids);
+        }
 
         // Apply category filter if category IDs are provided
         if (!empty($categoryIds)) {
@@ -77,8 +84,12 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
-            'image' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
+
+        $uploader = new Cloudinary();
+        $imagePath = $uploader->uploadApi()->upload($request->file('image')->path());
+        $validatedData['image'] = $imagePath['secure_url'];
 
         $product = Product::create($validatedData);
 
@@ -110,8 +121,16 @@ class ProductController extends Controller
             'description' => 'string',
             'price' => 'numeric',
             'quantity' => 'integer',
-            'image' => 'string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp',
         ]);
+
+
+        // If a new image is provided, upload it to Cloudinary
+        if ($request->hasFile('image')) {
+            $uploader = new Cloudinary();
+            $imagePath = $uploader->uploadApi()->upload($request->file('image')->path());
+            $validatedData['image'] = $imagePath['secure_url'];
+        }
 
         $product->update($validatedData);
 
@@ -123,6 +142,8 @@ class ProductController extends Controller
         if (!empty($categoryIds)) {
             $product->categories()->attach($categoryIds);
         }
+
+        $product->deleteImageFromCloudinary();
 
         return response()->json($product, 200);
     }
@@ -143,6 +164,8 @@ class ProductController extends Controller
         $product->categories()->detach();
 
         $product->delete();
+
+        $product->deleteImageFromCloudinary();
 
         return response()->json(null, 204);
     }

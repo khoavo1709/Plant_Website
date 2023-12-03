@@ -1,5 +1,5 @@
 import { LoaderFunction } from 'react-router-dom';
-import { getListPlants } from '../../api';
+import { getListAccessories } from '../../api/get-list-accessories';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -19,5 +19,5 @@ export const loader: LoaderFunction = async ({ request }) => {
     categories = JSON.parse(categoriesParam);
   }
 
-  return getListPlants({ page: page, categories: categories });
+  return getListAccessories({ page: page, categories: categories });
 };

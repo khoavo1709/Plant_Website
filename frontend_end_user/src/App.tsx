@@ -15,6 +15,7 @@ import './App.css';
 import { loader as productDetailLoader } from './pages/ProductDetail/loader';
 import { loader as plantsLoader } from './pages/Plants/loader';
 import { loader as accessoriesLoader } from './pages/Accessories/loader';
+import { loader as cartLoader } from './pages/Carts/loader';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +34,7 @@ const router = createBrowserRouter(
         loader={accessoriesLoader}
       />
       <Route path="/accessories/:id" element={<ProductDetailPage />} />
-      <Route path="/carts" element={<CartsPage />} />
+      <Route path="/carts" element={<CartsPage />} loader={cartLoader} />
     </Route>
   )
 );

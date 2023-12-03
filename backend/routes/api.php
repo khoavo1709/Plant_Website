@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,13 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::resource('users', UserController::class);
 Route::resource('products', ProductController::class);
 Route::resource('categories', CategoryController::class);
+
+Route::get('/purchases', [PurchaseController::class, 'index']);
+
+Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard']);
+
+Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
+
+Route::post('/purchases', [PurchaseController::class, 'store']);
+
+Route::put('/purchases/{id}', [PurchaseController::class, 'update']);
