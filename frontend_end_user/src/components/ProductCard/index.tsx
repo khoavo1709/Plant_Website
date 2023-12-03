@@ -9,13 +9,11 @@ const ProductCard = ({ product }: Props) => {
   const { addItem, getItem } = useCart();
   const addToCart = () => {
     const item = getItem(product.id);
-
     if (item && item.quantity + 1 > product.quantity) {
       window.alert('Preceded maxium quantity of product!');
       return;
     }
-
-    addItem(product.id, 1);
+    addItem(product, 1, product.price);
   };
 
   return (

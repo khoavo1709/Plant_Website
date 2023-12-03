@@ -1,107 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartTable from '../../components/CartTable';
-import { Cart, CartItems } from '../../../types/cart';
+import { CartItem } from '../../../types/cart-item';
 
-const cartItems: CartItems[] = [
-  {
-    product: {
-      id: 1,
-      type: 'PLANT',
-      name: 'Monstera Deliciosa',
-      description: 'A large, tropical plant with distinctive leaves.',
-      price: 49.99,
-      image:
-        'https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio',
-      quantity: 10,
-      careInstructions: {
-        light: 'Bright, indirect light',
-        water: 'Water when the top inch of soil is dry',
-        humidity: 'High humidity is preferred',
-      },
-    },
-    quantity: 1,
-    unitPrice: 49.99,
-  },
-  {
-    product: {
-      id: 2,
-      type: 'PLANT',
-      name: 'Snake Plant',
-      description:
-        'A low-maintenance plant that is tolerant of low light and infrequent watering.',
-      price: 19.99,
-      image:
-        'https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio',
-      quantity: 15,
-      careInstructions: {
-        light: 'Low to medium light',
-        water: 'Water when the soil is completely dry',
-        humidity: 'Any humidity level',
-      },
-    },
-    quantity: 1,
-    unitPrice: 49.99,
-  },
-  {
-    product: {
-      id: 3,
-      type: 'PLANT',
-      name: 'Pothos',
-      description:
-        'A fast-growing and easy-to-care-for plant that is perfect for beginners.',
-      price: 14.99,
-      image:
-        'https://imgs.search.brave.com/Vl-dYuhNCupoRhhGC1PT90FksMxsjxHdD_lmtn08SBk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9wZWFj/ZS1saWx5LXBsYW50/LWluLWEtYnJpZ2h0/LWhvbWUtcm95YWx0/eS1mcmVlLWltYWdl/LTE2NTkwMjU0NTUu/anBnP2Nyb3A9MC42/Njh4dzoxLjAweGg7/MC4wMTcweHcsMCZy/ZXNpemU9OTgwOio',
-      quantity: 20,
-      careInstructions: {
-        light: 'Bright, indirect light',
-        water: 'Water when the top inch of soil is dry',
-        humidity: 'Any humidity level',
-      },
-    },
-    quantity: 1,
-    unitPrice: 49.99,
-  },
-];
-const cart: Cart = {
-  cartItems: cartItems,
-  totalPrice: cartItems
-    .map((item) => item.unitPrice * item.quantity)
-    .reduce((a, b) => a + b, 0),
+type Cart = {
+  cartItems: CartItem[];
 };
-localStorage.setItem('cart', JSON.stringify(cart));
+
 const Cart = ({}) => {
   const data = localStorage.getItem('cart');
-  const [cart, setCart] = useState<Cart>({
-    cartItems: [],
-    totalPrice: 0,
-  });
-  if (data && cart.cartItems.length == 0) {
-    setCart(JSON.parse(data));
-  } else if (!data) {
-    console.log('No data found in localStorage');
-  }
+
+  const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+  let cart: Cart = {
+    cartItems: parsedData,
+  };
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
     email: '',
     address: '',
   });
-  const handleQuantityChange = (productId: number, newQuantity: number) => {
-    const updatedCart = {
-      ...cart,
-      cartItems: cart.cartItems.map((item) => {
-        if (item.product.id === productId) {
-          return {
-            ...item,
-            quantity: newQuantity,
-          };
-        }
-        return item;
-      }),
+  
+  useEffect(() => {
+    const data = localStorage.getItem('cart');
+    const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+    cart = {
+      cartItems: parsedData,
     };
-    setCart(updatedCart);
-  };
+  }, []);
+
+  const totalPrice = cart.cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -109,56 +40,77 @@ const Cart = ({}) => {
       [name]: value,
     }));
   };
+  const storePurchaseData = async () => {
+    const purchaseData = {
+      customer_name: formData.name,
+      customer_email: formData.email,
+      mobile: formData.phoneNumber,
+      status: 'PENDING',
+      total: totalPrice,
+      address: formData.address,
+      note: 'This is an optional note.',
+      products: cart.cartItems.map((item) => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      const response = await fetch('http://localhost:8000/api/purchases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(purchaseData),
+      });
+
+      if (response.ok) {
+        alert('Purchase data sent successfully');
+        // Clear cart
+        localStorage.removeItem('cart');
+        window.location.href = '../carts';
+        // You can handle further actions after successful data submission
+      } else {
+        alert('Failed to send purchase data');
+        // Handle error cases
+      }
+    } catch (error) {
+      console.error('Error while sending purchase data:', error);
+      // Handle network errors
+    }
   };
+
   const checkOutSubmit = () => {
-    console.log('Form submitted:', formData);
-    console.log('Cart submitted:', cart);
+    if (!cart || cart.cartItems.length === 0) {
+      alert('No items in cart');
+      return;
+    }
+
+    if (confirm('Total price: $' + totalPrice + '\nConfirm checkout?')) {
+      console.log('Form submitted:', formData);
+      console.log('Cart submitted:', cart);
+      storePurchaseData();
+    }
   };
   return (
-    <div className=" max-w-screen-xl mx-auto grid grid-rows-4 bg-gray-100">
-      <div className="row-span-2 ">
-        <div className="md:grid grid-cols-4 sm:m-4 mx-4 gap-4  ">
-          <div className="rounded-2xl col-span-3 p-8 bg-white mt-4 sm:mt-0 overflow-x-auto">
-            {cart ? (
-              <CartTable
-                cartItems={cart.cartItems}
-                onQuantityChange={handleQuantityChange}
-              />
-            ) : (
-              <p className="text-xl text-left font-semibold">
-                No items in cart
-              </p>
-            )}
+    <div className=" w-full max-w-5xl mx-auto md:grid md:grid-cols-3 md:gap-2 md:justify-center bg-gray-100">
+      <div className=" rounded-2xl md:col-span-2 bg-white p-4">
+        <div className=" overflow-x-auto">
+          {cart ? (
+            <CartTable cartItems={cart.cartItems} />
+          ) : (
+            ''
+          )}
 
-            <div className=" items-end float-right pr-2 text-blue-500">
-              <a href="../">Continue shopping</a>
-            </div>
-          </div>
-          <div className=" flex p-2 pt-4 justify-center rounded-2xl col-span-1 bg-white mt-4 md:mt-0 ">
-            <div className="">
-              <h1 className="text-xl font-semibold mb-6">Order summary</h1>
-              <div className="flex justify-between my-4">
-                <p className="text-lg">Total price:</p>
-                <p className="text-lg">${cart.totalPrice}</p>
-              </div>
-              <p className="text-sm text-gray-500">Shipping fee not included</p>
-              <button
-                className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 "
-                onClick={checkOutSubmit}
-              >
-                CHECKOUT
-              </button>
-            </div>
+          <div className=" items-end float-right pr-2 text-blue-500">
+            <a href="../">Continue shopping</a>
           </div>
         </div>
       </div>
-      <div className="row-span-2 mx-4 rounded-2xl mt-4 sm:mt-0 p-8 bg-white">
+      <div className=" rounded-2xl md:col-span-1 bg-white p-4">
         <h1 className="text-xl font-semibold mb-6">Payment Information</h1>
-        <form onSubmit={handleSubmit} className="w-full">
+        <form className="w-full">
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -172,6 +124,7 @@ const Cart = ({}) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              required
               className="w-full px-3 py-2 border rounded outline-green-200 "
             />
           </div>
@@ -188,6 +141,7 @@ const Cart = ({}) => {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
+              required
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
           </div>
@@ -203,6 +157,7 @@ const Cart = ({}) => {
               id="email"
               name="email"
               value={formData.email}
+              required
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
@@ -217,12 +172,22 @@ const Cart = ({}) => {
             <input
               id="address"
               name="address"
+              required
               value={formData.address}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded outline-green-200"
             />
           </div>
+          {/* <p className="text-lg font-semibold mt-4">
+            Total Price: ${totalPrice}
+          </p> */}
         </form>
+        <button
+          className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 "
+          onClick={checkOutSubmit}
+        >
+          CHECKOUT
+        </button>
       </div>
     </div>
   );
