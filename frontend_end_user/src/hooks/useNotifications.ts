@@ -17,7 +17,8 @@ const useNotifications = () => {
     timeout: number | null = null
   ): void => {
     // generate random id
-    const id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+    const id =
+      Date.now().toString(36) + Math.random().toString(36).substring(2);
 
     const removeNotification = () => {
       setNotifications((currentNotifications) =>

@@ -17,6 +17,7 @@ class ProductController extends Controller
         $orderBy = $request->input('order_by', 'id');
         $type = strtoupper($request->input('type', '')); // Convert to uppercase
         $categoryIds = $request->input('categories', '');
+        $ids = $request->input('ids', '');
 
         // Validate the product type
         if ($type !== '' && !in_array($type, ['PLANT', 'ACCESSORY'])) {
@@ -25,6 +26,7 @@ class ProductController extends Controller
 
         // Convert the comma-separated string to an array
         $categoryIds = $categoryIds !== '' ? explode(',', $categoryIds) : [];
+        $ids = $ids !== '' ? explode(',', $ids) : [];
 
         // Query builder for products
         $query = Product::query();
@@ -41,6 +43,10 @@ class ProductController extends Controller
             $query->where('type', $type);
         }
 
+        // Apply category filter if product IDs are provided
+        if (!empty($ids)) {
+            $query->whereIn('id', $ids);
+        }
 
         // Apply category filter if category IDs are provided
         if (!empty($categoryIds)) {

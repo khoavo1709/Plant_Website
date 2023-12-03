@@ -1,47 +1,33 @@
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { CartItem } from '../../types/cart-item';
+
+const cartAtom = atomWithStorage('cart', [] as CartItem[]);
 
 export const useCart = () => {
-  const dataStoredInLocal = localStorage.getItem('cart');
-  console.log('dataStoredInLocal', dataStoredInLocal);
-  const [cart, setCart] = useAtom(
-    atomWithStorage<CartItem[]>(
-      'cart',
-      dataStoredInLocal ? JSON.parse(dataStoredInLocal) : []
-    )
-  );
+  const [cart, setCart] = useAtom(cartAtom);
 
   const updateCart = (cart: CartItem[]) => {
     setCart(cart);
   };
 
   const removeItem = (productID: number) => {
-    if (confirm('Are you sure you want to remove this item?') == false) {
-      return;
-    }
-    setCart(cart.filter((c) => c.product.id !== productID));
+    setCart(cart.filter((c) => c.productID !== productID));
   };
 
-  const addItem = (product: Product, quantity: number, price: number) => {
-    if (cart.length == 0) {
-      setCart([{ product: product, quantity: quantity, price: price }]);
-      return;
-    }
-    const i = cart.findIndex((c) => c.product.id === product.id);
+  const addItem = (productID: number, quantity: number) => {
+    const i = cart.findIndex((c) => c.productID === productID);
     if (i !== -1) {
-      alert('Item already in cart');
-      return;
+      cart[i].quantity += quantity;
+      setCart(cart);
     } else {
-      setCart([
-        ...cart,
-        { product: product, quantity: quantity, price: price },
-      ]);
+      setCart([...cart, { productID: productID, quantity: quantity }]);
     }
+
+    console.log(JSON.stringify(cart));
   };
 
   const decreaseQuantityBy1 = (productID: number) => {
-    const i = cart.findIndex((c) => c.product.id === productID);
+    const i = cart.findIndex((c) => c.productID === productID);
     if (i !== -1) {
       if (cart[i].quantity == 1) {
         removeItem(productID);
@@ -53,7 +39,7 @@ export const useCart = () => {
   };
 
   const getItem = (productID: number) => {
-    return cart.find((c) => c.product.id === productID);
+    return cart.find((c) => c.productID === productID);
   };
 
   return {

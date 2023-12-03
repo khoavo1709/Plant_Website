@@ -11,7 +11,7 @@ import AddToCardFailureToast from '../../components/Toasts/AddToCartFailureToast
 const ProductDetailPage = () => {
   const product = objectToCamel(useLoaderData() as object) as Product;
   const [quantity, setQuantity] = useState(1);
-  const price = product.price;
+  // const price = product.price;
   const { addItem, getItem } = useCart();
   const { addNotification } = useNotifications();
 
@@ -45,7 +45,6 @@ const ProductDetailPage = () => {
 
     addItem(product.id, quantity);
     addNotification(AddToCardSuccessToast, 3000);
-    
   };
 
   return (
