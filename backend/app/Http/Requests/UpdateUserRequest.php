@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
-use App\Models\User;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -29,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             'full_name' => 'required|string|max:255',
             'role' => 'required|in:ADMIN,EMPLOYEE',
             'gender' => 'required|in:MALE,FEMALE,OTHER',
-            'mobile' => 'required|string|max:15',
+            'mobile' => 'required|string|max:15|unique:users,mobile,' . $this->id,
             'address' => 'required|string|max:255',
             'password' => [
                 'required',

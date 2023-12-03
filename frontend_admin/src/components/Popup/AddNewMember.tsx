@@ -1,18 +1,18 @@
 import { useAtom } from "jotai";
-import { addNewMember } from "../../hooks/headerHooks";
+import { addEditMember } from "../../hooks/headerHooks";
 import Button from "../Button/Button";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-interface AddNewMemberProps {
+interface AddEditMemberProps {
   getUsers: () => void;
 }
 
-const AddNewMember: React.FC<AddNewMemberProps> = ({ getUsers }) => {
-  const [isOpenAddMemberPopup, setIsOpenAddNewMemberPopup] =
-    useAtom(addNewMember);
+const AddEditMember: React.FC<AddEditMemberProps> = ({ getUsers }) => {
+  const [isOpenAddMemberPopup, setIsOpenAddEditMemberPopup] =
+    useAtom(addEditMember);
   const openAddMemberPopup = () => {
-    setIsOpenAddNewMemberPopup(!isOpenAddMemberPopup);
+    setIsOpenAddEditMemberPopup(!isOpenAddMemberPopup);
   };
 
   const { id } = useParams();
@@ -231,4 +231,4 @@ const AddNewMember: React.FC<AddNewMemberProps> = ({ getUsers }) => {
   );
 };
 
-export default AddNewMember;
+export default AddEditMember;

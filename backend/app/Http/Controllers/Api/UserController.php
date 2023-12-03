@@ -7,10 +7,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Log;
-
-use function Psy\debug;
+use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
@@ -27,13 +24,13 @@ class UserController extends Controller
         $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
-        return response(new UserResource($user), status: 201);
+        return  response()->json($user, 201);
     }
 
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return new UserResource($user);
+        return response()->json($user);
     }
 
     public function update(UpdateUserRequest $request, $id)
