@@ -16,6 +16,8 @@ import { loader as productDetailLoader } from './pages/ProductDetail/loader';
 import { loader as plantsLoader } from './pages/Plants/loader';
 import { loader as accessoriesLoader } from './pages/Accessories/loader';
 import { loader as cartLoader } from './pages/Carts/loader';
+import { loader as searchLoader } from './pages/Search/loader';
+import SearchPage from './pages/Search';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +37,7 @@ const router = createBrowserRouter(
       />
       <Route path="/accessories/:id" element={<ProductDetailPage />} />
       <Route path="/carts" element={<CartsPage />} loader={cartLoader} />
+      <Route path="/search" element={<SearchPage />} loader={searchLoader} />
     </Route>
   )
 );

@@ -10,7 +10,7 @@ const HeaderLink = (props: Props) => {
       className={({ isActive }) =>
         `${
           isActive ? 'underline text-green-900/70' : ''
-        } underline-offset-2 hover:underline hover:text-green-900/60`
+        } underline-offset-[6px] hover:underline hover:text-green-900/60`
       }
       {...props}
     >
