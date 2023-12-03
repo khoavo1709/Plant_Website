@@ -14,7 +14,6 @@ const ProductCard = ({ product }: Props) => {
 
   const addToCart = () => {
     const item = getItem(product.id);
-
     if (item && item.quantity + 1 > product.quantity) {
       addNotification(
         () => (
@@ -27,6 +26,7 @@ const ProductCard = ({ product }: Props) => {
 
     addItem(product.id, 1);
     addNotification(AddToCardSuccessToast, 3000);
+
   };
 
   return (

@@ -1,29 +1,53 @@
-import { Order } from "../../../types/order";
+type ProductDashboard = {
+  id: number;
+  name: string;
+  type: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  pivot: {
+    purchase_id: number;
+    product_id: number;
+    quantity: number;
+    price: number;
+  };
+};
 
-const SalesStatistics = ({ data }: { data: Order[] }) => {
+type PurchaseDashboard = {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  mobile: string;
+  address: string;
+  total: number;
+  status: string;
+  note: string;
+  created_at: string;
+  updated_at: string;
+  products: ProductDashboard[];
+};
+const SalesStatistics = ({ data }: { data: PurchaseDashboard[] }) => {
   let totalCompletedOrders = 0;
   let totalProductsSold = 0;
   let totalOrderCompleteValue = 0;
   let totalOrderValue = 0;
 
   data.forEach((purchase) => {
-    const purchaseDate = new Date(purchase.purchaseAt);
+    const purchaseDate = new Date(purchase.created_at);
     const currentDate = new Date();
     if (
       purchaseDate.getMonth() === currentDate.getMonth() &&
       purchaseDate.getFullYear() === currentDate.getFullYear()
     ) {
-      if (purchase.status == "delivered") totalCompletedOrders += 1;
-      purchase.purchaseProducts.forEach(
-        (item: {
-          product: { type: unknown };
-          price: number;
-          quantity: number;
-        }) => {
-          totalProductsSold += item.quantity;
-          if (purchase.status == "delivered")
-            totalOrderCompleteValue += item.price * item.quantity;
-          totalOrderValue += item.price * item.quantity;
+      if (purchase.status == "COMPLETED") totalCompletedOrders += 1;
+      purchase.products.forEach(
+        (item) => {
+          totalProductsSold += item.pivot.quantity;
+          if (purchase.status == "COMPLETED")
+            totalOrderCompleteValue += item.pivot.price * item.pivot.quantity;
+          totalOrderValue += item.pivot.price * item.pivot.quantity;
         }
       );
     }
