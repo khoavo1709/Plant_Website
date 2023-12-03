@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
+import useNotifications from '../../hooks/useNotifications';
+import AddToCardSuccessToast from '../Toasts/AddToCartSuccessToast';
+import AddToCardFailureToast from '../Toasts/AddToCartFailureToast';
 
 interface Props {
   product: Product;
@@ -7,13 +10,23 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const { addItem, getItem } = useCart();
+  const { addNotification } = useNotifications();
+
   const addToCart = () => {
     const item = getItem(product.id);
     if (item && item.quantity + 1 > product.quantity) {
-      window.alert('Preceded maxium quantity of product!');
+      addNotification(
+        () => (
+          <AddToCardFailureToast message="Product quantity exceeds available stock" />
+        ),
+        3000
+      );
       return;
     }
-    addItem(product, 1, product.price);
+
+    addItem(product.id, 1);
+    addNotification(AddToCardSuccessToast, 3000);
+
   };
 
   return (

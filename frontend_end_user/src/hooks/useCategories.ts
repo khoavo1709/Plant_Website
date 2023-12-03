@@ -15,24 +15,26 @@ export const useCategories = (type: 'PLANT' | 'ACCESSORY') => {
   );
 
   useEffect(() => {
-    const IDsString = params.get('categories');
-    const filteredIDs = JSON.parse(IDsString ? IDsString : '[]') as string[];
+    if (type) {
+      const IDsString = params.get('categories');
+      const filteredIDs = JSON.parse(IDsString ? IDsString : '[]') as string[];
 
-    getCategories(type).then((data) => {
-      const categories = objectToCamel(data) as Category[];
-      const temp = [] as Category[];
+      getCategories({ type }).then((data) => {
+        const categories = objectToCamel(data) as Category[];
+        const temp = [] as Category[];
 
-      filteredIDs.forEach((id) => {
-        categories.forEach((c) => {
-          if (String(c.id) == id) {
-            temp.push(c);
-          }
+        filteredIDs.forEach((id) => {
+          categories.forEach((c) => {
+            if (String(c.id) == id) {
+              temp.push(c);
+            }
+          });
         });
-      });
 
-      setCategories(categories);
-      setFilterdCategoreis(temp);
-    });
+        setCategories(categories);
+        setFilterdCategoreis(temp);
+      });
+    }
   }, [params, setCategories, setFilterdCategoreis, type]);
 
   const removeCategory = (category: Category) => {

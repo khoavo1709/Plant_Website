@@ -6,13 +6,19 @@ type Cart = {
   cartItems: CartItem[];
 };
 
+localStorage.setItem('_cart', JSON.stringify(cart));
 const Cart = ({}) => {
-  const data = localStorage.getItem('cart');
+  const data = localStorage.getItem('_cart');
+  const [cart, setCart] = useState<Cart>({
+    cartItems: [],
+    totalPrice: 0,
+  });
+  if (data && cart.cartItems.length == 0) {
+    setCart(JSON.parse(data));
+  } else if (!data) {
+    console.log('No data found in localStorage');
+  }
 
-  const parsedData: CartItem[] = data ? JSON.parse(data) : [];
-  let cart: Cart = {
-    cartItems: parsedData,
-  };
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
