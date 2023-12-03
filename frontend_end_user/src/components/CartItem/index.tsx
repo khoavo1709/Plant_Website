@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { CartItems } from '../../../types/cart';
+import { CartItem } from '../../../types/cart-item';
 interface Props {
-  item: CartItems;
-  onQuantityChange: (productId: number, newQuantity: number) => void;
+  item: CartItem;
 }
 
 const CartItem = ({ item }: Props) => {
@@ -19,15 +19,33 @@ const CartItem = ({ item }: Props) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  }, [item]);
+  const adjustQuantity = (amount: number) => {
+    if (
+      amount === 0 ||
+      quantity + amount < 1 ||
+      quantity + amount > item.product.quantity
+    ) {
+      return;
     }
+    setQuantity(quantity + amount);
+    item.quantity = quantity + amount;
+    //after change quantity, update localStorage
+    const data = localStorage.getItem('cart');
+    const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+    const index = parsedData.findIndex(
+      (cartitem) => cartitem.product.id == item.product.id
+    );
+    parsedData[index] = item;
+    localStorage.setItem('cart', JSON.stringify(parsedData));
   };
-
-  const handleIncrease = () => {
-    setQuantity(quantity + 1);
+  const deleteItem = (id: number) => {
+    const data = localStorage.getItem('cart');
+    const parsedData: CartItem[] = data ? JSON.parse(data) : [];
+    const index = parsedData.findIndex((cartitem) => cartitem.product.id == id);
+    parsedData.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(parsedData));
+    window.location.reload();
   };
 
   return (
@@ -43,7 +61,7 @@ const CartItem = ({ item }: Props) => {
       <td className="sm:px-6 sm:py-4 sm:text-center">{item.product.name}</td>
 
       <td className="sm:px-6 sm:py-4 sm:text-center">
-        {isMobile ? 'Price: ' : ''} ${item.unitPrice}
+        {isMobile ? 'Price: ' : ''} ${item.price}
       </td>
 
       {isMobile ? <td></td> : ''}
@@ -59,23 +77,36 @@ const CartItem = ({ item }: Props) => {
             } bg-slate-100 flex sm:justify-end justify-center items-center`}
           >
             <button
-              className="px-2 py-1 w-7 h-10 text-dark rounded"
-              onClick={handleDecrease}
+              title="Decrease quantity"
+              className={`rounded-full h-10 w-10 grid place-items-center transition-all ${
+                quantity == 1 ? '' : 'hover:bg-green-900/10'
+              }`}
+              disabled={quantity == 1}
+              onClick={() => adjustQuantity(-1)}
             >
-              -
+              <MinusIcon className="h-5 w-5 stroke-2" />
             </button>
-            <span className="mx-2 text-dark">{quantity}</span>
+            <p className="text-base font-medium">{quantity}</p>
             <button
-              className="px-2 py-1 w-7 h-10 text-dark rounded"
-              onClick={handleIncrease}
+              title="Increase quantity"
+              className={`rounded-full h-10 w-10 grid place-items-center transition-all ${
+                quantity == item.quantity
+                  ? ''
+                  : 'hover:bg-green-900/10 stroke-neutral-500'
+              }`}
+              disabled={quantity == item.product.quantity}
+              onClick={() => adjustQuantity(1)}
             >
-              +
+              <PlusIcon className="h-5 w-5 stroke-2" />
             </button>
           </div>
           <div
             className={`${
               isMobile ? ' col-span-1' : ''
             }  sm:mr-2 flex justify-center sm:justify-end items-center`}
+            onClick={() => {
+              deleteItem(item.product.id);
+            }}
           >
             <TrashIcon
               title="Delete"

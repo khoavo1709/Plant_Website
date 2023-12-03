@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    // Route::post('/logout', [AuthController::class, 'logout']);
+    // Route::get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
+
+    // Route::apiResource('/users', UserController::class);
 });
 
-Route::get('/health_check', function () {
-    return response()->json(["message" => "ok"]);
-});
+Route::resource('users', UserController::class);
+Route::resource('products', ProductController::class);
+Route::resource('categories', CategoryController::class);
+
+Route::get('/purchases', [PurchaseController::class, 'index']);
+
+Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard']);
+
+Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
+
+Route::post('/purchases', [PurchaseController::class, 'store']);
+
+Route::put('/purchases/{id}', [PurchaseController::class, 'update']);

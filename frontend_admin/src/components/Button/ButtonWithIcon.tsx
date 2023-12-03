@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
-import { addNewMember } from "../../hooks/headerHooks";
+import { addEditMember } from "../../hooks/headerHooks";
+import { Link } from "react-router-dom";
 
 export interface Item {
   text: string;
@@ -9,21 +10,23 @@ export interface Item {
 }
 
 const ButtonWithIcon = ({ text, background, hoverBackground, icon }: Item) => {
-  const [isOpenAddMemberPopup, setIsOpenAddNewMemberPopup] =
-    useAtom(addNewMember);
+  const [isOpenAddMemberPopup, setIsOpenAddEditMemberPopup] =
+    useAtom(addEditMember);
   const openAddMemberPopup = () => {
     if (text == "Add member") {
-      setIsOpenAddNewMemberPopup(!isOpenAddMemberPopup);
+      setIsOpenAddEditMemberPopup(!isOpenAddMemberPopup);
     }
   };
   return (
-    <button
-      onClick={openAddMemberPopup}
-      className={`h-10 rounded-full flex items-center gap-2 pl-4 pr-6 font-medium text-sm ${background} ${hoverBackground}`}
-    >
-      {icon}
-      {text}
-    </button>
+    <Link to="/users/createUser">
+      <button
+        onClick={openAddMemberPopup}
+        className={`h-10 rounded-full flex items-center gap-2 pl-4 pr-6 font-medium text-sm text-white ${background} ${hoverBackground}`}
+      >
+        {icon}
+        {text}
+      </button>
+    </Link>
   );
 };
 

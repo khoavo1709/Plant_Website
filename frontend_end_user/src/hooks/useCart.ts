@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-const cartAtom = atomWithStorage('cart', [] as cartItem[]);
+const cartAtom = atomWithStorage('cart', [] as CartItem[]);
 
 export const useCart = () => {
   const [cart, setCart] = useAtom(cartAtom);
 
-  const updateCart = (cart: cartItem[]) => {
+  const updateCart = (cart: CartItem[]) => {
     setCart(cart);
   };
 
