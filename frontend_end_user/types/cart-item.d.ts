@@ -1,6 +1,4 @@
-import { Product } from './product';
 interface CartItem {
-  product: Product;
+  productID: number;
   quantity: number;
-  price: number;
 }
