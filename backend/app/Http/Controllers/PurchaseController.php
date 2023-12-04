@@ -47,8 +47,8 @@ class PurchaseController extends Controller
             $query->where('status', $type);
         }
 
-        // Apply order by condition
-        $query->orderBy($orderBy);
+        // Apply order by condition 
+        $query->orderBy($orderBy, 'desc');
 
         // Paginate the purchases
         $purchases = $query->paginate($limit, ['*'], 'page', $page);
