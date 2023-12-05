@@ -7,11 +7,12 @@ import { InformationCircleIcon as OutlineInformationCircleIcon } from "@heroicon
 import "../../App.css";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
 const UserManagement = () => {
+  var baseUrl = import.meta.env.BACKEND_API_URL || "http://localhost:8000";
   interface User {
     id: number;
     name: string;
@@ -23,6 +24,7 @@ const UserManagement = () => {
     role: string;
   }
 
+  const navigate = useNavigate();
   const setUserCreate = useSetAtom(isAdd);
   const [users, setUsers] = useState<User[]>([]);
   const [hoverTooltipUserId, setHoverTooltipUserId] = useState<number | null>();
@@ -32,16 +34,19 @@ const UserManagement = () => {
   }, []);
 
   const getUsers = () => {
-    fetch("http://127.0.0.1:8000/api/users", {
+    const token = localStorage.getItem("token");
+    fetch(`${baseUrl}/api/users`, {
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
         return response.json();
       })
@@ -57,18 +62,20 @@ const UserManagement = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) {
       return;
     }
-
-    fetch(`http://localhost:8000/api/users/${user.id}`, {
+    const token = localStorage.getItem("token");
+    fetch(`${baseUrl}://localhost:8000/api/users/${user.id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
       })
       .then(() => {

@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
-use Illuminate\Http\Request;
+use App\Http\Middleware\AdminRequired;
+use App\Http\Middleware\Authen;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,25 +21,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    // Route::post('/logout', [AuthController::class, 'logout']);
-    // Route::get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
+Route::post('/login', [AuthController::class, 'login']);
 
-    // Route::apiResource('/users', UserController::class);
-});
+Route::get('/users/me', function (Request $request) {
+    $user = $request->user;
+    return response()->json($user);
+})->middleware(Authen::class);
 
-Route::resource('users', UserController::class);
-Route::resource('products', ProductController::class);
-Route::resource('categories', CategoryController::class);
+Route::get('/users',  [UserController::class, 'index'])->middleware(Authen::class)->middleware(AdminRequired::class);
+Route::get('/users/{id}',  [UserController::class, 'show'])->middleware(Authen::class)->middleware(AdminRequired::class);
+Route::post('/users',  [UserController::class, 'store'])->middleware(Authen::class)->middleware(AdminRequired::class);
+Route::put('/users/{id}',  [UserController::class, 'update'])->middleware(Authen::class)->middleware(AdminRequired::class);
+Route::delete('/users',  [UserController::class, 'destroy'])->middleware(Authen::class)->middleware(AdminRequired::class);
+
+Route::put('/products/{id}', [ProductController::class, 'update'])->middleware(Authen::class);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::post('/products', [ProductController::class, 'store'])->middleware(Authen::class);
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware(Authen::class);
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/categories', [CategoryController::class, 'store'])->middleware(Authen::class);
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->middleware(Authen::class);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->middleware(Authen::class);
 
 Route::get('/purchases', [PurchaseController::class, 'index']);
-
-Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard']);
-
+Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard'])->middleware(Authen::class);
 Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
-
 Route::post('/purchases', [PurchaseController::class, 'store']);
-
-Route::put('/purchases/{id}', [PurchaseController::class, 'update']);
+Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->middleware(Authen::class);
