@@ -37,6 +37,7 @@ const CartItem = ({ item }: Props) => {
       (cartitem) => cartitem.product.id == item.product.id
     );
     parsedData[index] = item;
+    // :TODO not use local storage directly, use useCart instead
     localStorage.setItem('cart', JSON.stringify(parsedData));
   };
   const deleteItem = (id: number) => {
@@ -44,7 +45,8 @@ const CartItem = ({ item }: Props) => {
     const parsedData: CartItem[] = data ? JSON.parse(data) : [];
     const index = parsedData.findIndex((cartitem) => cartitem.product.id == id);
     parsedData.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(parsedData));
+    // :TODO not use local storage directly, use useCart instead
+    // localStorage.setItem('cart', JSON.stringify(parsedData));
     window.location.reload();
   };
 
