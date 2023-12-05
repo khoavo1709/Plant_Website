@@ -7,38 +7,50 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { isNavOpenAtom } from "../../hooks/headerHooks";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
+import { dataUser } from "../../hooks/dataUser";
 
 const items = [
   {
     url: "",
     label: "Dash Board",
+    roles: ["EMPLOYEE", "ADMIN"],
     icon: <ChartBarIcon className="w-6 h-6" />,
   },
   {
     url: "/users",
     label: "Users Management",
+    roles: ["ADMIN"],
     icon: <UserGroupIcon className="w-6 h-6" />,
   },
   {
     url: "/products",
     label: "Products Management",
+    roles: ["EMPLOYEE", "ADMIN"],
     icon: <BugAntIcon className="w-6 h-6" />,
   },
   {
     url: "/orders",
     label: "Orders Management",
+    roles: ["EMPLOYEE", "ADMIN"],
     icon: <WalletIcon className="w-6 h-6" />,
   },
 ];
 
-const NavItemsContainer = () => (
-  <>
-    {items.map((item, index) => (
-      <NavItem item={item} key={index} />
-    ))}
-  </>
-);
+const NavItemsContainer = () => {
+  const user = useAtomValue(dataUser);
+  return (
+    <>
+      {items.map((item, index) => (
+        <>
+          {user && item.roles.includes(user.role) && (
+            <NavItem item={item} key={index} />
+          )}
+        </>
+      ))}
+    </>
+  );
+};
 
 const Index = () => {
   const [isNavOpen, setIsNavOpen] = useAtom(isNavOpenAtom);

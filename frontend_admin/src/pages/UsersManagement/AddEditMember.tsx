@@ -42,9 +42,10 @@ const AddEditMember = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(
-              `Network response was not ok: ${response.statusText}`
-            );
+            if (response.status == 401) {
+              localStorage.clear();
+              navigate("/login");
+            }
           }
           return response.json();
         })
@@ -62,22 +63,21 @@ const AddEditMember = () => {
       return;
     }
     e.preventDefault();
-    const url = id
-      ? `http://127.0.0.1:8000/api/users/${id}`
-      : "http://127.0.0.1:8000/api/users";
-
+    const baseUrl = import.meta.env.BACKEND_API_URL || "http://localhost:8000";
+    const url = id ? `${baseUrl}/api/users/${id}` : `${baseUrl}/api/users`;
+    const token = localStorage.getItem("token");
     fetch(url, {
       method: id ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? token : "",
       },
       body: JSON.stringify(user),
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          localStorage.clear();
+          navigate("/login");
         }
         return response.json();
       })
@@ -85,9 +85,7 @@ const AddEditMember = () => {
         navigate("/users");
       })
       .catch((error) => {
-        console.log(error);
         console.error("Error adding user:", error);
-        window.alert(error);
       });
   };
 

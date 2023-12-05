@@ -4,10 +4,17 @@ import {
   ChevronRightIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [headerTitle] = useAtom(title);
   const [isNavOpen, setIsNavOpen] = useAtom(isNavOpenAtom);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <nav className="flex items-center justify-between h-20 shadow-md x-[-1000] relative top-0">
@@ -20,7 +27,10 @@ const Index = () => {
         </div>
         {headerTitle}
       </div>
-      <div className="mr-6 flex items-center font-bold text-base hover:text-red-500">
+      <div
+        className="mr-6 flex items-center font-bold text-base hover:text-red-500"
+        onClick={handleLogout}
+      >
         <ArrowRightOnRectangleIcon className="h-6 w-6 mr-1" /> Sign out
       </div>
     </nav>

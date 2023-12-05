@@ -19,12 +19,10 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'product_categories');
     }
 
-    public function deleteImageFromCloudinary()
+    public function deleteImageFromCloudinary($image)
     {
-        if ($this->image) {
-            $publicId = pathinfo($this->image)['filename'];
-            $cloudinary = new Cloudinary();
-            $cloudinary->uploadApi()->destroy($publicId);
-        }
+        $publicId = pathinfo($image)['filename'];
+        $cloudinary = new Cloudinary();
+        $cloudinary->uploadApi()->destroy($publicId);
     }
 }

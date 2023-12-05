@@ -57,7 +57,11 @@ class ProductController extends Controller
         }
 
         // Apply order by condition
-        $query->orderBy($orderBy);
+        if ($orderBy == 'id') {
+            $query->orderBy(column: 'id', direction: 'desc');
+        } else {
+            $query->orderBy($orderBy);
+        }
 
 
         // Load categories relationship
@@ -94,7 +98,8 @@ class ProductController extends Controller
         $product = Product::create($validatedData);
 
         // Attach category relationships if provided
-        $categoryIds = $request->input('category_ids', []);
+        $categoryIds = $request->input('category_ids', null);
+        $categoryIds = $categoryIds !== null ? explode(',', $categoryIds) : [];
         if (!empty($categoryIds)) {
             $product->categories()->attach($categoryIds);
         }
@@ -102,8 +107,12 @@ class ProductController extends Controller
         return response()->json($product, 201);
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::findOrFail($id);
+        if ($product == null) {
+            return response()->json(['message' => "Product not found"], 404);
+        }
         // Load categories relationship without pivot information
         $product->load(['categories' => function ($query) {
             $query->without('pivot');
@@ -112,7 +121,7 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'string',
@@ -124,6 +133,10 @@ class ProductController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
+        $product = Product::findOrFail($id);
+        if ($product == null) {
+            return response()->json(['message' => "Product not found"], 404);
+        }
 
         // If a new image is provided, upload it to Cloudinary
         if ($request->hasFile('image')) {
@@ -131,25 +144,31 @@ class ProductController extends Controller
             $imagePath = $uploader->uploadApi()->upload($request->file('image')->path());
             $validatedData['image'] = $imagePath['secure_url'];
         }
-
+        $oldImage = $product->image;
         $product->update($validatedData);
 
         // Delete existing category relationships
         $product->categories()->detach();
 
         // Attach new category relationships if provided
-        $categoryIds = $request->input('category_ids', []);
+        $categoryIds = $request->input('category_ids', null);
+        $categoryIds = $categoryIds !== null ? explode(',', $categoryIds) : [];
+
         if (!empty($categoryIds)) {
             $product->categories()->attach($categoryIds);
         }
 
-        $product->deleteImageFromCloudinary();
+        $product->deleteImageFromCloudinary($oldImage);
 
         return response()->json($product, 200);
     }
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product = Product::findOrFail($id);
+        if ($product == null) {
+            return response()->json(['message' => "Product not found"], 404);
+        }
         // Check if the product has associated orders
         $hasOrders = DB::table('purchase_products')
             ->where('product_id', $product->id)
@@ -165,7 +184,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        $product->deleteImageFromCloudinary();
+        $product->deleteImageFromCloudinary($product->image);
 
         return response()->json(null, 204);
     }
