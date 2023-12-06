@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,8 +47,8 @@ class PurchaseController extends Controller
             $query->where('status', $type);
         }
 
-        // Apply order by condition
-        $query->orderBy($orderBy);
+        // Apply order by condition 
+        $query->orderBy($orderBy, 'desc');
 
         // Paginate the purchases
         $purchases = $query->paginate($limit, ['*'], 'page', $page);
@@ -77,46 +78,33 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data for the purchase
-        $validatedData = $request->validate([
-            'customer_name' => 'required|string',
-            'customer_email' => 'required|email',
-            'mobile' => 'required|string|max:20',
-            'status' => 'required|in:PENDING,PROCESSING,SHIPPED,COMPLETED,CANCELLED',
-            'total' => 'required|numeric',
-            'address' => 'required|string',
-            'note' => 'nullable|string',
+        $purchase = Purchase::create([
+            'customer_name' => $request->input('customer_name'),
+            'customer_email' => $request->input('customer_email'),
+            'mobile' => $request->input('mobile'),
+            'status' => 'PENDING', // or set a default status
+            'total' => 0, // Initialize total
+            'address' => $request->input('address'),
+            'note' => $request->input('note'),
         ]);
 
-        // Extract product data from the request
-        $productsData = $request->input('products', []);
-
-        // Start a database transaction
-        // Create a new purchase
-        $purchase = Purchase::create($validatedData);
-
-        //calculate total price
         $total = 0;
 
-        foreach ($productsData as $productData) {
-            $total += $productData['price'] * $productData['quantity'];
-        }
-
-        $purchase->total = $total;
-
-        // Associate products with the purchase in the pivot table
-        foreach ($productsData as $productData) {
+        foreach ($request->input('products') as $productData) {
+            $product = Product::find($productData['product_id']);
+            $total += $product->price * $productData['quantity'];
             $purchase->products()->attach($productData['product_id'], [
                 'quantity' => $productData['quantity'],
-                'price' => $productData['price'],
+                'price' => $product->price,
             ]);
         }
 
-        // Commit the transaction
-        DB::commit();
+        // Update the total in the purchases table
+        $purchase->update(['total' => $total]);
 
-        // Return a successful response
-        return response()->json(['purchase' => $purchase], 201);
+        // Return a successful response with the updated purchase + products
+        $purchase = Purchase::with('products')->findOrFail($purchase->id);
+        return response()->json(['purchase' => $purchase]);
     }
     public function update(Request $request, $id)
     {
@@ -126,7 +114,6 @@ class PurchaseController extends Controller
             'customer_email' => 'email',
             'mobile' => 'string|max:20',
             'status' => 'in:PENDING,PROCESSING,SHIPPED,COMPLETED,CANCELLED',
-            'total' => 'numeric',
             'address' => 'string',
             'note' => 'nullable|string',
         ]);
@@ -140,20 +127,38 @@ class PurchaseController extends Controller
         // Update the purchase
         $purchase = Purchase::findOrFail($id);
         $purchase->update($validatedData);
+        $total = 0;
 
         // Sync products with the purchase in the pivot table
         $purchase->products()->sync([]);
         foreach ($productsData as $productData) {
+            $productDB = DB::table('products')->where('id', $productData['product_id'])->first();
+            $total += $productDB->price * $productData['quantity'];
             $purchase->products()->attach($productData['product_id'], [
                 'quantity' => $productData['quantity'],
-                'price' => $productData['price'],
+                'price' => $productDB->price,
             ]);
+            //check status of purchase, if status is not pending, update stock
+            if ($purchase->status !== 'PENDING') {
+                $product = Product::find($productData['product_id']);
+                $product->update(['quantity' => $product->quantity - $productData['quantity']]);
+            }
+            //if status is Cancelled, update stock
+            if ($purchase->status === 'CANCELLED') {
+                $product = Product::find($productData['product_id']);
+                $product->update(['quantity' => $product->quantity + $productData['quantity']]);
+            }
         }
+
+        //Save 
+        $purchase->update(['total' => $total]);
+
 
         // Commit the transaction
         DB::commit();
 
-        // Return a successful response
+        // Return a successful response with the updated purchase + products
+        $purchase = Purchase::with('products')->findOrFail($id);
         return response()->json(['purchase' => $purchase]);
     }
 }
