@@ -50,7 +50,9 @@ const Cart = () => {
     const data = localStorage.getItem('cart');
     const parsedData: CartItem[] = data ? JSON.parse(data) : [];
     const index = parsedData.findIndex((cartitem) => cartitem.productID == id);
-    return parsedData[index].quantity;
+    if (index != -1) {
+      return parsedData[index].quantity;
+    }
   };
 
   const adjustQuantity = (amount: number, id: number) => {
@@ -116,7 +118,7 @@ const Cart = () => {
       return;
     }
     for (const [key, value] of Object.entries(formData)) {
-      if (value === ''&&key!='note' ) {
+      if (value === '' && key != 'note') {
         alert(`Please fill in ${key}`);
         return;
       }
@@ -144,7 +146,7 @@ const Cart = () => {
     <div className=" w-full max-w-5xl mx-auto md:grid md:grid-cols-3 md:gap-2 md:justify-center bg-gray-100">
       <div className=" rounded-2xl md:col-span-2 bg-white p-4">
         <div className=" overflow-x-auto">
-          {products.length!=0 ? (
+          {products.length != 0 ? (
             <table className="w-full">
               <caption className="text-xl text-left font-semibold">
                 Have {products.length} item(s) in cart
@@ -169,7 +171,7 @@ const Cart = () => {
               </thead>
               <tbody>
                 {products.map((item) => (
-                  <tr 
+                  <tr
                     key={item.id}
                     className={`py-2 border-b-2 ${
                       isMobile ? 'grid grid-cols-2' : ''
