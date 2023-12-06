@@ -1,7 +1,48 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [errMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    fetch("http://localhost:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          setErrMsg("Invalid email or password");
+          return response.json().then((data) => {
+            throw new Error(data.message || "Something went wrong");
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <div>
@@ -20,10 +61,8 @@ function Login() {
               <div className="text-center text-3xl mb-[17px] h-[40px] flex justify-center font-bold">
                 Plant Shop
               </div>
-              <form action="" className="rounded-lg">
-                {errMsg && (
-                  <p className="text-red-500">Invalid email or password</p>
-                )}
+              <form onSubmit={handleLogin} className="rounded-lg">
+                {errMsg && <p className="text-red-500">{errMsg}</p>}
                 <div className={`${errMsg === "" ? "mb-6" : "mb-3"}`}>
                   <label
                     htmlFor="email"
@@ -33,6 +72,8 @@ function Login() {
                   </label>
                   <input
                     type="email"
+                    id="email"
+                    onChange={handleEmailChange}
                     className="h-10 w-full rounded-xl py-4 bg-transparent indent-4 text-base outline outline-1 outline-neutral-200 placeholder:text-neutral-600 placeholder:-translate-y-0.5 focus:bg-neutral-100 focus:outline-2 focus:outline-teal-500"
                     placeholder="Your email"
                     required
@@ -47,6 +88,8 @@ function Login() {
                   </label>
                   <input
                     type="password"
+                    id="password"
+                    onChange={handlePasswordChange}
                     className="h-10 w-full rounded-xl py-4 bg-transparent indent-4 text-base outline outline-1 outline-neutral-200 placeholder:text-neutral-600 placeholder:-translate-y-0.5 focus:bg-neutral-100 focus:outline-2 focus:outline-teal-500"
                     placeholder="Your password"
                     required

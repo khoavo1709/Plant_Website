@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import ButtonWithIcon from "../../components/Button/ButtonWithIcon";
+import { Link, useNavigate } from "react-router-dom";
 import SearchTextBox from "../../components/Filter/SearchTextBox";
 import Header from "../../components/Header";
 import { TrashIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -13,6 +12,8 @@ import { useSetAtom } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
 const ProductsManagement = () => {
+  var token = localStorage.getItem("token");
+  const navigate = useNavigate();
   interface Product {
     id: number;
     name: string;
@@ -43,13 +44,15 @@ const ProductsManagement = () => {
     fetch("http://127.0.0.1:8000/api/products", {
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
         return response.json();
       })
@@ -70,6 +73,7 @@ const ProductsManagement = () => {
       method: "DELETE",
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {

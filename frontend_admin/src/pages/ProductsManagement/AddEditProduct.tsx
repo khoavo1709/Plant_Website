@@ -5,6 +5,8 @@ import { useAtomValue } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
 const AddEditMember = () => {
+  var token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const isCreateProduct = useAtomValue(isAdd);
@@ -37,6 +39,7 @@ const AddEditMember = () => {
       fetch(`http://localhost:8000/api/products/${id}`, {
         headers: {
           Accept: "application/json",
+          Authorization: token ? token : "",
         },
       })
         .then((response) => {
@@ -64,19 +67,38 @@ const AddEditMember = () => {
     const url = id
       ? `http://127.0.0.1:8000/api/products/${id}`
       : "http://127.0.0.1:8000/api/products";
+    let formData = new FormData();
+
+    formData.append("name", product.name);
+    formData.append("title", product.title);
+    formData.append("type", product.type);
+    formData.append("description", product.description);
+    formData.append("price", product.price);
+    formData.append("quantity", product.quantity);
+    formData.append("quantity", product.quantity);
+    if (url == `http://127.0.0.1:8000/api/products/${id}`) {
+      formData.append("_method", "PUT");
+      if (product.image != null) {
+        formData.append("image", product.image);
+      }
+    } else {
+      formData.append("image", product.image);
+    }
 
     fetch(url, {
-      method: id ? "PUT" : "POST",
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
+        Authorization: token ? token : "",
       },
-      body: JSON.stringify(product),
+      body: formData,
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
         return response.json();
       })
@@ -84,9 +106,7 @@ const AddEditMember = () => {
         navigate("/products");
       })
       .catch((error) => {
-        console.log(error);
         console.error("Error adding product:", error);
-        window.alert(error);
       });
   };
 
@@ -188,7 +208,7 @@ const AddEditMember = () => {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="image" className="mb-2 text-sm font-medium">
                 Image
               </label>
@@ -201,20 +221,19 @@ const AddEditMember = () => {
                 placeholder="Ward 12, Go Vap District, Ho Chi Minh City, Vietnam"
                 required
               />
-            </div>
-            {/* <div className="mb-4">
+            </div> */}
+            <div className="mb-4">
               <label htmlFor="imageFile" className="mb-2 text-sm font-medium">
                 Upload Image
               </label>
               <input
                 type="file"
                 id="imageFile"
-                value={product.image}
+                // value={product.image}
                 // onChange={handleImageUpload}
                 className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5"
-                required
               />
-            </div> */}
+            </div>
             <div className="flex justify-end items-center gap-4 mt-8">
               <button
                 className={`h-10 rounded-full flex items-center px-6 font-medium text-sm text-white hover:bg-cyan-400 bg-cyan-500`}

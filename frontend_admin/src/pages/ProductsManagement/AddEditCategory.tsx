@@ -5,6 +5,8 @@ import { useAtomValue } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
 const AddEditMember = () => {
+  var token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const isCreateCategory = useAtomValue(isAdd);
@@ -29,6 +31,7 @@ const AddEditMember = () => {
       fetch(`http://localhost:8000/api/categories/${id}`, {
         headers: {
           Accept: "application/json",
+          Authorization: token ? token : "",
         },
       })
         .then((response) => {
@@ -61,6 +64,7 @@ const AddEditMember = () => {
       method: id ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? token : "",
       },
       body: JSON.stringify(category),
     })

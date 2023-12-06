@@ -9,25 +9,29 @@ import OrdersManagement from "./pages/OrdersManagement";
 import AddEditMember from "./pages/UsersManagement/AddEditMember";
 import AddEditProduct from "./pages/ProductsManagement/AddEditProduct";
 import AddEditCategory from "./pages/ProductsManagement/AddEditCategory";
-import AddNewMember from "./pages/UsersManagement/AddNewMember";
 import ViewEditOrder from "./pages/OrdersManagement/ViewEditOrder";
+import AdminWrapper from "./components/AdminWrapper";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<Layout />}>
           <Route index element={<DashBoard />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/users/createUser"
-            element={<AddEditMember key="userCreate" />}
-          />
-          <Route
-            path="/users/editUser/:id"
-            element={<AddEditMember key="userUpdate" />}
-          />
+          <Route element={<AdminWrapper />}>
+            <Route
+              path="/users/createUser"
+              element={<AddEditMember key="userCreate" />}
+            />
+            <Route
+              path="/users/editUser/:id"
+              element={<AddEditMember key="userUpdate" />}
+            />
+            <Route path="/users" element={<UserManagement />} />
+          </Route>
+
           <Route
             path="/products/createProduct"
             element={<AddEditProduct key="productCreate" />}
@@ -44,7 +48,6 @@ export default function App() {
             path="/products/editCategory/:id"
             element={<AddEditCategory key="categoryUpdate" />}
           />
-          <Route path="/users" element={<UserManagement />} />
           <Route path="/products" element={<ProductsManagement />} />
           <Route path="/orders" element={<OrdersManagement />} />
           <Route path="/orders/:id" element={<ViewEditOrder />} />

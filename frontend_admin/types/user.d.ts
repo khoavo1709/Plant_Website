@@ -2,9 +2,12 @@ interface User {
     id: string;
     name: string;
     email: string;
+    full_name: string;
     password: string;
-    role: "ADMIN" | "CUSTOMER";
+    role: "ADMIN" | "EMPLOYEE";
+    gender: "MALE" | "FEMALE" | 'ORTHER';
     address: string;
-    phone: string;
+    mobile: string;
   }
   export type { User };
+  
