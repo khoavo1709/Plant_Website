@@ -5,12 +5,10 @@ import { useAtomValue } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
 const AddEditMember = () => {
+  var token = localStorage.getItem("token");
   const navigate = useNavigate();
-
   const isCreateUser = useAtomValue(isAdd);
-
   const { id } = useParams();
-
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -38,6 +36,7 @@ const AddEditMember = () => {
       fetch(`http://localhost:8000/api/users/${id}`, {
         headers: {
           Accept: "application/json",
+          Authorization: token ? token : "",
         },
       })
         .then((response) => {

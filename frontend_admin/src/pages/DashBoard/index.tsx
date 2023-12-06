@@ -41,6 +41,7 @@ type PurchasesDashboard = {
   purchases: PurchaseDashboard[];
 };
 const DashBoard = () => {
+  const token = localStorage.getItem("token");
   const [data, setData] = useState<PurchasesDashboard>(
     {} as PurchasesDashboard
   );
@@ -48,7 +49,15 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/purchases/dashboard`);
+        const response = await fetch(
+          `http://localhost:8000/api/purchases/dashboard`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: token ? token : "",
+            },
+          }
+        );
         const responseData = await response.json();
         setData(responseData);
       } catch (error) {
@@ -63,22 +72,12 @@ const DashBoard = () => {
     <main>
       <Header />
       <div className="background-main-page p-4">
-        <SalesStatistics data={
-          data.purchases ? data.purchases : []
-        } />
+        <SalesStatistics data={data.purchases ? data.purchases : []} />
         <div className="grid grid-cols-3 gap-4 p-2">
-          <CompareChart data={
-            data.purchases ? data.purchases : []
-          } />
-          <StatusPieChart data={
-            data.purchases ? data.purchases : []
-          } />
-          <ProductChart data={
-            data.purchases ? data.purchases : []
-          } />
-          <ListActivity data={
-            data.purchases ? data.purchases : []
-          } />
+          <CompareChart data={data.purchases ? data.purchases : []} />
+          <StatusPieChart data={data.purchases ? data.purchases : []} />
+          <ProductChart data={data.purchases ? data.purchases : []} />
+          <ListActivity data={data.purchases ? data.purchases : []} />
         </div>
       </div>
     </main>

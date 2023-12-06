@@ -46,8 +46,8 @@ Route::put('/categories/{id}', [CategoryController::class, 'update'])->middlewar
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->middleware(Authen::class);
 
-Route::get('/purchases', [PurchaseController::class, 'index']);
+Route::get('/purchases', [PurchaseController::class, 'index'])->middleware(Authen::class);
 Route::get('/purchases/dashboard', [PurchaseController::class, 'dashboard'])->middleware(Authen::class);
-Route::get('/purchases/{id}', [PurchaseController::class, 'show']);
+Route::get('/purchases/{id}', [PurchaseController::class, 'show'])->middleware(Authen::class);
 Route::post('/purchases', [PurchaseController::class, 'store']);
 Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->middleware(Authen::class);

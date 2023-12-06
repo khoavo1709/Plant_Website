@@ -3,7 +3,6 @@ import Header from "../../components/Header";
 import { useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-
 type IProduct = {
   id: number;
   name: string;
@@ -19,6 +18,7 @@ type IProduct = {
 };
 
 const ViewEditOrder = () => {
+  var token = localStorage.getItem("token");
   const { id } = useParams();
   const [formData, setFormData] = useState({
     customer_name: "",
@@ -31,15 +31,19 @@ const ViewEditOrder = () => {
   });
 
   useEffect(() => {
-    // Fetch data from the backend API by ID
-    fetch(`http://localhost:8000/api/purchases/${id}`)
+    fetch(`http://localhost:8000/api/purchases/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? token : "",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        // Populate formData with the fetched data
         setFormData(data.purchase);
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, [id]);
+  }, []);
 
   const caculateTotal = () => {
     let total = 0;
@@ -57,6 +61,7 @@ const ViewEditOrder = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? token : "",
       },
       body: JSON.stringify({
         customer_name: formData.customer_name,
@@ -75,21 +80,17 @@ const ViewEditOrder = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+      .then(() => {
         alert("Order updated successfully");
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(() => {
         alert("Error updating order");
       });
   };
 
   const updateProduct = (productId: number, newQuantity: number) => {
-    // Update the quantity of a specific product in the order
     const updatedProducts = formData.products.map((product: IProduct) => {
       if (product.id === productId) {
-        // Update the product quantity
         return {
           ...product,
           pivot: {
@@ -101,7 +102,6 @@ const ViewEditOrder = () => {
       return product;
     });
 
-    // Update the formData state with the new products array
     setFormData({
       ...formData,
       products: updatedProducts as IProduct[],
@@ -109,17 +109,16 @@ const ViewEditOrder = () => {
   };
 
   const removeProduct = (productId: number) => {
-    // Remove a specific product from the order
     const updatedProducts = formData.products.filter(
       (product) => product.id !== productId
     );
 
-    // Update the formData state with the new products array
     setFormData({
       ...formData,
       products: updatedProducts,
     });
   };
+
   return (
     <main>
       <Header />
@@ -207,7 +206,6 @@ const ViewEditOrder = () => {
               <input
                 value={"$" + caculateTotal()}
                 className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-                
                 type="text"
                 id="total"
                 readOnly
