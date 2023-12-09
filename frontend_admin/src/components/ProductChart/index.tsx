@@ -59,7 +59,7 @@ const ProductChart = ({ data }: { data: PurchaseDashboard[] }) => {
     });
   });
   return (
-    <div className=" col-span-2 p-5 bg-white rounded-xl h-[550px]">
+    <div className=" col-span-2 p-4 pb-10 bg-white rounded-xl h-[550px]">
       <div className="mb-2 text-xl font-bold">Product statistics</div>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart

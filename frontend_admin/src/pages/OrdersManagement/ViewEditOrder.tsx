@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import { useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
@@ -60,7 +60,7 @@ const ViewEditOrder = () => {
     fetch(`http://localhost:8000/api/purchases/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: token ? token : "",
       },
       body: JSON.stringify({
@@ -70,22 +70,16 @@ const ViewEditOrder = () => {
         address: formData.address,
         status: formData.status,
         note: formData.note,
-        total: caculateTotal(),
-        products: formData.products.map((product: IProduct) => {
-          return {
-            product_id: product.id,
-            quantity: product.pivot.quantity,
-          };
-        }),
+        products: formData.products,
       }),
     })
       .then((response) => response.json())
-      .then(() => {
-        alert("Order updated successfully");
+      .then((data) => {
+        if (!data.success) {
+          alert("Error put data");
+          return;
+        }
       })
-      .catch(() => {
-        alert("Error updating order");
-      });
   };
 
   const updateProduct = (productId: number, newQuantity: number) => {
@@ -112,7 +106,6 @@ const ViewEditOrder = () => {
     const updatedProducts = formData.products.filter(
       (product) => product.id !== productId
     );
-
     setFormData({
       ...formData,
       products: updatedProducts,
@@ -125,7 +118,7 @@ const ViewEditOrder = () => {
       <div className="background-main-page p-2">
         <div className="m-5 bg-white p-4 rounded-2xl shadow-lg">
           <h1 className="text-xl font-bold m-2">Edit Order</h1>
-          <form className="grid grid-cols-2">
+          <form className="grid grid-cols-2" onSubmit={submitForm}>
             <div className=" col-span-1">
               <label
                 htmlFor="customerName"
@@ -213,7 +206,7 @@ const ViewEditOrder = () => {
             </div>
 
             <div className=" col-span-1 m-8">
-              <table className="text-sm text-left ">
+              <table className="text-sm text-left border rounded ">
                 <thead className="uppercase border-b">
                   <tr>
                     <th scope="col" className="px-6 py-4">
@@ -253,21 +246,23 @@ const ViewEditOrder = () => {
                           onChange={(e) =>
                             updateProduct(product.id, parseInt(e.target.value))
                           }
+                          title="Quantity"
+                          placeholder="Enter quantity"
                         />
                       </td>
                       <td className="px-6 py-4">${product.pivot.price}</td>
 
-                      <td className="flex px-6 py-4 justify-end text-slate-400">
+                      <td className="flex px-6 py-4 justify-start items-center text-slate-400">
                         <div className="px-2">
                           <button
                             title="delete"
                             onClick={() => removeProduct(product.id)}
-                            className="m-2 bg-red-100 border border-gray-300 text-sm rounded-xl outline-none"
+                            className="flex"
                           >
                             <TrashIcon
                               title="Delete"
                               titleId="delete"
-                              className=" w-5 h-5 text-gray-500 hover:text-red-500"
+                              className="mt-7 hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
                             />
                           </button>
                         </div>
@@ -279,7 +274,7 @@ const ViewEditOrder = () => {
             </div>
             <button
               className=" my-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-xl hover:bg-blue-600"
-              onClick={submitForm}
+              type="submit"
             >
               Submit
             </button>
