@@ -11,66 +11,60 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // Set default values for pagination, search, order by, and type
         $page = $request->input('page', 1);
         $limit = $request->input('limit', 20);
         $search = $request->input('search', '');
+        $searchProductName = $request->input('searchProductName', '');
         $orderBy = $request->input('order_by', 'id');
-        $type = strtoupper($request->input('type', '')); // Convert to uppercase
+        $type = strtoupper($request->input('type', ''));
         $categoryIds = $request->input('categories', '');
         $ids = $request->input('ids', '');
 
-        // Validate the product type
         if ($type !== '' && !in_array($type, ['PLANT', 'ACCESSORY'])) {
             return response()->json(['message' => 'Invalid product type'], 400);
         }
 
-        // Convert the comma-separated string to an array
         $categoryIds = $categoryIds !== '' ? explode(',', $categoryIds) : [];
         $ids = $ids !== '' ? explode(',', $ids) : [];
 
-        // Query builder for products
         $query = Product::query();
 
-        // Apply search condition
-        if ($search !== '') {
-            $query->where('name', 'like', "%$search%")
-                ->orWhere('title', 'like', "%$search%")
-                ->orWhere('description', 'like', "%$search%");
-        }
+        $query->where(function ($query) use ($search) {
+            if ($search !== '') {
+                $query->where('name', 'like', "%$search%")
+                    ->orWhere('title', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%");
+            }
+        });
 
-        // Apply type condition
         if ($type !== '' && in_array($type, ['PLANT', 'ACCESSORY'])) {
             $query->where('type', $type);
         }
 
-        // Apply category filter if product IDs are provided
+        if ($searchProductName !== '') {
+            $query->where('name', 'like', "%$searchProductName%");
+        }
+
         if (!empty($ids)) {
             $query->whereIn('id', $ids);
         }
 
-        // Apply category filter if category IDs are provided
         if (!empty($categoryIds)) {
             $query->whereHas('categories', function ($query) use ($categoryIds) {
                 $query->whereIn('categories.id', $categoryIds);
             });
         }
 
-        // Apply order by condition
         if ($orderBy == 'id') {
             $query->orderBy(column: 'id', direction: 'desc');
         } else {
             $query->orderBy($orderBy);
         }
 
-
-        // Load categories relationship
         $query->with('categories');
 
-        // Paginate the products
         $products = $query->paginate($limit, ['*'], 'page', $page);
 
-        // Return the paginated response
         return response()->json([
             'page' => $products->currentPage(),
             'limit' => $products->perPage(),
