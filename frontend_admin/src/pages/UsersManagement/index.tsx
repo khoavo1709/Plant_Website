@@ -159,24 +159,26 @@ const UserManagement = () => {
                     )}
                   </td>
                   <td className="px-6 py-4">{user.role}</td>
-                  <td className="flex px-6 py-4 justify-end text-slate-400">
-                    <div className="px-2">
-                      <Link
-                        to={"/users/editUser/" + user.id}
-                        onClick={() => setUserCreate(false)}
-                      >
-                        <SolidInformationCircleIcon
-                          title="Info"
-                          className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                  <td className="px-6 py-4 text-slate-400">
+                    <div className="flex items-center justify-end">
+                      <div className="px-2">
+                        <Link
+                          to={"/users/editUser/" + user.id}
+                          onClick={() => setUserCreate(false)}
+                        >
+                          <SolidInformationCircleIcon
+                            title="Info"
+                            className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                          />
+                        </Link>
+                      </div>
+                      <div className="px-2">
+                        <TrashIcon
+                          title="Delete"
+                          onClick={() => onDeleteClick(user)}
+                          className="hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
                         />
-                      </Link>
-                    </div>
-                    <div className="px-2">
-                      <TrashIcon
-                        title="Delete"
-                        onClick={() => onDeleteClick(user)}
-                        className="hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
-                      />
+                      </div>
                     </div>
                   </td>
                 </tr>
