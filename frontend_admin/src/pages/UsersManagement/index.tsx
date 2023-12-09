@@ -63,7 +63,7 @@ const UserManagement = () => {
       return;
     }
     const token = localStorage.getItem("token");
-    fetch(`${baseUrl}://localhost:8000/api/users/${user.id}`, {
+    fetch(`${baseUrl}/api/users/${user.id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ const UserManagement = () => {
             className="h-10 rounded-full flex items-center gap-2 pl-4 pr-6 font-medium text-sm text-white bg-cyan-500 hover:bg-cyan-400"
           >
             <PlusIcon className="text-cyan-50 w-5 h-5 stroke-2" />
-            Add member
+            Add User
           </Link>
         </div>
         <div className="m-5 bg-white p-4 rounded-2xl shadow-md">

@@ -43,10 +43,10 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
-
-        return response(content: "", status: 204);
+        return response(content: "Delete successfully", status: 204);
     }
 }

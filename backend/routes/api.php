@@ -32,7 +32,7 @@ Route::get('/users',  [UserController::class, 'index'])->middleware(Authen::clas
 Route::get('/users/{id}',  [UserController::class, 'show'])->middleware(Authen::class)->middleware(AdminRequired::class);
 Route::post('/users',  [UserController::class, 'store'])->middleware(Authen::class)->middleware(AdminRequired::class);
 Route::put('/users/{id}',  [UserController::class, 'update'])->middleware(Authen::class)->middleware(AdminRequired::class);
-Route::delete('/users',  [UserController::class, 'destroy'])->middleware(Authen::class)->middleware(AdminRequired::class);
+Route::delete('/users/{id}',  [UserController::class, 'destroy'])->middleware(Authen::class)->middleware(AdminRequired::class);
 
 Route::put('/products/{id}', [ProductController::class, 'update'])->middleware(Authen::class);
 Route::get('/products', [ProductController::class, 'index']);
