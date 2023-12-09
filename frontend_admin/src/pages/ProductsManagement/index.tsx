@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useSetAtom } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
+import Dropdown from "../../components/Filter/Dropdown";
 
 const ProductsManagement = () => {
   var token = localStorage.getItem("token");
@@ -32,16 +33,29 @@ const ProductsManagement = () => {
   }
 
   const setProductCreate = useSetAtom(isAdd);
+  const setCategoryCreate = useSetAtom(isAdd);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedType, setSelectedType] = useState<string>("");
+  const [productName, setProductName] = useState<string>("");
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   useEffect(() => {
-    getProducts();
+    getProducts("", "");
     getCategories();
   }, []);
 
-  const getProducts = () => {
-    fetch("http://127.0.0.1:8000/api/products", {
+  const getProducts = (name: string, type: string) => {
+    const url =
+      type === "ALL"
+        ? `http://127.0.0.1:8000/api/products?searchProductName=${name}`
+        : `http://127.0.0.1:8000/api/products?${
+            name ? `&searchProductName=${name}` : ""
+          }${type ? `type=${type}` : ""}`;
+
+    setProductName(name);
+    setSelectedType(type);
+    fetch(url, {
       headers: {
         Accept: "application/json",
         Authorization: token ? token : "",
@@ -78,13 +92,14 @@ const ProductsManagement = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
       })
       .then(() => {
-        getProducts();
+        getProducts("", "");
         window.alert("Product deleted successfully");
       })
       .catch((error) => {
@@ -96,13 +111,15 @@ const ProductsManagement = () => {
     fetch("http://127.0.0.1:8000/api/categories", {
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
         return response.json();
       })
@@ -123,13 +140,15 @@ const ProductsManagement = () => {
       method: "DELETE",
       headers: {
         Accept: "application/json",
+        Authorization: token ? token : "",
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Network response was not ok: ${response.statusText}`
-          );
+          if (response.status == 401) {
+            localStorage.clear();
+            navigate("/login");
+          }
         }
       })
       .then(() => {
@@ -140,8 +159,6 @@ const ProductsManagement = () => {
         console.error("Error deleting category:", error);
       });
   };
-
-  const [isFocusPosition, checkFocusPosition] = useState(false);
 
   return (
     <main>
@@ -154,21 +171,20 @@ const ProductsManagement = () => {
           <div className="flex justify-between items-center">
             <div className="flex">
               <SearchTextBox
-                checkFocus={() => {}}
-                placeHolder="User name"
-                changeIcon={
-                  <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
-                }
+                placeHolder="Product name"
+                getValue={(value) => getProducts(value, selectedType)}
+                icon={<MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />}
               />
-              <SearchTextBox
-                checkFocus={() => checkFocusPosition(!isFocusPosition)}
-                placeHolder="Position"
-                changeIcon={
-                  isFocusPosition ? (
-                    <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
-                  ) : (
-                    <ChevronDownIcon className="w-4 h-4 text-gray-500" />
-                  )
+              <Dropdown
+                placeHolder="Product Type"
+                openDropdown={() => setIsOpenDropdown(!isOpenDropdown)}
+                selectValue={(value) => getProducts(productName, value)}
+                icon={
+                  <ChevronDownIcon
+                    className={`h-4 w-4 ${
+                      isOpenDropdown ? "transform rotate-180" : ""
+                    } transition-transform w-4 h-4 text-gray-500`}
+                  />
                 }
               />
             </div>
@@ -226,6 +242,7 @@ const ProductsManagement = () => {
                         <Link to={"/products/editProduct/" + product.id}>
                           <InformationCircleIcon
                             title="Info"
+                            onClick={() => setProductCreate(false)}
                             className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
                           />
                         </Link>
@@ -251,11 +268,8 @@ const ProductsManagement = () => {
           <div className="flex justify-between items-center">
             <div className="flex">
               <SearchTextBox
-                checkFocus={() => {}}
                 placeHolder="User name"
-                changeIcon={
-                  <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
-                }
+                icon={<MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />}
               />
             </div>
             <Link
@@ -290,6 +304,7 @@ const ProductsManagement = () => {
                         <Link to={"/products/editCategory/" + category.id}>
                           <InformationCircleIcon
                             title="Info"
+                            onClick={() => setCategoryCreate(false)}
                             className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
                           />
                         </Link>

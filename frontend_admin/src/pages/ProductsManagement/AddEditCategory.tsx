@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { useAtomValue } from "jotai";
 import { isAdd } from "../../hooks/createEdit";
 
-const AddEditMember = () => {
+const AddEditCategory = () => {
   var token = localStorage.getItem("token");
 
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const AddEditMember = () => {
     }, []);
   }
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = (e: any) => {
     if (!window.confirm("Are you sure you want to add/edit a new category?")) {
       return;
     }
@@ -78,6 +78,7 @@ const AddEditMember = () => {
       })
       .then(() => {
         navigate("/products");
+        window.alert("Add/Edit category successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -108,7 +109,7 @@ const AddEditMember = () => {
                   value={category.name}
                   onChange={handleInputChange}
                   className="mt-2 bg-gray-50 border border-gray-300 text-sm rounded-xl outline-none w-full p-2.5 "
-                  placeholder="0903702000"
+                  placeholder="Category name"
                   required
                 />
               </div>
@@ -134,4 +135,4 @@ const AddEditMember = () => {
   );
 };
 
-export default AddEditMember;
+export default AddEditCategory;

@@ -63,7 +63,7 @@ const UserManagement = () => {
       return;
     }
     const token = localStorage.getItem("token");
-    fetch(`${baseUrl}://localhost:8000/api/users/${user.id}`, {
+    fetch(`${baseUrl}/api/users/${user.id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -99,7 +99,7 @@ const UserManagement = () => {
             className="h-10 rounded-full flex items-center gap-2 pl-4 pr-6 font-medium text-sm text-white bg-cyan-500 hover:bg-cyan-400"
           >
             <PlusIcon className="text-cyan-50 w-5 h-5 stroke-2" />
-            Add member
+            Add User
           </Link>
         </div>
         <div className="m-5 bg-white p-4 rounded-2xl shadow-md">
@@ -159,24 +159,26 @@ const UserManagement = () => {
                     )}
                   </td>
                   <td className="px-6 py-4">{user.role}</td>
-                  <td className="flex px-6 py-4 justify-end text-slate-400">
-                    <div className="px-2">
-                      <Link
-                        to={"/users/editUser/" + user.id}
-                        onClick={() => setUserCreate(false)}
-                      >
-                        <SolidInformationCircleIcon
-                          title="Info"
-                          className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                  <td className="px-6 py-4 text-slate-400">
+                    <div className="flex items-center justify-end">
+                      <div className="px-2">
+                        <Link
+                          to={"/users/editUser/" + user.id}
+                          onClick={() => setUserCreate(false)}
+                        >
+                          <SolidInformationCircleIcon
+                            title="Info"
+                            className="hover:text-blue-500 hover:ease-in-out hover:scale-125 h-5"
+                          />
+                        </Link>
+                      </div>
+                      <div className="px-2">
+                        <TrashIcon
+                          title="Delete"
+                          onClick={() => onDeleteClick(user)}
+                          className="hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
                         />
-                      </Link>
-                    </div>
-                    <div className="px-2">
-                      <TrashIcon
-                        title="Delete"
-                        onClick={() => onDeleteClick(user)}
-                        className="hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
-                      />
+                      </div>
                     </div>
                   </td>
                 </tr>
