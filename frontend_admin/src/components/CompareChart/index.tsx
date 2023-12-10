@@ -66,7 +66,7 @@ const CompareChart = ({ data }: { data: PurchaseDashboard[] }) => {
   });
 
   aggregatedData.forEach((quantities, monthYear) => {
-    const [year, month] = monthYear.split("-");
+    const [, month] = monthYear.split("-");
     linechartdata.push({
       name: `Month ${parseInt(month)}`,
       PLANT: quantities.PLANT,
@@ -74,7 +74,7 @@ const CompareChart = ({ data }: { data: PurchaseDashboard[] }) => {
     });
   });
   return (
-    <div className=" col-span-2 p-5 bg-white rounded-xl h-[550px]">
+    <div className=" col-span-2 p-4 pb-10 bg-white rounded-xl h-[550px]">
       {" "}
       <div className="mb-2 text-xl font-bold">This year</div>
       <ResponsiveContainer width="100%" height="100%">

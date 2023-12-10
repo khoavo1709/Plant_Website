@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 type IProduct = {
@@ -57,6 +57,7 @@ const ViewEditOrder = () => {
     if (!window.confirm("Are you sure you want to edit this order?")) {
       return;
     }
+
     fetch(`http://localhost:8000/api/purchases/${id}`, {
       method: "PUT",
       headers: {
@@ -70,21 +71,26 @@ const ViewEditOrder = () => {
         address: formData.address,
         status: formData.status,
         note: formData.note,
-        total: caculateTotal(),
-        products: formData.products.map((product: IProduct) => {
-          return {
-            product_id: product.id,
-            quantity: product.pivot.quantity,
-          };
-        }),
+        products: formData.products.map((product: IProduct) => ({
+          product_id: product.id,
+          quantity: product.pivot.quantity,
+        })),
       }),
     })
-      .then((response) => response.json())
-      .then(() => {
-        alert("Order updated successfully");
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        return response.json();
       })
-      .catch(() => {
-        alert("Error updating order");
+      .then((data) => {
+        alert("Order edited successfully");
+        window.location.href = "/orders";
+      })
+      .catch((error) => {
+        console.error("Error submitting data:", error);
       });
   };
 
@@ -112,7 +118,6 @@ const ViewEditOrder = () => {
     const updatedProducts = formData.products.filter(
       (product) => product.id !== productId
     );
-
     setFormData({
       ...formData,
       products: updatedProducts,
@@ -213,7 +218,7 @@ const ViewEditOrder = () => {
             </div>
 
             <div className=" col-span-1 m-8">
-              <table className="text-sm text-left ">
+              <table className="text-sm text-left border rounded ">
                 <thead className="uppercase border-b">
                   <tr>
                     <th scope="col" className="px-6 py-4">
@@ -253,21 +258,23 @@ const ViewEditOrder = () => {
                           onChange={(e) =>
                             updateProduct(product.id, parseInt(e.target.value))
                           }
+                          title="Quantity"
+                          placeholder="Enter quantity"
                         />
                       </td>
                       <td className="px-6 py-4">${product.pivot.price}</td>
 
-                      <td className="flex px-6 py-4 justify-end text-slate-400">
+                      <td className="flex px-6 py-4 justify-start items-center text-slate-400">
                         <div className="px-2">
                           <button
                             title="delete"
                             onClick={() => removeProduct(product.id)}
-                            className="m-2 bg-red-100 border border-gray-300 text-sm rounded-xl outline-none"
+                            className="flex"
                           >
                             <TrashIcon
                               title="Delete"
                               titleId="delete"
-                              className=" w-5 h-5 text-gray-500 hover:text-red-500"
+                              className="mt-7 hover:text-red-500 hover:ease-in-out hover:scale-125 h-5"
                             />
                           </button>
                         </div>
@@ -277,13 +284,24 @@ const ViewEditOrder = () => {
                 </tbody>
               </table>
             </div>
-            <button
-              className=" my-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-xl hover:bg-blue-600"
-              onClick={submitForm}
-            >
-              Submit
-            </button>
           </form>
+          <div className="grid grid-cols-2">
+            <div className=" flex justify-end items-center gap-4 mt-8">
+              <button
+                className={`h-10 rounded-full flex items-center px-6 font-medium text-sm text-white hover:bg-cyan-400 bg-cyan-500`}
+                onClick={submitForm}
+              >
+                Save
+              </button>
+              <Link to="/products">
+                <button
+                  className={`h-10 rounded-full flex items-center px-6 font-medium text-sm text-white bg-cyan-500 hover:bg-cyan-400`}
+                >
+                  Cancel
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </main>

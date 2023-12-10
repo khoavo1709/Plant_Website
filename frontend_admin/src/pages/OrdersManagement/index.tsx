@@ -1,26 +1,12 @@
 import {
   InformationCircleIcon,
-  MagnifyingGlassIcon,
-  PlusIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import SearchTextBox from "../../components/Filter/SearchTextBox";
 import Header from "../../components/Header";
-import Table from "../../components/Table";
 import { Purchase } from "../../../types/purchase";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 
-const itemsHeader = [
-  "Full name",
-  "Email",
-  "Phone number",
-  "Address",
-  "Total price",
-  "Status",
-  "Order date",
-];
 
 type IResponse = {
   page: number;
@@ -32,7 +18,7 @@ type IResponse = {
 const OrdersManagement = () => {
   const searchParams = new URLSearchParams(document.location.search);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [total, setTotal] = useState<number>(1);
+  const [, setTotal] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [tempNameOrMail, setTempNameOrMail] = useState<string>("");
   const [tempPhone, setTempPhone] = useState<string>("");
@@ -45,6 +31,8 @@ const OrdersManagement = () => {
   });
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     const fetchData = async () => {
       const page = searchParams.get("page") || 1;
       const limit = searchParams.get("limit") || 10;
@@ -67,7 +55,12 @@ const OrdersManagement = () => {
         if (name) url += `&name_or_mail=${name}`;
         if (phone) url += `&mobile=${phone}`;
 
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            Accept: "application/json",
+            Authorization: token ? token : "",
+          },
+        });
         const responseData = await response.json();
         setData(responseData);
       } catch (error) {
