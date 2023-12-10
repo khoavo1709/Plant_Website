@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "../../components/Header";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 type IProduct = {
@@ -57,10 +57,11 @@ const ViewEditOrder = () => {
     if (!window.confirm("Are you sure you want to edit this order?")) {
       return;
     }
+
     fetch(`http://localhost:8000/api/purchases/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: token ? token : "",
       },
       body: JSON.stringify({
@@ -70,16 +71,27 @@ const ViewEditOrder = () => {
         address: formData.address,
         status: formData.status,
         note: formData.note,
-        products: formData.products,
+        products: formData.products.map((product: IProduct) => ({
+          product_id: product.id,
+          quantity: product.pivot.quantity,
+        })),
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.success) {
-          alert("Error put data");
-          return;
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
         }
+        return response.json();
       })
+      .then((data) => {
+        alert("Order edited successfully");
+        window.location.href = "/orders";
+      })
+      .catch((error) => {
+        console.error("Error submitting data:", error);
+      });
   };
 
   const updateProduct = (productId: number, newQuantity: number) => {
@@ -118,7 +130,7 @@ const ViewEditOrder = () => {
       <div className="background-main-page p-2">
         <div className="m-5 bg-white p-4 rounded-2xl shadow-lg">
           <h1 className="text-xl font-bold m-2">Edit Order</h1>
-          <form className="grid grid-cols-2" onSubmit={submitForm}>
+          <form className="grid grid-cols-2">
             <div className=" col-span-1">
               <label
                 htmlFor="customerName"
@@ -272,13 +284,24 @@ const ViewEditOrder = () => {
                 </tbody>
               </table>
             </div>
-            <button
-              className=" my-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-xl hover:bg-blue-600"
-              type="submit"
-            >
-              Submit
-            </button>
           </form>
+          <div className="grid grid-cols-2">
+            <div className=" flex justify-end items-center gap-4 mt-8">
+              <button
+                className={`h-10 rounded-full flex items-center px-6 font-medium text-sm text-white hover:bg-cyan-400 bg-cyan-500`}
+                onClick={submitForm}
+              >
+                Save
+              </button>
+              <Link to="/products">
+                <button
+                  className={`h-10 rounded-full flex items-center px-6 font-medium text-sm text-white bg-cyan-500 hover:bg-cyan-400`}
+                >
+                  Cancel
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </main>

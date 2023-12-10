@@ -89,6 +89,7 @@ class PurchaseController extends Controller
                 'quantity' => $productData['quantity'],
                 'price' => $product->price,
             ]);
+            $product->update(['quantity' => $product->quantity - $productData['quantity']]);
         }
 
         $purchase->update(['total' => $total]);
@@ -108,39 +109,25 @@ class PurchaseController extends Controller
             'note' => 'nullable|string',
         ]);
         $productsData = $request->input('products', []);
-
         DB::beginTransaction();
-
         $purchase = Purchase::findOrFail($id);
         $purchase->update($validatedData);
         $total = 0;
-
         $purchase->products()->sync([]);
         foreach ($productsData as $productItem) {
-            // $productDB = DB::table('products')->where('id', $productData['product_id'])->first();
             $productDB = Product::findOrFail($productItem['product_id']);
-
             $total += $productDB->price * $productItem['quantity'];
-
             $purchase->products()->attach($productItem['product_id'], [
                 'quantity' => $productItem['quantity'],
                 'price' => $productDB->price,
             ]);
-            if ($purchase->status !== 'PENDING') {
-                $product = Product::find($productItem['product_id']);
-                $product->update(['quantity' => $product->quantity - $productItem['quantity']]);
-            }
-
             if ($purchase->status === 'CANCELLED') {
                 $product = Product::find($productItem['product_id']);
                 $product->update(['quantity' => $product->quantity + $productItem['quantity']]);
             }
         }
-
         $purchase->update(['total' => $total]);
-
         DB::commit();
-
         $purchase = Purchase::with('products')->findOrFail($id);
         return response()->json(['purchase' => $purchase]);
     }
