@@ -21,7 +21,7 @@ export const seachProducts = async (req: SearchProductsRequest) => {
   if (!resp.ok) {
     return Promise.resolve({
       page: req.page,
-      limit: 20,
+      limit: 8,
       total: 0,
       data: [],
     } as SearchProductsResponse);

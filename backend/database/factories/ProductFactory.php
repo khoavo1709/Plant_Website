@@ -24,7 +24,8 @@ class ProductFactory extends Factory
             'description' => $limitedDescription,
             'price' => $this->faker->randomFloat(2, 1, 100),
             'quantity' => $this->faker->numberBetween(1, 100),
-            'image' => $this->faker->imageUrl(),
+            // 'image' => $this->faker->imageUrl(),
+            'image' => 'https://source.unsplash.com/featured/?pot',
             'created_at' => now(),
             'updated_at' => now(),
         ];

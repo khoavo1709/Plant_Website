@@ -149,6 +149,9 @@ const ProductsManagement = () => {
             localStorage.clear();
             navigate("/login");
           }
+          if (response.status == 500) {
+            throw new Error("");
+          }
         }
       })
       .then(() => {
@@ -156,6 +159,7 @@ const ProductsManagement = () => {
         window.alert("Category deleted successfully");
       })
       .catch((error) => {
+        window.alert("Can not delete category");
         console.error("Error deleting category:", error);
       });
   };
@@ -267,10 +271,10 @@ const ProductsManagement = () => {
           </div>
           <div className="flex justify-between items-center">
             <div className="flex">
-              <SearchTextBox
+              {/* <SearchTextBox
                 placeHolder="User name"
                 icon={<MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />}
-              />
+              /> */}
             </div>
             <Link
               to="/products/createCategory"

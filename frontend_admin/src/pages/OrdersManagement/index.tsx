@@ -1,12 +1,9 @@
-import {
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { Purchase } from "../../../types/purchase";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
-
 
 type IResponse = {
   page: number;
@@ -102,24 +99,12 @@ const OrdersManagement = () => {
   return (
     <main>
       <Header />
-      <div className="background-main-page">
+      <div className="background-main-page h-full">
         <div>
           <div className="flex justify-between items-center">
             <div className="relative flex">
               <div className="grid grid-cols-3 gap-8 ml-6 ">
                 <div className="relative">
-                  {/* <SearchTextBox
-                    checkFocus={() => checkFocusNameOrMail(!isFocusNameOrMail)}
-                    placeHolder="Name or mail"
-                    changeIcon={
-                      <MagnifyingGlassIcon
-                        className={`w-4 h-4 text-gray-500 ${
-                          isFocusNameOrMail ? "hidden" : ""
-                        }`}
-                      />
-                    }
-
-                  /> */}
                   <input
                     type="search"
                     className="w-full mt-8 p-2 text-sm border rounded-lg bg-gray-50 outline-none"
@@ -132,17 +117,6 @@ const OrdersManagement = () => {
                   />
                 </div>
                 <div className="relative">
-                  {/* <SearchTextBox
-                    checkFocus={() => checkFocusPhone(!isFocusPhone)}
-                    placeHolder="Phone number"
-                    changeIcon={
-                      <MagnifyingGlassIcon
-                        className={`w-4 h-4 text-gray-500 ${
-                          isFocusPhone ? "hidden" : ""
-                        }`}
-                      />
-                    }
-                  /> */}
                   <input
                     type="search"
                     className="w-full mt-8 p-2 text-sm border rounded-lg bg-gray-50 outline-none"
@@ -240,7 +214,7 @@ const OrdersManagement = () => {
               </tbody>
             </table>
           </div>
-          <Pagination
+          {/* <Pagination
             currentPage={currentPage}
             totalPages={
               data.total % limit === 0
@@ -248,7 +222,7 @@ const OrdersManagement = () => {
                 : Math.floor(data.total / limit) + 1
             }
             onPageChange={onPageChange()}
-          ></Pagination>
+          ></Pagination> */}
         </div>
       </div>
     </main>

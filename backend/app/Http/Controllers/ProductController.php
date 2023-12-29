@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $page = $request->input('page', 1);
-        $limit = $request->input('limit', 20);
+        $limit = $request->input('limit', 8);
         $search = $request->input('search', '');
         $searchProductName = $request->input('searchProductName', '');
         $orderBy = $request->input('order_by', 'id');

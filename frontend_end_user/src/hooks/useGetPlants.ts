@@ -12,7 +12,7 @@ export interface PlantsReponse {
 
 export const plantsReponseAtom = atom<PlantsReponse>({
   page: 1,
-  limit: 20,
+  limit: 8,
   total: 0,
   data: [],
 });
