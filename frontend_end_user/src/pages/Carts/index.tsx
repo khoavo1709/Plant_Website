@@ -371,7 +371,7 @@ const Cart = () => {
           </p>
         </form>
         <button
-          className="w-full bg-[#319795] my-4 rounded-xl text-white p-2 "
+          className="rounded-full mt-2 font-medium text-sm text-green-50 h-10 px-4 mx-auto py-auto block w-full max-w-xl bg-green-900/60 hover:bg-green-900/70 transition-all hover:scale-105"
           onClick={checkOutSubmit}
         >
           CHECKOUT
